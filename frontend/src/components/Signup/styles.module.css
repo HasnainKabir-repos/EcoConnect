@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400;500;600;700&display=swap");
+.signup_container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.signup_form_container {
+  width: 900px;
+  height: 500px;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: 0px 3px 3px -2px rgba(0 0 0 / 20%),
+    0px 3px 4px 0px rgba(0 0 0 / 14%), 0px 1px 8px 0px rgba(0 0 0 / 12%);
+  font-family: "AR One Sans", sans-serif;
+}
+
+.left {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #006778;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.left h1 {
+  margin-top: 0;
+  color: white;
+  font-size: 35px;
+  align-self: center;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.right {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.form_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form_container h1 {
+  font-size: 40px;
+  margin-top: 0;
+}
+
+.input {
+  border: 1px solid #006778;
+  width: 370px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px 0;
+  font-size: 14px;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.error_msg {
+  width: 370px;
+  padding: 15px;
+  margin: 5px 0;
+  font-size: 14px;
+  background-color: #ff8080;
+  color: black;
+  border-radius: 5px;
+  text-align: center;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.white_btn,
+.green_btn {
+  border: none;
+  outline: none;
+  padding: 12px 0;
+  background-color: white;
+  border-radius: 10px;
+  width: 400px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: "AR One Sans", sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.green_btn {
+  background-color: #006778;
+  color: white;
+  margin: 10px;
+}
+
+.white_btn:hover {
+  background-color: #f6fdc3;
+  color: #000;
+}
+.green_btn:hover {
+  background-color: #00afc1;
+  color: #000;
+}
+
+.passwordStrengthContainer {
+  display: flex;
+  align-items: center;
+}
+
+.passwordStrengthSymbol {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.passwordStrengthText {
+  font-size: 14px;
+  font-weight: bold;
+  color: inherit;
+}
+
+.passwordStrength.Weak {
+  color: red;
+}
+
+.passwordStrength.Medium {
+  color: yellow;
+}
+
+.passwordStrength.Strong {
+  color: green;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: left;
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+}
