@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 // POST route to send a password reset link
 router.post("/", async (req, res) => {
   try {
-    // Validate the email in the request body
+    // validating the email in the request body
     const emailSchema = Joi.object({
       email: Joi.string().email().required().label("Email"),
     });
@@ -18,14 +18,14 @@ router.post("/", async (req, res) => {
     if (error)
       return res.status(400).send({ message: error.details[0].message });
 
-    // Find the user with the provided email
+    // finding the user with the provided email
     let user = await User.findOne({ email: req.body.email });
     if (!user)
       return res
         .status(409)
         .send({ message: "User with given email does not exist!" });
 
-    // Check if there is an existing token or create a new one
+    // checking if there is an existing token or create a new one
     let token = await Token.findOne({ userId: user._id });
     if (!token) {
       token = await new Token({
@@ -34,13 +34,13 @@ router.post("/", async (req, res) => {
       }).save();
     }
 
-    // Generate the password reset link
+    // generating the password reset link
     const resetPasswordUrl = `${process.env.BASE_URL}password-reset/${user._id}/${token.token}/`;
 
     // Compose and send the password reset email
     const emailBody = `<p>Hello,</p>
     <p>We received a request to reset the password for your account.</p>
-    <p>Please click <a href="${resetPasswordUrl}">here</a> to set a new password.</p>
+    <p>Please click <a href="${resetPasswordUrl}">Password Reset Link</a> to set a new password.</p>
     <p>If you did not request a password reset, please ignore this email.</p>
     <p>Best Regards,</p>
     <p>Team EcoConnect</p>`;
@@ -78,7 +78,7 @@ router.get("/:id/:token", async (req, res) => {
 // POST route to reset the password
 router.post("/:id/:token", async (req, res) => {
   try {
-    // Validate the new password using a complexity schema
+    // validating the new password using a complexity schema
     const passwordSchema = Joi.object({
       password: passwordComplexity().required().label("Password"),
     });
@@ -86,21 +86,21 @@ router.post("/:id/:token", async (req, res) => {
     if (error)
       return res.status(400).send({ message: error.details[0].message });
 
-    // Find the user with the provided ID
+    // finding the user with the provided ID
     const user = await User.findOne({ _id: req.params.id });
     if (!user) return res.status(400).send({ message: "Invalid link" });
 
-    // Find the token and check its validity
+    // finding the token and check its validity
     const token = await Token.findOne({
       userId: user._id,
       token: req.params.token,
     });
     if (!token) return res.status(400).send({ message: "Invalid link" });
 
-    // If the user is not verified, mark them as verified
+    // if the user is not verified, mark them as verified
     if (!user.verified) user.verified = true;
 
-    // Generate a hash for the new password and update the user's password
+    // generating a hash for the new password and update the user's password
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(req.body.password, salt);
 
