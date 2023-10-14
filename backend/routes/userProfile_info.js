@@ -21,9 +21,16 @@ const upload = multer({ storage: storage });
 router.post('/', authenticate, upload.single('profileImage'), async (req, res) => {
     try {
         const { email } = req.user;
-        const { bio, address } = req.body;
+        const { firstName, lastName, bio, address } = req.body;
 
         const profileImagePath = req.file ? req.file.path : undefined; // Check if a file was uploaded
+
+        const userData = {
+            $set: {
+                firstName: firstName,
+                lastName: lastName
+            }
+        };
 
         const userProfileData = {
             $set: {
@@ -45,11 +52,18 @@ router.post('/', authenticate, upload.single('profileImage'), async (req, res) =
             userProfileData,
             options
         );
+        const updatedUser = await User.findOneAndUpdate(
+            filter,
+            userData,
+            options
+        );
 
-        if (updatedProfile) {
+        if (updatedProfile && updatedUser) {
             res.status(200).json({ email: email, message: 'User Profile Updated successfully' });
-        } else {
+        } else if (!updatedProfile) {
             res.status(500).json({ message: 'Failed to update user profile' });
+        } else if (!updatedUser) {
+            res.status(500).json({ message: 'Failed to update user data' });
         }
     } catch (error) {
         console.error(error);
