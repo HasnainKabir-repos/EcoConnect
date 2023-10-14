@@ -4,7 +4,8 @@ import demo from '../../assets/demo.png';
 import newbie from '../../assets/newbie.png'
 import intermediate from '../../assets/Intermediate.png';
 import advanced from '../../assets/expert.png';
-
+import background from '../../assets/background.jpg';
+import TopBar from "../TopBar";
 const Profile = () => {
     const [user, setUser] = useState({
         firstname: 'John',
@@ -28,17 +29,20 @@ const Profile = () => {
       };
 
     return(
-        <div className="bg-gray-100 min-h-screen w-full flex-col px-10">
+        <>
+        <TopBar/>
+        <div className="bg-cover bg-center min-h-screen w-full flex-col px-10"
+            style={{backgroundImage: `url(${background})`}}>
 
-            <div className="max-w-3xl mx-auto h-min mt-20 py-5 shadow-lg">
-                <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-lg font-bold">
+            <div className="max-w-3xl mx-auto h-min mt-20 pt-5 shadow-lg">
+                <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
                     <h1 className="text-xl px-6 text-white">
                        User Profile <br />
                         {user.firstname}
                     </h1>
                 </div>
 
-                <div className="flex flex-col  p-5">
+                <div className="flex flex-col p-5 bg-white">
 
                     <div className="flex flex-row w-full ">
 
@@ -111,6 +115,7 @@ const Profile = () => {
             </div>
 
         </div>
+        </>
     );
 };
 
