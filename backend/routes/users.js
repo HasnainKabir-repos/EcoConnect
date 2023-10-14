@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, validate } = require('../models/user');
 const bcrypt = require('bcrypt');
+const UserProfile = require('../models/userProfile');
 
 router.post("/", async (req, res) => {
     try {
@@ -16,6 +17,14 @@ router.post("/", async (req, res) => {
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
         await new User({ ...req.body, password: hashPassword }).save();
+
+        // Create a user profile for the newly registered user
+        const userProfile = new UserProfile({
+            useremail: req.body.email,
+        });
+
+        // Save the user profile
+        await userProfile.save();
         res.status(201).send({ message: "User registered successfully" });
 
     } catch (error) {

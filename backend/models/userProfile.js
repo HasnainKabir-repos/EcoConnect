@@ -9,7 +9,7 @@ const UserProfileSchema = new Schema({
     profileImage: { type: String },
     badge: { type: String, default: "newbie" },
     points_earned: { type: Number, default: 0 },
-    challenges_completed: { type: String, default: 0 },
+    challenges_completed: { type: Number, default: 0 },
     upCycled: { type: Number, default: 0 },
     reCycled: { type: Number, default: 0 },
     followed_communities: { type: [String] },
