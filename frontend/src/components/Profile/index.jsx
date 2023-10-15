@@ -9,7 +9,7 @@ import TopBar from "../TopBar";
 const Profile = () => {
     const [user, setUser] = useState({
         firstname: 'John',
-        lastname: 'Doe',
+        lastname: 'Cena',
         email:'johndoe@gmail.com',
         totalPoints: 100,
         badge: 'newbie', // You should calculate this based on points
