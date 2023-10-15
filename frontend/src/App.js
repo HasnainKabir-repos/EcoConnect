@@ -6,21 +6,40 @@ import PasswordReset from "./components/PasswordReset";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import EditProfile from "./components/EditProfile";
+import { useEffect, useState } from "react";
+import ContextStore from "./Context/ContextStore";
+import MainPage from "./pages/Main.Page";
 function App() {
-	const user = localStorage.getItem("token");
-
-	return (
-		<Routes>
-			{user && <Route path="/" exact element={<Main />} />}
-			<Route path="/signup" exact element={<Signup />} />
-			<Route path="/login" exact element={<Login />} />
-			<Route path="/" element={<Navigate replace to="/login" />} />
-			<Route path="/forgot-password" element={<ForgotPassword />} />
-			<Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-      <Route path="/profile" exact element={<Profile/>}/>
-      <Route path="/editprofile" exact element={<EditProfile/>}/>
-		</Routes>
-	);
+    const user = localStorage.getItem("token");
+    const [contextStore, setContextStore] = useState({
+        loggedIn: false,
+        token: "",
+    });
+    useEffect(() => {
+        (async () => {
+			let token = localStorage.getItem("token");
+			if(token){
+				//api call here
+			}
+		})();
+    }, []);
+    return (
+        <ContextStore.Provider value={{ contextStore, setContextStore }}>
+            <Routes>
+                {user && <Route path="/" exact element={<MainPage />} />}
+                <Route path="/signup" exact element={<Signup />} />
+                <Route path="/login" exact element={<Login />} />
+                <Route path="/" element={<Navigate replace to="/login" />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route
+                    path="/password-reset/:id/:token"
+                    element={<PasswordReset />}
+                />
+                <Route path="/profile" exact element={<Profile />} />
+                <Route path="/editprofile" exact element={<EditProfile />} />
+            </Routes>
+        </ContextStore.Provider>
+    );
 }
 
 export default App;

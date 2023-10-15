@@ -5,7 +5,6 @@ const Main = () => {
 		localStorage.removeItem("token");
 		window.location.reload();
 	};
-
 	return (
 		<div className={styles.main_container}>
 			<nav className={styles.navbar}>

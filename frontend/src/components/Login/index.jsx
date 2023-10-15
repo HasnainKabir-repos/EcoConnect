@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import dispatch from "../../dispatch/dispatch";
+import actions from "../../dispatch/actions";
+import ContextStore from "../../Context/ContextStore";
 
 const Login = () => {
+  const {contextStore, setContextStore} = useContext(ContextStore)
   // State variables for user data, error message, and show/hide password
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -18,10 +22,10 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8080/api/auth";
-      const response = await axios.post(url, data);
+      let token = await dispatch(actions.login, {}, data,)
       // If successful, store the token in local storage and redirect to the home page
-      localStorage.setItem("token", response.data);
+      localStorage.setItem("token", token);
+      setContextStore({...contextStore, token})
       window.location = "/";
     } catch (error) {
       if (

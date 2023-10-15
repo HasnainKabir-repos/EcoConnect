@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import { Link, useLocation } from "react-router-dom";
 import demo from '../../assets/demo.png';
 import newbie from '../../assets/newbie.png'
@@ -6,7 +6,11 @@ import intermediate from '../../assets/Intermediate.png';
 import advanced from '../../assets/expert.png';
 import background from '../../assets/background.jpg';
 import TopBar from "../TopBar";
+import ContextStore from "../../Context/ContextStore";
+import dispatch from "../../dispatch/dispatch";
+import actions from "../../dispatch/actions";
 const Profile = () => {
+    const {contextStore, setContextStore} = useContext(ContextStore)
     const [user, setUser] = useState({
         firstname: 'John',
         lastname: 'Doe',
@@ -27,7 +31,9 @@ const Profile = () => {
           return <img src={advanced} alt="Advanced" className="h-28 w-28" />;
         }
       };
-
+      const onSubmit = async () => {
+        const response = await dispatch(actions.getUser, {},{},contextStore.token)
+      }
     return(
         <>
         <TopBar/>

@@ -1,12 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styles from "./styles.module.css";
+import ContextStore from "../../Context/ContextStore";
 
 const ForgotPassword = () => {
+  const {contextStore, setContextStore} = useContext(ContextStore)
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
-
+  console.log(contextStore)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
