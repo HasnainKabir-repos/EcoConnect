@@ -23,10 +23,12 @@ const Signup = () => {
     const newPassword = input.value;
     setData({ ...data, [input.name]: newPassword });
 
-    // Set the current password and check password strength
-    setCurrentPassword(newPassword);
-    const strength = assessPasswordStrength(newPassword);
-    setPasswordStrength(strength);
+    // Set the current password and check password strength only for the "password" input
+    if (input.name === "password") {
+      setCurrentPassword(newPassword);
+      const strength = assessPasswordStrength(newPassword);
+      setPasswordStrength(strength);
+    }
   };
 
   // Function to assess password strength based on criteria
