@@ -27,7 +27,6 @@ router.post("/", async (req, res) => {
 
     // generating an authentication token for the user
     const token = user.generateAuthToken();
-    console.log(token);
 
     // sending a successful response with the token
     res.status(200).send({ data: token, message: "Login Successful" });

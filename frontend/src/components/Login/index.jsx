@@ -21,8 +21,7 @@ const Login = () => {
       const url = "http://localhost:8080/api/auth";
       const response = await axios.post(url, data);
       // If successful, store the token in local storage and redirect to the home page
-      console.log(response.data);
-      localStorage.setItem("token", JSON.stringify(response.data));
+      localStorage.setItem("token", response.data);
       window.location = "/";
     } catch (error) {
       if (
