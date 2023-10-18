@@ -12,10 +12,11 @@ const Profile = () => {
         lastname: 'Doe',
         email:'johndoe@gmail.com',
         totalPoints: 100,
-        badge: 'newbie', // You should calculate this based on points
+        badge: 'newbie', 
         green_challenges_num: 20,
         upcycled: 20,
-        recycled: 20
+        recycled: 20,
+        followed_communities: ['Community 1', 'Community 2', 'Community 3']
       });
 
       const getIcon = (badge) => {
@@ -28,10 +29,16 @@ const Profile = () => {
         }
       };
 
+      const getRandomColor = () => {
+        const colors = ['bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-pink-500', 'bg-indigo-500'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        return randomColor;
+      };    
+
     return(
         <>
         <TopBar/>
-        <div className="bg-cover bg-center min-h-screen w-full flex-col px-10"
+        <div className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5"
             style={{backgroundImage: `url(${background})`}}>
 
             <div className="max-w-3xl mx-auto h-min mt-20 pt-5 shadow-lg">
@@ -88,16 +95,29 @@ const Profile = () => {
                             </div>
 
                             <div className="text-center mt-4">
-                            <div className="text-xl font-bold text-teal-600">Badge: {user.badge}</div>
-                            <div className="text-lg text-gray-600 mt-2">
-                                Green Challenges Completed: {user.green_challenges_num}
+                                <div className="text-xl font-bold text-teal-600">Badge: {user.badge}</div>
+                                <div className="text-lg text-gray-600 mt-2">
+                                    Green Challenges Completed: {user.green_challenges_num}
+                                </div>
+                                <div className="text-lg text-gray-600 mt-2">
+                                    Products Upcycled: {user.upcycled}
+                                </div> 
+                                <div className="text-lg text-gray-600 mt-2">
+                                    Products Recycled: {user.recycled}
+                                </div>
                             </div>
-                            <div className="text-lg text-gray-600 mt-2">
-                                Products Upcycled: {user.upcycled}
-                            </div>
-                            <div className="text-lg text-gray-600 mt-2">
-                                Products Recycled: {user.recycled}
-                            </div>
+                            <div className="">
+                                <div className="mt-4">
+                                    <h2 className="text-xl font-bold text-teal-600">Followed Communities</h2>
+                                    <div className="flex flex-wrap mt-2">
+                                        {user.followed_communities.map((community, index) => (
+                                        <div key={index} className="m-2 py-1 px-2 flex items-center rounded-2xl border border-teal-600">
+                                            <div className={`w-4 h-4 rounded-full mr-2 ${getRandomColor()}`}></div>
+                                            <div className="text-normal text-gray-600">{community}</div>
+                                        </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
