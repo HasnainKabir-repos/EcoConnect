@@ -51,7 +51,7 @@ const EditProfile = () => {
     return(
         <>
         <TopBar/>
-            <div className="bg-cover bg-center bg-gray-100 min-h-screen w-full flex-col px-10"
+            <div className="bg-cover bg-center bg-gray-100 min-h-screen w-full flex-col px-10 pb-5"
                 style={{backgroundImage: `url(${background})`}}>
             
             <div className="">
@@ -68,8 +68,8 @@ const EditProfile = () => {
                         <div className="flex flex-row w-full ">
 
 
-                            <div className="w-1/2 rounded-lg border border-teal-600 mr-2 bg-white ">
-                                <div className="p-4">
+                            <div className="w-1/2 rounded-lg border border-teal-600 mr-2 bg-white h-60 ">
+                                <div className="px-4 pt-4 pb-2">
                                     <div>
                                         <div className="text-2xl font-semibold text-teal-600 mb-2">
                                             {user.firstname} {user.lastname}
@@ -89,15 +89,7 @@ const EditProfile = () => {
                                     </div>
                                     <div className="flex flex-row items-center mb-4">
                                         <div className="text-lg font-medium text-gray-700 mb-2">Bio:</div>
-                                        <div className="text-base font-normal ml-2">{user.bio}</div>
-                                    </div>
-                                    <div className="flex flex-row items-center mb-4">
-                                        <button 
-                                        onClick={() => handleModalOpen()}
-                                        className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-2/3 h-12
-                                                            hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 flex items-center justify-center">
-                                                            Edit Personal information
-                                        </button>
+                                        <div className="text-base font-normal ml-2 mb-2">{user.bio}</div>
                                     </div>
 
                                 </div>
@@ -111,30 +103,24 @@ const EditProfile = () => {
                                     </div>
                                     
                                 </div>
-                                <div className="flex flex-col items-center mb-4 mt-4">
-                                    <button 
-                                    
-                                    className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-2/3 h-12
-                                                                hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 flex items-center justify-center">
-                                                                Edit Profile Image
-                                    </button>
-                                </div>
+
                             </div>
                         </div>
-
                         
-
-                        <div className="w-full flex items-center justify-end mt-5">
-                            <Link to='/profile'
-                            className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-1/4
-                                        hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 mx-5">Back </Link>
+                        <div className="w-full flex items-center justify-center mt-5">
                             <button 
-                            className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-1/4
-                                        hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800">Save </button>
+                                onClick={() => handleModalOpen()}
+                                className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-2/3 h-12
+                                            hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 flex items-center justify-center">
+                                Edit information
+                            </button>
                         </div>
 
-
-
+                        <div className="w-full flex items-center justify-center mt-5">
+                            <Link to='/profile'
+                            className="bg-gradient-to-r from-teal-600 to-cyan-600 py-3 text-center text-white rounded-lg font-bold w-1/6
+                                        hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 mx-5">Back </Link>
+                        </div>
                     </div>
                 </div>
             </div>

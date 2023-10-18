@@ -88,17 +88,23 @@ const Signup = () => {
 
   return (
     <div className={styles.signup_container}>
-      <div className={styles.signup_form_container}>
-        <div className={styles.left}>
+      <div className={styles.signup_left_form_container}>
+        <div className={styles.signup_left}>
           <h1>Welcome to EcoConnect</h1>
           <Link to="/login">
-            <button type="button" className={styles.white_btn}>
-              Sign In
+            <button
+              type="button"
+              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:bg-cyan-200 hover:text-black mt-6"
+            >
+              Log In
             </button>
           </Link>
         </div>
-        <div className={styles.right}>
-          <form className={styles.form_container} onSubmit={handleSubmit}>
+        <div className={styles.signup_right}>
+          <form
+            className={styles.signup_right_form_container}
+            onSubmit={handleSubmit}
+          >
             <h1>Create Account</h1>
 
             {/* Input fields for first name, last name, email, and password */}
@@ -171,7 +177,10 @@ const Signup = () => {
             {error && <div className={styles.error_msg}>{error}</div>}
 
             {/* Submit button */}
-            <button type="submit" className={styles.green_btn}>
+            <button
+              type="submit"
+              className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6"
+            >
               Sign Up
             </button>
           </form>

@@ -29,13 +29,13 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form_container} onSubmit={handleSubmit}>
+    <div className={styles.forgot_container}>
+      <form className={styles.forgot_form_container} onSubmit={handleSubmit}>
         <h1>Forgot Password</h1>
         <div className={styles.line}>
           <p>
-            Please enter your email address below, and we will send you
-            the link to reset your password
+            Please enter your email address below, and we will send you the link
+            to reset your password
           </p>
         </div>
         <input
@@ -49,7 +49,10 @@ const ForgotPassword = () => {
         />
         {error && <div className={styles.error_msg}>{error}</div>}
         {msg && <div className={styles.success_msg}>{msg}</div>}
-        <button type="submit" className={styles.green_btn}>
+        <button
+          type="submit"
+          className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mb-6 mt-6"
+        >
           Send Password Reset Link
         </button>
       </form>

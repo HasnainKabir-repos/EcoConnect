@@ -2,14 +2,14 @@
 .signup_container {
   width: 100%;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #dcfce7;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "AR One Sans", sans-serif;
 }
 
-.signup_form_container {
+.signup_left_form_container {
   width: 900px;
   height: 500px;
   display: flex;
@@ -19,7 +19,7 @@
   font-family: "AR One Sans", sans-serif;
 }
 
-.left {
+.signup_left {
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -31,15 +31,16 @@
   font-family: "AR One Sans", sans-serif;
 }
 
-.left h1 {
+.signup_left h1 {
   margin-top: 0;
   color: white;
   font-size: 35px;
   align-self: center;
+  font-weight: 700;
   font-family: "AR One Sans", sans-serif;
 }
 
-.right {
+.signup_right {
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -50,13 +51,22 @@
   border-bottom-right-radius: 10px;
 }
 
-.form_container {
+.signup_right h1 {
+  margin-top: 0;
+  color: black;
+  font-size: 35px;
+  align-self: center;
+  font-weight: 700;
+  font-family: "AR One Sans", sans-serif;
+}
+
+.signup_right_form_container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.form_container h1 {
+.signup_right_form_container h1 {
   font-size: 40px;
   margin-top: 0;
 }
@@ -84,36 +94,6 @@
   font-family: "AR One Sans", sans-serif;
 }
 
-.white_btn,
-.green_btn {
-  border: none;
-  outline: none;
-  padding: 12px 0;
-  background-color: white;
-  border-radius: 10px;
-  width: 400px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  font-family: "AR One Sans", sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.green_btn {
-  background-color: #006778;
-  color: white;
-  margin: 10px;
-}
-
-.white_btn:hover {
-  background-color: #f6fdc3;
-  color: #000;
-}
-.green_btn:hover {
-  background-color: #00afc1;
-  color: #000;
-}
-
 .passwordStrengthContainer {
   display: flex;
   align-items: center;
@@ -130,22 +110,19 @@
   color: inherit;
 }
 
-.passwordStrength.Weak {
-  color: red;
-}
-
-.passwordStrength.Medium {
-  color: yellow;
-}
-
-.passwordStrength.Strong {
-  color: green;
-}
-
 .checkboxContainer {
   display: flex;
-  align-items: left;
-  text-align: left;
-  font-weight: 500;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
   font-size: 14px;
+}
+
+.checkbox {
+  margin-right: 5px;
 }

@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400;500;600;700&display=swap");
-.container {
+.forgot_container {
   width: 100vw;
+  background-color: #dcfce7;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -8,7 +9,7 @@
   font-family: "AR One Sans", sans-serif;
 }
 
-.form_container {
+.forgot_form_container {
   width: 500px;
   padding: 10px;
   background-color: white;
@@ -21,6 +22,13 @@
   border: 1px solid red;
 }
 
+.forgot_form_container h1 {
+  font-size: 35px;
+  margin-top: 0;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
 .input {
   border: 1px solid #006778;
   width: 370px;
@@ -30,27 +38,6 @@
   margin: 5px 0;
   font-size: 16px;
   font-family: "AR One Sans", sans-serif;
-}
-
-.green_btn {
-  border: none;
-  outline: none;
-  padding: 15px 0;
-  background-color: #006778;
-  color: white;
-  margin: 10px;
-  border-radius: 10px;
-  width: 370px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  font-family: "AR One Sans", sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.green_btn:hover {
-  background-color: #00afc1;
-  color: #000;
 }
 
 .error_msg,
@@ -73,4 +60,5 @@
 .line {
   align-items: center;
   text-align: center;
+  margin-bottom: 20px;
 }
