@@ -45,10 +45,10 @@ const Login = () => {
 
   return (
     <div className={styles.login_container}>
-      <div className={styles.login_form_container}>
-        <div className={styles.left}>
-          <form className={styles.form_container} onSubmit={handleSubmit}>
-            <h1 className={styles.heading}>Log In to Your Account</h1>
+      <div className={styles.login_left_form_container}>
+        <div className={styles.login_left}>
+          <form className={styles.login_form_container} onSubmit={handleSubmit}>
+            <h1>Log In to Your Account</h1>
             <input
               type="email"
               placeholder="Email"
@@ -78,21 +78,30 @@ const Login = () => {
                   />
                   Show Password
                 </label>
-                <Link to="/forgot-password" className={styles.forgotPasswordLink}>
+                <Link
+                  to="/forgot-password"
+                  className={styles.forgotPasswordLink}
+                >
                   Forgot Password?
                 </Link>
               </div>
             </div>
             {error && <div className={styles.error_msg}>{error}</div>}
-            <button type="submit" className={styles.green_btn}>
-              Sign In
+            <button
+              type="submit"
+              className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-10"
+            >
+              Log In
             </button>
           </form>
         </div>
-        <div className={styles.right}>
+        <div className={styles.login_right}>
           <h1>New to EcoConnect?</h1>
           <Link to="/signup">
-            <button type="button" className={styles.white_btn}>
+            <button
+              type="button"
+              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:bg-cyan-200 hover:text-black mt-6"
+            >
               Sign Up
             </button>
           </Link>
