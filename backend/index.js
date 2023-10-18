@@ -6,6 +6,7 @@ const connection = require('./database');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
 const passwordResetRoutes = require('./routes/passwordReset');
+const UserInfoRoutes = require('./routes/userProfile_info');
 //database connection
 connection();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 //routes
+app.use('/api/userInfo', UserInfoRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);

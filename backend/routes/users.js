@@ -1,8 +1,9 @@
 const router = require('express').Router();
-const { User, validate } = require('../models/user');
+const {  User,  validate  } = require('../models/user');
 const Token = require('../models/token'); // Import the Token model
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const UserProfile = require('../models/userProfile');
 
 router.post("/", async (req, res) => {
     try {
@@ -17,19 +18,18 @@ router.post("/", async (req, res) => {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-        const newUser = new User({ ...req.body, password: hashPassword });
-        await newUser.save();
+        await new User({ ...req.body, password: hashPassword }).save();
 
-        // Generate an authentication token for the user
-         const token = jwt.sign({ _id: newUser._id }, process.env.JWTPRIVATEKEY, { expiresIn: '7d' });
+        // Create a user profile for the newly registered user
+        const userProfile = new UserProfile({
+            useremail: req.body.email,
+        });
 
-        // Store the token in the Token schema
-        const tokenDocument = new Token({ userId: newUser._id, token: token });
-        await tokenDocument.save();
+        // Save the user profile
+        await userProfile.save();
+        res.status(201).send({ message: "User registered successfully" });
 
-        res.status(201).send({ message: "User registered successfully", data: token });
     } catch (error) {
-        console.error(error); // Log the error for debugging
         res.status(500).send({ message: "Internal Server Error" });
     }
 });
