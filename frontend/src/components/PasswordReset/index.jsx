@@ -55,7 +55,7 @@ const PasswordReset = () => {
     }
   };
 
-   const getPasswordStrengthSymbol = (strength) => {
+  const getPasswordStrengthSymbol = (strength) => {
     if (strength === "Weak") {
       return "🟥";
     } else if (strength === "Medium") {
@@ -64,7 +64,6 @@ const PasswordReset = () => {
       return "🟩";
     }
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,8 +87,8 @@ const PasswordReset = () => {
   return (
     <Fragment>
       {validUrl ? (
-        <div className={styles.container}>
-          <form className={styles.form_container} onSubmit={handleSubmit}>
+        <div className={styles.reset_container}>
+          <form className={styles.reset_form_container} onSubmit={handleSubmit}>
             <h1>Reset Password</h1>
             <div className={styles.line}>
               <p>Put Your New Password Below to continue with EcoConnect!</p>
@@ -128,8 +127,11 @@ const PasswordReset = () => {
             </div>
             {error && <div className={styles.error_msg}>{error}</div>}
             {msg && <div className={styles.success_msg}>{msg}</div>}
-            <button type="submit" className={styles.green_btn}>
-              Confirm Password Reset
+                       <button
+              type="submit"
+              className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mb-6"
+            >
+              Log In
             </button>
           </form>
         </div>
