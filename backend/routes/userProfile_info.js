@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
-const upload = require('../utils/multer');
+const upload = require('../middleware/multer');
 
 const {
     updateUserProfile,
