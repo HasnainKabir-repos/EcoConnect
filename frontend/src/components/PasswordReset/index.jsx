@@ -131,7 +131,7 @@ const PasswordReset = () => {
               type="submit"
               className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mb-6"
             >
-              Log In
+              Confirm New Password
             </button>
           </form>
         </div>
