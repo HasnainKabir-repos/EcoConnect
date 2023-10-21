@@ -1,5 +1,7 @@
 const { User } = require('../models/user');
 const UserProfile = require('../models/userProfile');
+const path = require('path');
+
 
 // Update user profile, including profile image
 const updateUserProfile = async (req, res) => {
@@ -20,7 +22,7 @@ const updateUserProfile = async (req, res) => {
         };
 
         if (profileImagePath) {
-            userProfileUpdate.profileImage = profileImagePath;
+            userProfileUpdate.profileImage = path.basename(profileImagePath);
         }
 
         const updatedProfile = await UserProfile.findOneAndUpdate(filter, userProfileUpdate, options);
