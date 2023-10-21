@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 const connection = require('./database');
 const userRoutes = require('./routes/users');
 const authRoutes = require('./routes/auth');
@@ -20,6 +21,7 @@ app.use('/api/userInfo', UserInfoRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 const port = process.env.PORT || 8080;
