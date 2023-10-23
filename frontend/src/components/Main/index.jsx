@@ -1,20 +1,11 @@
-import styles from "./styles.module.css";
+import TopBar from "../TopBar";
 
 const Main = () => {
-	const handleLogout = () => {
-		localStorage.removeItem("token");
-		window.location.reload();
-	};
 
 	return (
-		<div className={styles.main_container}>
-			<nav className={styles.navbar}>
-				<h1>EcoConnect</h1>
-				<button className={styles.main_white_btn} onClick={handleLogout}>
-					Logout
-				</button>
-			</nav>
-		</div>
+		<>
+			<TopBar />
+		</>
 	);
 };
 
