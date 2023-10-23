@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import SignupImage from '../../assets/SignupImage.png';
+import background from '../../assets/background.jpg';
 import styles from "./styles.module.css";
 
 const Login = () => {
@@ -44,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.login_container}>
+    <div className={styles.login_container} style={{ backgroundImage: `url(${background})` }}>
       <div className={styles.login_left_form_container}>
         <div className={styles.login_left}>
           <form className={styles.login_form_container} onSubmit={handleSubmit}>
@@ -97,10 +99,11 @@ const Login = () => {
         </div>
         <div className={styles.login_right}>
           <h1>New to EcoConnect?</h1>
+          <img src={SignupImage} alt="Signup" className={styles.signupImage} />
           <Link to="/signup">
             <button
               type="button"
-              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:bg-cyan-200 hover:text-black mt-6"
+              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:bg-cyan-200 hover:text-black"
             >
               Sign Up
             </button>

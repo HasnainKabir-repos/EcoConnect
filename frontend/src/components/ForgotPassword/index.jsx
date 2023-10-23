@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import background from '../../assets/background2.jpg';
 import styles from "./styles.module.css";
 
 const ForgotPassword = () => {
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className={styles.forgot_container}>
+    <div className={styles.forgot_container} style={{ backgroundImage: `url(${background})` }}>
       <form className={styles.forgot_form_container} onSubmit={handleSubmit}>
         <h1>Forgot Password</h1>
         <div className={styles.line}>
