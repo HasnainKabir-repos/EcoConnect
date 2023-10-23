@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from 'react-router-dom';
-import demo from "../../assets/demo.png";
 import Modal from 'react-modal';
 import background from '../../assets/background.jpg';
 import TopBar from "../TopBar";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import avatar from '../../assets/avatar.png';
 import axios from 'axios';
+import Loader from "../Loader";
 
 
 const customStyles = {
@@ -29,7 +29,8 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 const EditProfile = () => {
-    const { userProfile, userInfo } = useUserProfile();
+    const { userProfile, userInfo, isLoading } = useUserProfile();
+    const [formLoading, setFormLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState({
         firstName: '',
@@ -82,6 +83,7 @@ const EditProfile = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            setFormLoading(true);
             const token = localStorage.getItem('token');
             const tokenValue = JSON.parse(token);
             const config = {
@@ -107,12 +109,20 @@ const EditProfile = () => {
         } catch (error) {
             // Handle errors
             console.error(error);
+        }finally{
+            setFormLoading(false);
         }
     };
 
     return (
         <>
             <TopBar />
+            <div>
+                {
+                    isLoading ? (<Loader />) : (console.log('Loaded'))
+                }
+            </div>
+
             <div className="bg-cover bg-center bg-gray-100 min-h-screen w-full flex-col px-10 pb-5"
                 style={{ backgroundImage: `url(${background})` }}>
 
@@ -139,7 +149,7 @@ const EditProfile = () => {
                                         </div>
                                         <div className="flex flex-row items-center mb-4">
                                             <div className="text-lg font-medium text-gray-700">Email:</div>
-                                            <div className="text-base font-normal ml-2">{userProfile.useremail}</div>
+                                            <div className="text-base font-normal ml-2">{userInfo.email}</div>
                                         </div>
                                         <div className="flex flex-row items-center mb-4">
                                             <div className="text-lg font-medium text-gray-700">Location:</div>
@@ -159,7 +169,7 @@ const EditProfile = () => {
 
                                 <div className="flex flex-col w-1/2">
 
-                                    <div className="flex flex-col w-1/2 h-60 flex items-center justify-center rounded-lg border border-teal-600 ml-2 bg-white">
+                                    <div className="flex flex-col h-60 flex items-center justify-center rounded-lg border border-teal-600 ml-2 bg-white">
                                         <div className="overflow-hidden flex items-center justify-center">
                                             {userProfile.profileImage ? (
                                                 <img
@@ -272,6 +282,11 @@ const EditProfile = () => {
                 >
                     Back
                 </button>
+                <div>
+                {
+                    formLoading ? (<Loader />) : (console.log('Form Loaded'))
+                }
+            </div>
             </Modal>
         </>
     );
