@@ -18,7 +18,7 @@ const TopBar = () =>{
 
                     <div className="center flex w-1/2 h-full items-center justify-center">
                         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
-                            <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-inherit md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
+                            <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 ">
                                 <li>
                                     <Link
                                         to="/"
