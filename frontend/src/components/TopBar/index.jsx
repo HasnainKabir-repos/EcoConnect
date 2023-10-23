@@ -21,6 +21,16 @@ const TopBar = () =>{
                             <ul className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-inherit md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white">
                                 <li>
                                     <Link
+                                        to="/"
+                                        className={`block py-2 pl-3 pr-4 rounded text-sm ${
+                                        location.pathname === "/"
+                                            ? "text-blue-700"
+                                            : "text-gray-700"
+                                        } hover:bg-blue-700 hover:text-white md:hover:bg-transparent md:hover:text-blue-700 md:p-0`}
+                                    >Home</Link>
+                                </li>
+                                <li>
+                                    <Link
                                         to="/profile"
                                         className={`block py-2 pl-3 pr-4 rounded text-sm ${
                                         location.pathname === "/profile"
