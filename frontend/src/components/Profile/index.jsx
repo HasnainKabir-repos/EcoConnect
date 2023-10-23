@@ -6,10 +6,11 @@ import intermediate from '../../assets/Intermediate.png';
 import advanced from '../../assets/expert.png';
 import background from '../../assets/background.jpg';
 import TopBar from "../TopBar";
+import Loader from "../Loader";
 import { useUserProfile } from "../../hooks/useUserProfile";
 
 const Profile = () => {
-    const { userProfile, userInfo } = useUserProfile();
+    const { userProfile, userInfo, isLoading } = useUserProfile();
 
     const getIcon = (badge) => {
         if (badge === 'newbie') {
@@ -30,9 +31,16 @@ const Profile = () => {
     return (
         <>
             <TopBar />
-            <div className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5"
+            
+            
+            <main className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5 pt-20"
                 style={{ backgroundImage: `url(${background})` }}>
-                <div className="max-w-3xl mx-auto h-min mt-20 pt-5 shadow-lg">
+                    <div>{
+                    isLoading ? (<Loader />) : (console.log("Loaded"))
+                        }
+                        
+                    </div>
+                <div className="max-w-3xl mx-auto h-min pt-5 shadow-lg">
                     <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
                         <h1 className="text-xl px-6 text-white">
                             User Profile <br />
@@ -60,9 +68,9 @@ const Profile = () => {
                                         <div className="text-lg font-medium text-gray-700">Points earned:</div>
                                         <div className="text-base font-normal ml-2">{userProfile.points_earned}</div>
                                     </div>
-                                    <div>
+                                    <div className="flex flex-row items-center mb-4">
                                         <div className="text-lg font-medium text-gray-700 mb-2">Bio:</div>
-                                        <div className="text-base font-normal">{userProfile.bio}</div>
+                                        <div className="text-base font-normal ml-2 mb-2">{userProfile.bio}</div>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +132,7 @@ const Profile = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </>
     );
 }

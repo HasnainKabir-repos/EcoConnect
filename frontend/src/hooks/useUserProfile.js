@@ -15,14 +15,18 @@ export const useUserProfile = () => {
         profileImage: '',
     });
 
+    const [isLoading, setIsLoading] = useState(true);
+
     const [userInfo, setUserInfo] = useState({
         firstName: '',
         lastName: '',
+        email:'',
     });
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
+                setIsLoading(true);
                 const token = localStorage.getItem('token');
                 const tokenValue = JSON.parse(token);
                 const config = {
@@ -33,13 +37,16 @@ export const useUserProfile = () => {
                 const { userProfiles, userInfo } = response.data;
                 setUserProfile(userProfiles);
                 setUserInfo(userInfo);
+                
             } catch (error) {
                 console.error('Fetch Error:', error);
+            } finally {
+                setIsLoading(false);
             }
         };
 
         fetchUserProfile();
     }, []);
 
-    return { userProfile, userInfo };
+    return { userProfile, userInfo, isLoading };
 };
