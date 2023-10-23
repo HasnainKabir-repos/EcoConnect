@@ -66,9 +66,9 @@ const TopBar = () =>{
                     <div className="right flex w-1/4 h-full flex align-items-center justify-center p-2">
                     <button
                         onClick={handleLogout}
-                        className="relative inline-flex items-center justify-center px-10  overflow-hidden text-sm  transition duration-300 ease-out border-2 border-teal-800 rounded-3xl shadow-md group"
+                        className="relative inline-flex items-center justify-center px-10  overflow-hidden text-sm  transition duration-300 ease-out border-2 border-emerald-900 bg-emerald-900 rounded-3xl shadow-md group"
                     >
-                        <span className="absolute inset-0 flex items-center justify-center w-full h-15 text-white duration-300 -translate-x-full bg-green-500 group-hover:translate-x-0 ease">
+                        <span className="absolute inset-0 flex items-center justify-center w-full h-15 text-white duration-300 -translate-x-full bg-emerald-500 group-hover:translate-x-0 ease">
                         <img
                             className="w-5 h-5"
                             fill="none"
@@ -78,7 +78,7 @@ const TopBar = () =>{
                             alt="Logout"
                         ></img>
                         </span>
-                        <span className="absolute flex items-center justify-center w-full h-15 text-grey-700 transition-all duration-300 transform group-hover:translate-x-full ease">
+                        <span className="absolute flex items-center justify-center w-full h-15 text-white font-medium transition-all duration-300 transform group-hover:translate-x-full ease">
                         Log Out
                         </span>
                         <span className="relative invisible">Log out</span>
