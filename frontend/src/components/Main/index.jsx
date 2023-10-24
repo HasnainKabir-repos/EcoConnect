@@ -2,6 +2,7 @@ import TopBar from "../TopBar";
 import { useUserProfile } from "../../hooks/useUserProfile";
 import avatar from '../../assets/avatar.png';
 import Post from '../CommunityPost';
+import Footer from "../Footer";
 const Main = () => {
 	const { userProfile, userInfo, isLoading } = useUserProfile();
 	
@@ -69,13 +70,13 @@ const Main = () => {
 								</div>
 								<div className="flex flex-col p-2 items-center justify-center">
 									<div className="">
-										<div className="font-medium text-teal-600">John Doe</div>
+										<div className="font-medium text-teal-600">{userInfo.firstName} {userInfo.lastName}</div>
 									</div>
 									<div>
-										<div className="font-medium">Dhaka, Bangladesh</div>
+										<div className="font-medium">{userProfile.address}</div>
 									</div>
 									<div>
-										<div className="font-medium">30 Points</div>
+										<div className="font-medium">{userProfile.points_earned} Points</div>
 									</div>
 									
 								</div>
@@ -98,7 +99,7 @@ const Main = () => {
 							</div>
 						</div>
 					</div>
-					<div className="w-3/4 mt-5 ml-10 pr-5 overflow-auto max-h-screen">
+					<div className="w-3/4 mt-5 ml-10 pr-5 pb-20 overflow-auto max-h-screen">
 						<div className="flex flex-col  mx-auto">
 							{posts.map((post, index) =>(
 								
