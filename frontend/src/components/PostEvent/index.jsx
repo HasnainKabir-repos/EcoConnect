@@ -24,11 +24,11 @@ const PostEvent = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      const tokenValue = JSON.parse(token);
       const config = {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${tokenValue.data}` },
       };
-
-      const url = "http://localhost:8080/api/events";
+      const url = "http://localhost:8080/api/Events";
       const { data: res } = await axios.post(url, data, config);
       console.log(data);
       setIsModalVisible(true);

@@ -50,13 +50,23 @@ const TopBar = () =>{
                                 </li>
                                 <li>
                                     <Link
-                                        to=""
+                                        to="/events"
                                         className={`block py-2 pl-3 pr-4 rounded text-sm ${
-                                        location.pathname === ""
+                                        location.pathname === "/events"
                                             ? "text-blue-700"
                                             : "text-gray-700"
                                         } hover:bg-blue-700 hover:text-white md:hover:bg-transparent md:hover:text-blue-700 md:p-0`}
                                     >Event</Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/postevent"
+                                        className={`block py-2 pl-3 pr-4 rounded text-sm ${
+                                        location.pathname === "/postevent"
+                                            ? "text-blue-700"
+                                            : "text-gray-700"
+                                        } hover:bg-blue-700 hover:text-white md:hover:bg-transparent md:hover:text-blue-700 md:p-0`}
+                                    >Post Event</Link>
                                 </li>
                                 <li>
                                     <Link
