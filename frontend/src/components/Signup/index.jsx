@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SignupImage from "../../assets/SignupImage.png";
+import background from "../../assets/background3.jpg";
 import styles from "./styles.module.css";
 
 const Signup = () => {
@@ -89,14 +91,18 @@ const Signup = () => {
   };
 
   return (
-    <div className={styles.signup_container}>
+    <div
+      className={styles.signup_container}
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <div className={styles.signup_left_form_container}>
         <div className={styles.signup_left}>
           <h1>Welcome to EcoConnect</h1>
+          <img src={SignupImage} alt="Signup" className={styles.signupImage} />
           <Link to="/login">
             <button
               type="button"
-              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:bg-cyan-200 hover:text-black mt-6"
+              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover-bg-cyan-200 hover-text-black"
             >
               Log In
             </button>
@@ -161,14 +167,14 @@ const Signup = () => {
               </label>
             </div>
 
-            {/* Display password strength and symbol */}
+            {/* Display password strength and symbol only when input is given in the password field */}
             <div className={styles.passwordStrengthContainer}>
-              {currentPassword && (
+              {data.password && (
                 <span className={styles.passwordStrengthSymbol}>
                   {getPasswordStrengthSymbol(passwordStrength)}
                 </span>
               )}
-              {currentPassword && (
+              {data.password && (
                 <span className={styles.passwordStrengthText}>
                   Password Strength: {passwordStrength}
                 </span>
@@ -181,7 +187,7 @@ const Signup = () => {
             {/* Submit button */}
             <button
               type="submit"
-              className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6"
+              className="bg-cyan-950 hover-bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover-text-black mt-6"
             >
               Sign Up
             </button>

@@ -4,16 +4,16 @@ module.exports = async (email, subject, html) => {
   try {
     // Creating a nodemailer transporter with email server settings
     const transporter = nodemailer.createTransport({
-      host: process.env.HOST,
-      port: Number(process.env.EMAIL_PORT),
+      host: "smtp.gmail.com",
+      port: Number(587),
       auth: {
-        user: process.env.USER,
-        pass: process.env.PASS,
+        user: "mahdin.mukit248@gmail.com",
+        pass: "gcbvavmzzxkwwuph",
       },
     });
 
     await transporter.sendMail({
-      from: process.env.USER,
+      from: "mahdin.mukit248@gmail.com",
       to: email,
       subject: subject,
       html: html,
