@@ -43,8 +43,7 @@ const Profile = () => {
                 <div className="max-w-3xl mx-auto h-min pt-5 shadow-lg">
                     <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
                         <h1 className="text-xl px-6 text-white">
-                            User Profile <br />
-                            {userInfo.firstName}
+                            User Profile
                         </h1>
                     </div>
                     <div className="flex flex-col p-5 bg-white">
