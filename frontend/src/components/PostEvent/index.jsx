@@ -2,33 +2,39 @@ import axios from "axios";
 import { useState } from "react";
 import background from "../../assets/background2.jpg";
 import TopBar from "../TopBar";
-
+import Loader from "../Loader";
 const PostEvent = () => {
   const [data, setData] = useState({
-    eventName: "",
-    category: "",
+    title: "",
+    description: "",
     location: "",
     date: "",
     time: "",
-    description: "",
+    Event_type: "",
   });
-
+  let today = new Date();
+  today.setDate(today.getDate() + 1);
+  today = today.toISOString().split('T')[0];
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleChange = ({ currentTarget: input }) => {
+    console.log(data);
     setData({ ...data, [input.name]: input.value });
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setIsLoading(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
       const config = {
         headers: { Authorization: `Bearer ${tokenValue.data}` },
       };
-      const url = "http://localhost:8080/api/Events";
+      const url = "http://localhost:8080/api/Event";
       const { data: res } = await axios.post(url, data, config);
       console.log(data);
       setIsModalVisible(true);
@@ -40,6 +46,8 @@ const PostEvent = () => {
       ) {
         setError(error.response.data.message);
       }
+    }finally{
+      setIsLoading(false);
     }
   };
 
@@ -54,6 +62,11 @@ const PostEvent = () => {
           backgroundPosition: "center",
         }}
       >
+        <div>
+          {
+            isLoading ? (<Loader />) : (console.log("Loaded"))
+          }
+        </div>
         <main className="flex pt-20 items-center justify-center rounded-lg ">
           <div class="w-full px-40">
             <div className="w-full flex flex-row justify-center rounded-lg shadow-lg bg-white">
@@ -76,9 +89,9 @@ const PostEvent = () => {
                         </label>
                         <input
                           type="text"
-                          name="eventName"
+                          name="title"
                           onChange={handleChange}
-                          value={data.eventName}
+                          value={data.title}
                           className="block px-2.5 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
                           placeholder="Enter Event Name"
                           required
@@ -95,8 +108,8 @@ const PostEvent = () => {
                         <select
                           required
                           onChange={handleChange}
-                          name="category"
-                          value={data.category}
+                          name="Event_type"
+                          value={data.Event_type}
                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-green-500 block w-full p-2.5"
                         >
                           <option value="">Select</option>
@@ -138,6 +151,7 @@ const PostEvent = () => {
                           name="date"
                           onChange={handleChange}
                           value={data.date}
+                          min={today}
                           className="block px-2.5 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
                           required
                         />
@@ -203,10 +217,10 @@ const PostEvent = () => {
           {isModalVisible && (
             <div
               id="successModal"
-              className="fixed inset-0 z-50 flex justify-center items-center bg-gray-900 bg-opacity-50"
+              className="fixed inset-0 z-50 flex justify-center items-center bg-gray-100 bg-opacity-50"
             >
               <div className="relative p-4 w-full max-w-md h-full md:h-auto">
-                <div className="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                <div className="relative p-4 text-center bg-white rounded-lg shadow  sm:p-5">
                   <button
                     type="button"
                     className="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover-bg-gray-200 hover-text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark-hover-bg-gray-600 dark-hover-text-white"
