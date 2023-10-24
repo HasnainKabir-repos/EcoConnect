@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import background from '../../assets/background2.jpg';
 import styles from "./styles.module.css";
 
 const PasswordReset = () => {
@@ -87,7 +88,7 @@ const PasswordReset = () => {
   return (
     <Fragment>
       {validUrl ? (
-        <div className={styles.reset_container}>
+        <div className={styles.reset_container} style={{ backgroundImage: `url(${background})` }}>
           <form className={styles.reset_form_container} onSubmit={handleSubmit}>
             <h1>Reset Password</h1>
             <div className={styles.line}>
