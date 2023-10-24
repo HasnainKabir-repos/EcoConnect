@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import logout from '../../assets/logout.png';
+import logo from '../../assets/logo.png';
 const TopBar = () =>{
     const handleLogout = () => {
 		localStorage.removeItem("token");
@@ -10,10 +11,18 @@ const TopBar = () =>{
 
     return(
         <>
-            <nav className="bg-gradient-to-b from-sky-200 to-teal-100 flex flex-row max-h-40 min-h-20 px-2 shadow-lg sm:px-4 py-2.5 0 fixed w-full z-20 top-0 left-0 right-0 border-b border-gray-200">
+            <nav className="bg-gradient-to-b from-amber-100 to-amber-50 flex flex-row max-h-40 min-h-20 px-2 shadow-lg sm:px-4 py-2.5 0 fixed w-full z-20 top-0 left-0 right-0 border-b border-gray-200">
                 <div className="container flex flex-row w-full ">
                     <div className="left flex w-1/4 h-full items-center justify-center py-5">
-                        <h1>EcoConnect</h1>
+                        <div>
+                            <img
+                            className=""
+                            width="180"
+                            height= "80"
+                            alt="Logo"
+                            src={logo} />
+                        </div>
+                        
                     </div>
 
                     <div className="center flex w-1/2 h-full items-center justify-center">
@@ -73,10 +82,10 @@ const TopBar = () =>{
                         </div>
                     </div>
 
-                    <div className="right flex w-1/4 h-full flex align-items-center justify-center p-2">
+                    <div className="right flex w-1/4 h-full flex align-items-center justify-center p-2 py-3">
                     <button
                         onClick={handleLogout}
-                        className="relative inline-flex items-center justify-center px-10  overflow-hidden text-sm  transition duration-300 ease-out border-2 border-emerald-900 bg-emerald-900 rounded-3xl shadow-md group"
+                        className="relative inline-flex items-center justify-center px-10 overflow-hidden text-sm  transition duration-300 ease-out border-2 border-emerald-900 bg-emerald-900 rounded-3xl shadow-md group"
                     >
                         <span className="absolute inset-0 flex items-center justify-center w-full h-15 text-white duration-300 -translate-x-full bg-emerald-500 group-hover:translate-x-0 ease">
                         <img
