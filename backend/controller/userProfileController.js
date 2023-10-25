@@ -63,15 +63,6 @@ const getUserProfile = async (req, res) => {
         res.status(500).json({ message: 'Error retrieving user profile', error: error.message });
     }
 };
-const getUserName = async (req, res) => {
-    try{
-        const { email } = req.body;
-        const username = await User.findOne({email: email}).exec();
-        res.status(200).json(username);
-    }catch (error){
-        res.status(500).json({message: "Internal Server Error"});
-    }
-};
 
 
 const getUserName = async (req, res) => {
