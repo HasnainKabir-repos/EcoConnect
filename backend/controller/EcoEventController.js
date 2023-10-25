@@ -32,7 +32,7 @@ const EcoEventCreate = async (req, res) => {
 
 const getEcoEvent = async (req, res) => {
     try {
-        const events = await EcoEvent.find().sort({ date: -1 });
+        const events = await EcoEvent.find().sort({ date: 1 });
         return res.json(events);
     } catch (error) {
         return res.status(500).json({ message: 'Error retrieving events', error: error });
