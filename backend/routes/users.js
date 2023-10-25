@@ -4,7 +4,7 @@ const Token = require('../models/token'); // Import the Token model
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const UserProfile = require('../models/userProfile');
-const {getUserName} = require('../controller/userProfileController');
+
 router.post("/", async (req, res) => {
     try {
         const { error } = validate(req.body);
