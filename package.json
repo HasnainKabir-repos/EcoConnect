@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "frontend" : "cd frontend && npm start",
-    "backend" : "cd backend && npm start",
+    "frontend": "cd frontend && npm start",
+    "backend": "cd backend && npm start",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\""
   },
   "dependencies": {
     "concurrently": "^8.2.1",
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "tailwindcss": "^3.3.3"
   }
 }
