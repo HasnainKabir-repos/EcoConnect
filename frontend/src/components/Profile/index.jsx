@@ -31,15 +31,15 @@ const Profile = () => {
     return (
         <>
             <TopBar />
-            
-            
+
+
             <main className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5 pt-20"
                 style={{ backgroundImage: `url(${background})` }}>
-                    <div>{
+                <div>{
                     isLoading ? (<Loader />) : (console.log("Loaded"))
-                        }
-                        
-                    </div>
+                }
+
+                </div>
                 <div className="max-w-3xl mx-auto h-min pt-5 shadow-lg">
                     <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
                         <h1 className="text-xl px-6 text-white">
@@ -57,7 +57,7 @@ const Profile = () => {
                                     </div>
                                     <div className="flex flex-row items-center mb-4">
                                         <div className="text-lg font-medium text-gray-700">Email:</div>
-                                        <div className="text-base font-normal ml-2">{userProfile.useremail}</div>
+                                        <div className="text-base font-normal ml-2">{userInfo.email}</div>
                                     </div>
                                     <div className="flex flex-row items-center mb-4">
                                         <div className="text-lg font-medium text-gray-700">Location:</div>
