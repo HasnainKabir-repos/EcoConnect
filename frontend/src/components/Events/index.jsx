@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import TopBar from "../TopBar";
 import Loader from "../Loader";
 import axios from "axios";
 const Events = () => {
-
+  
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -12,52 +12,27 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [username, setUsername] = useState("");
 
-  useEffect(() => {
-    // Fetch events data from your API
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axios.get('http://localhost:8080/api/event');
-        const eventsData = response.data;
+   useEffect(() => {
+        // Fetch events data from your API
+        const fetchData = async () => {
+          try {
+            setIsLoading(true);
+            const response = await axios.get('http://localhost:8080/api/event');
+            setEvents(response.data);
+            setFilteredEvents(response.data);
+            console.log(response.data);
 
-        // Format the date for each event
-        const eventsWithFormattedDate = await Promise.all(
-          eventsData.map(async (event) => {
-            const date = new Date(event.date);
-            const yyyy = date.getFullYear();
-            const mm = String(date.getMonth() + 1).padStart(2, '0');
-            const dd = String(date.getDate()).padStart(2, '0');
-            const formattedDate = `${yyyy}-${mm}-${dd}`;
-
-            // Get the username for the event's email
-            console.log(event.organizer);
-            const usernameResponse = await axios.post('http://localhost:8080/api/userInfo/getUsername', {
-              email: event.organizer,
-            });
-            console.log(usernameResponse.data);
-            const username = usernameResponse.data;
-
-            return {
-              ...event,
-              formattedDate,
-              username,
-            };
-          })
-        );
-
-        setEvents(eventsWithFormattedDate);
-        setFilteredEvents(eventsWithFormattedDate);
-      } catch (error) {
-        console.error("Error fetching events:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+          } catch (error) {
+            console.error("Error fetching events:", error);
+          }finally {
+            setIsLoading(false);
+          }
+        };
+    
+        fetchData();
+    }, []);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -75,7 +50,7 @@ const Events = () => {
     if (selectedCategory || startDate || endDate) {
       const filtered = events.filter((event) => {
         return (
-          (!selectedCategory || event.Event_type === selectedCategory) &&
+          (!selectedCategory || event.category === selectedCategory) &&
           (!startDate || new Date(event.date) >= new Date(startDate)) &&
           (!endDate || new Date(event.date) <= new Date(endDate))
         );
@@ -88,7 +63,7 @@ const Events = () => {
 
   const handleInterestedClick = async (id, currentUserName) => {
     // Handle interested button click, send data to the event poster
-    try {
+    try{
       setIsLoading(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -98,17 +73,17 @@ const Events = () => {
       const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
       const response = await axios.put(url, {}, config);
       console.log('Interested');
-    } catch (error) {
-      console.log({ "error": error });
-    } finally {
+    }catch (error) {
+      console.log({"error": error});
+    }finally{
       setIsLoading(false);
     }
-
+   
   };
 
   const handleParticipatingClick = async (id, currentUserName) => {
     // Handle participating button click, send data to the event poster
-    try {
+    try{
       setIsLoading(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -118,9 +93,9 @@ const Events = () => {
       const url = `http://localhost:8080/api/event/addParticipants/${id}`;
       const response = await axios.put(url, {}, config);
       console.log('Interested');
-    } catch (error) {
-      console.log({ "error": error });
-    } finally {
+    }catch (error) {
+      console.log({"error": error});
+    }finally{
       setIsLoading(false);
     }
   };
@@ -135,11 +110,11 @@ const Events = () => {
       <TopBar />
 
       <main className="pt-20 bg-gray-100 min-h-screen">
-        <div>{
-          isLoading ? (<Loader />) : (console.log("Loaded"))
-        }
-
-        </div>
+      <div>{
+         isLoading ? (<Loader />) : (console.log("Loaded"))
+          }
+                        
+      </div>
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/4 px-4 py-4 rounded-md ml-5 mt-4">
             <div className="mb-4">
@@ -214,7 +189,7 @@ const Events = () => {
                     <div className="flex flex-col">
                       <div className="flex items-center mb-2">
                         <p className="font-semibold text-blue-600 text-lg mr-2">
-                          {event.username.firstName} {event.username.lastName}
+                          {event.organizer}
                         </p>
                         <p className="text-gray-800 font-semibold text-md">
                           Posted an Event
@@ -239,7 +214,7 @@ const Events = () => {
 
                         <div className="rounded bg-fuchsia-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
-                            Event Date | {event.formattedDate}
+                            Event Date | {event.date}
                           </span>
                         </div>
 

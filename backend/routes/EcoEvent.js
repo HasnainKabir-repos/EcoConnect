@@ -4,8 +4,6 @@ const authenticate = require('../middleware/authenticate');
 
 
 const {
-    deleteEvent,
-    getEventsCreatedByUser,
     EcoEventAddParticipant,
     EcoEventMarkInterestedUser,
     EcoEventCreate,
@@ -17,13 +15,9 @@ router.post('/', authenticate, EcoEventCreate);
 
 router.get('/', getEcoEvent);
 
-router.get('/', authenticate, getEventsCreatedByUser);
-
 router.put('/addParticipants/:eventId', authenticate, EcoEventAddParticipant);
 
 router.put('/addInterestedUser/:eventId', authenticate, EcoEventMarkInterestedUser);
-
-router.delete('/:eventId', authenticate, deleteEvent);
 
 
 module.exports = router;
