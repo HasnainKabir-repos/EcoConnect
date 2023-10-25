@@ -217,7 +217,7 @@ const EditProfile = () => {
         onRequestClose={handleModalClose}
         style={customStyles}
       >
-        <div className="text-2xl font-semibold mb-4 py-3">Edit Profile</div>
+        <div className="text-2xl font-semibold mb-4 py-3 mt-10">Edit Profile</div>
         <div>
           <label className="block font-medium text-gray-600 mb-2">
             First Name:

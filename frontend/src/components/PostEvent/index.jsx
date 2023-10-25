@@ -51,6 +51,25 @@ const PostEvent = () => {
     }
   };
 
+  const isDateValid = (selectedDate) => {
+    const currentDate = new Date();
+    const selectedDateObj = new Date(selectedDate);
+
+    // Set the time portion of currentDate to midnight to compare only dates
+    currentDate.setHours(0, 0, 0, 0);
+
+    return selectedDateObj >= currentDate;
+  };
+
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    if (isDateValid(selectedDate)) {
+      setData({ ...data, date: selectedDate });
+    } else {
+      alert("Please select today's date or a later date.");
+    }
+  };
+
   return (
     <>
       <TopBar />
