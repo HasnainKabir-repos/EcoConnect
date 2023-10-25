@@ -44,5 +44,4 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.post('/getUsername', getUserName);
 module.exports = router;
