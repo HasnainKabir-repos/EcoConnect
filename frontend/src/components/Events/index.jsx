@@ -1,9 +1,10 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import TopBar from "../TopBar";
 import Loader from "../Loader";
 import axios from "axios";
+import axios from "axios";
 const Events = () => {
-  
+
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -12,27 +13,26 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [username, setUsername] = useState("");
 
-   useEffect(() => {
-        // Fetch events data from your API
-        const fetchData = async () => {
-          try {
-            setIsLoading(true);
-            const response = await axios.get('http://localhost:8080/api/event');
-            setEvents(response.data);
-            setFilteredEvents(response.data);
-            console.log(response.data);
+  useEffect(() => {
+    // Fetch events data from your API
+    const fetchData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axios.get('http://localhost:8080/api/event');
+        setEvents(response.data);
+        setFilteredEvents(response.data);
+        console.log(response.data);
 
-          } catch (error) {
-            console.error("Error fetching events:", error);
-          }finally {
-            setIsLoading(false);
-          }
-        };
-    
-        fetchData();
-    }, []);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -63,7 +63,7 @@ const Events = () => {
 
   const handleInterestedClick = async (id, currentUserName) => {
     // Handle interested button click, send data to the event poster
-    try{
+    try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -73,17 +73,17 @@ const Events = () => {
       const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
       const response = await axios.put(url, {}, config);
       console.log('Interested');
-    }catch (error) {
-      console.log({"error": error});
-    }finally{
+    } catch (error) {
+      console.log({ "error": error });
+    } finally {
       setIsLoading(false);
     }
-   
+
   };
 
   const handleParticipatingClick = async (id, currentUserName) => {
     // Handle participating button click, send data to the event poster
-    try{
+    try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -93,9 +93,9 @@ const Events = () => {
       const url = `http://localhost:8080/api/event/addParticipants/${id}`;
       const response = await axios.put(url, {}, config);
       console.log('Interested');
-    }catch (error) {
-      console.log({"error": error});
-    }finally{
+    } catch (error) {
+      console.log({ "error": error });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -110,11 +110,11 @@ const Events = () => {
       <TopBar />
 
       <main className="pt-20 bg-gray-100 min-h-screen">
-      <div>{
-         isLoading ? (<Loader />) : (console.log("Loaded"))
-          }
-                        
-      </div>
+        <div>{
+          isLoading ? (<Loader />) : (console.log("Loaded"))
+        }
+
+        </div>
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/4 px-4 py-4 rounded-md ml-5 mt-4">
             <div className="mb-4">
