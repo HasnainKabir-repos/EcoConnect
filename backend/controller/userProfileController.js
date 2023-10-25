@@ -59,14 +59,21 @@ const getUserProfile = async (req, res) => {
 };
 
 const getUserName = async (req, res) => {
-    try{
-        const { email } = req.body.email;
-        const username = await User.findOne({email: email}, 'firstname').exec();
-        res.status(200).json(username);
-    }catch (error){
-        res.status(500).json({message: "Internal Server Error"});
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email: email }).exec();
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.error("Error fetching username:", error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
 
 module.exports = {
     updateUserProfile,

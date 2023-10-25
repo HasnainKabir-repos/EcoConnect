@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, validate } = require('../models/user');
 const bcrypt = require('bcrypt');
 const UserProfile = require('../models/userProfile');
-const {getUserName} = require('../controller/userProfileController');
+
 router.post("/", async (req, res) => {
     try {
         const { error } = validate(req.body);
@@ -32,5 +32,4 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.post('/getUsername', getUserName);
 module.exports = router;

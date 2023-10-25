@@ -6,6 +6,7 @@ const upload = require('../middleware/multer');
 const {
     updateUserProfile,
     getUserProfile,
+    getUserName
 } = require('../controller/userProfileController');
 
 // Update user profile, including profile image
@@ -16,5 +17,7 @@ router.get('/', authenticate, getUserProfile);
 
 // Retrieve user profile by email
 router.get('/find', getUserProfile);
+
+router.post('/getUsername', getUserName);
 
 module.exports = router;
