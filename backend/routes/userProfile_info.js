@@ -20,4 +20,6 @@ router.get('/:useremail', getUserProfile);
 
 router.post('/getUsername', getUserName);
 
+router.post('/getUsername', getUserName);
+
 module.exports = router;
