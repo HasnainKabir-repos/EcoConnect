@@ -74,10 +74,6 @@ const EcoEventMarkInterestedUser = async (req, res) => {
     }
 };
 
-
-
-
-
 module.exports = {
     EcoEventAddParticipant,
     EcoEventMarkInterestedUser,
