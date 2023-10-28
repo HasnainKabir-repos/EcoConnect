@@ -1,5 +1,5 @@
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
 
 export const useUserProfile = () => {
     const [userProfile, setUserProfile] = useState({
@@ -37,9 +37,6 @@ export const useUserProfile = () => {
                 const { userProfiles, userInfo } = response.data;
                 setUserProfile(userProfiles);
                 setUserInfo(userInfo);
-                console.log(response.data);
-                console.log(userProfiles);
-                console.log(userInfo);
                 
             } catch (error) {
                 console.error('Fetch Error:', error);

@@ -50,7 +50,7 @@ const getUserProfile = async (req, res) => {
         if (userProfiles && userInfo) {
             res.json({ userProfiles, userInfo });
         } else {
-            res.status(500).json({ message: 'User profile not found' });
+            res.status(404).json({ message: 'User profile not found' });
         }
     } catch (error) {
         console.error(error);
