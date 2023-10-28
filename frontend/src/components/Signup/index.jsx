@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import SignupImage from "../../assets/SignupImage.png";
 import background from "../../assets/background3.jpg";
-import SignupImage from "../../assets/giphy.gif";
 import styles from "./styles.module.css";
 
 const Signup = () => {
@@ -25,12 +25,10 @@ const Signup = () => {
     const newPassword = input.value;
     setData({ ...data, [input.name]: newPassword });
 
-    // Set the current password and check password strength only for the "password" input
-    if (input.name === "password") {
-      setCurrentPassword(newPassword);
-      const strength = assessPasswordStrength(newPassword);
-      setPasswordStrength(strength);
-    }
+    // Set the current password and check password strength
+    setCurrentPassword(newPassword);
+    const strength = assessPasswordStrength(newPassword);
+    setPasswordStrength(strength);
   };
 
   // Function to assess password strength based on criteria
@@ -102,7 +100,7 @@ const Signup = () => {
           <Link to="/login">
             <button
               type="button"
-              className="mt-10 bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover-bg-cyan-200 hover-text-black"
+              className="bg-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover-bg-cyan-200 hover-text-black"
             >
               Log In
             </button>
