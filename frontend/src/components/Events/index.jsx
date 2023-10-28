@@ -20,6 +20,7 @@ const Events = () => {
         setIsLoading(true);
         const response = await axios.get('http://localhost:8080/api/event');
         const eventsData = response.data;
+
         // Format the date for each event
         const eventsWithFormattedDate = await Promise.all(
           eventsData.map(async (event) => {
@@ -28,6 +29,7 @@ const Events = () => {
             const mm = String(date.getMonth() + 1).padStart(2, '0');
             const dd = String(date.getDate()).padStart(2, '0');
             const formattedDate = `${yyyy}-${mm}-${dd}`;
+
             // Get the username for the event's email
             console.log(event.organizer);
             const usernameResponse = await axios.post('http://localhost:8080/api/userInfo/getUsername', {
@@ -35,6 +37,7 @@ const Events = () => {
             });
             console.log(usernameResponse.data);
             const username = usernameResponse.data;
+
             return {
               ...event,
               formattedDate,
@@ -42,6 +45,7 @@ const Events = () => {
             };
           })
         );
+
         setEvents(eventsWithFormattedDate);
         setFilteredEvents(eventsWithFormattedDate);
       } catch (error) {
@@ -50,8 +54,10 @@ const Events = () => {
         setIsLoading(false);
       }
     };
+
     fetchData();
   }, []);
+
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -69,7 +75,7 @@ const Events = () => {
     if (selectedCategory || startDate || endDate) {
       const filtered = events.filter((event) => {
         return (
-          (!selectedCategory || event.category === selectedCategory) &&
+          (!selectedCategory || event.Event_type === selectedCategory) &&
           (!startDate || new Date(event.date) >= new Date(startDate)) &&
           (!endDate || new Date(event.date) <= new Date(endDate))
         );
@@ -208,7 +214,7 @@ const Events = () => {
                     <div className="flex flex-col">
                       <div className="flex items-center mb-2">
                         <p className="font-semibold text-blue-600 text-lg mr-2">
-                          {event.organizer}
+                          {event.username.firstName} {event.username.lastName}
                         </p>
                         <p className="text-gray-800 font-semibold text-md">
                           Posted an Event
@@ -233,7 +239,7 @@ const Events = () => {
 
                         <div className="rounded bg-fuchsia-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
-                            Event Date | {event.date}
+                            Event Date | {event.formattedDate}
                           </span>
                         </div>
 
