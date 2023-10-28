@@ -43,20 +43,16 @@ const updateUserProfile = async (req, res) => {
 
 const getUserProfile = async (req, res) => {
     try {
-        let targetUserEmail = req.params.useremail;
+        
+        const { email } = req.user;
 
-        // If targetUserEmail is not provided in the request, use the authenticated user's email
-        if (!targetUserEmail) {
-            targetUserEmail = req.user.email;
-        }
-
-        const userProfiles = await UserProfile.findOne({ useremail: targetUserEmail });
-        const userInfo = await User.findOne({ email: targetUserEmail });
+        const userProfiles = await UserProfile.findOne({ useremail: email });
+        const userInfo = await User.findOne({ email: email });
 
         if (userProfiles && userInfo) {
             res.json({ userProfiles, userInfo });
         } else {
-            res.status(404).json({ message: 'User profile not found' });
+            res.status(500).json({ message: 'User profile not found' });
         }
     } catch (error) {
         console.error(error);
