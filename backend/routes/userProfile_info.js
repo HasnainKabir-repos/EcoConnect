@@ -4,6 +4,7 @@ const authenticate = require('../middleware/authenticate');
 const upload = require('../middleware/multer');
 
 const {
+    getUserName,
     updateUserProfile,
     getUserProfile,
 } = require('../controller/userProfileController');
