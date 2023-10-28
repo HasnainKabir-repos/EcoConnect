@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import TopBar from "../TopBar";
 import Loader from "../Loader";
 import axios from "axios";
-import axios from "axios";
 const Events = () => {
 
   const [filteredEvents, setFilteredEvents] = useState([]);
@@ -20,17 +19,37 @@ const Events = () => {
       try {
         setIsLoading(true);
         const response = await axios.get('http://localhost:8080/api/event');
-        setEvents(response.data);
-        setFilteredEvents(response.data);
-        console.log(response.data);
-
+        const eventsData = response.data;
+        // Format the date for each event
+        const eventsWithFormattedDate = await Promise.all(
+          eventsData.map(async (event) => {
+            const date = new Date(event.date);
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const formattedDate = `${yyyy}-${mm}-${dd}`;
+            // Get the username for the event's email
+            console.log(event.organizer);
+            const usernameResponse = await axios.post('http://localhost:8080/api/userInfo/getUsername', {
+              email: event.organizer,
+            });
+            console.log(usernameResponse.data);
+            const username = usernameResponse.data;
+            return {
+              ...event,
+              formattedDate,
+              username,
+            };
+          })
+        );
+        setEvents(eventsWithFormattedDate);
+        setFilteredEvents(eventsWithFormattedDate);
       } catch (error) {
         console.error("Error fetching events:", error);
       } finally {
         setIsLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
