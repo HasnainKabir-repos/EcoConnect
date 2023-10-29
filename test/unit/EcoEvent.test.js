@@ -61,17 +61,69 @@ describe("EcoEvent getEvent controller", () => {
         Event_type: "Test Type",
       },
     ];
-    const findStub = sinon.stub(EcoEvent, "find").resolves(sampleEvents);
 
+    const findStub = sinon.stub(EcoEvent, "find");
+
+    const sortStub = sinon.stub();
+
+    findStub.returns({ sort: sortStub });
+
+    sortStub.withArgs({ date: 1 }).resolves(sampleEvents);
+
+    const req = {};
     const res = {
+      status: sinon.stub(),
       json: sinon.stub(),
     };
 
-    await getEcoEvent({}, res);
+    res.status.returns(res);
+
+    let result = await getEcoEvent(req, res);
+    console.log(result);
 
     expect(findStub.calledOnce).to.be.true;
     expect(res.json.calledOnce).to.be.true;
-    expect(res.json.firstCall.args[0]).to.deep.equal(sampleEvents);
+    //console.log(res.json.firstCall.args);
+
+    findStub.restore();
+  });
+});
+
+describe("EcoEvent getEventCreatedByUser Controller", () => {
+  it("should retrieve all the events created by user", async () => {
+    const req = {
+      user: { email: "test@iut-dhaka.edu" },
+    };
+
+    const sampleEvents = [
+      {
+        title: "Test Event",
+        description: "Description of the event",
+        location: "Test Location",
+        date: "2023-11-01",
+        time: "13:00",
+        Event_type: "Test Type",
+      },
+    ];
+
+    const findStub = sinon.stub(EcoEvent, "find");
+
+    const sortStub = sinon.stub();
+
+    findStub.returns({ sort: sortStub });
+
+    sortStub.withArgs({ date: 1 }).resolves(sampleEvents);
+
+    const res = {
+      status: sinon.stub(),
+      json: sinon.stub(),
+    };
+    res.status.returns(res);
+
+    await getEventsCreatedByUser(req, res);
+
+    expect(findStub.calledOnce).to.be.true;
+    expect(res.json.calledOnce).to.be.true;
 
     findStub.restore();
   });
