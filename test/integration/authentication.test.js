@@ -34,7 +34,7 @@ describe('Integration test authentication', () => {
         supertest(app)
           .post('/api/users')
           .send(existingUserData)
-          .expect(400) // Expect a 400 Bad Request or a 409 Conflict status
+          .expect(400) 
           .end((err, res) => {
             if (err) console.log(err);
           });

@@ -71,7 +71,8 @@ describe('authentication findUser controller', () => {
         body: {
             firstName: 'Test',
             lastName: 'Test',
-            email: 'test@example.com'        },
+            email: 'test@example.com'       
+          },
       };
   
       const hashedPassword = 'hashed_password'; 

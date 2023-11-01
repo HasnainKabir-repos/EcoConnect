@@ -66,7 +66,7 @@ const generateHashPassword = async(req, salt) => {
 const createNewUser = async(req, hashPassword) => {
     const newUser = new User({ ...req.body, password: hashPassword });
     await newUser.save();
-}
+};
 
 const signupUser = async (req, res) => {
     try {

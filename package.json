@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "test" : "mocha --recursive test",
     "frontend" : "cd frontend && npm start",
     "backend" : "cd backend && npm start",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\""
