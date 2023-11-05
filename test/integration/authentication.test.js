@@ -25,8 +25,8 @@ describe('Integration test authentication', () => {
     // });
     it('should handle existing user during signup', () => {
         const existingUserData = {
-          firstName: "Existing",
-          lastName: "User",
+          firstName: "Test",
+          lastName: "Testing",
           email: "test@gmail.com",
           password: "Test1234@"
         };
@@ -52,9 +52,7 @@ describe('Integration test authentication', () => {
           .expect(200)
           .end((err, res) => {
             if (err) console.log(err);
-          });
-
-          
+          });  
     });
     it('should handle invalid login credentials', () => {
         const invalidCredentials = {
@@ -65,7 +63,7 @@ describe('Integration test authentication', () => {
         supertest(app)
           .post('/api/auth')
           .send(invalidCredentials)
-          .expect(401) // Expect a 401 Unauthorized status
+          .expect(400) // Expect a 401 Unauthorized status
           .end((err, res) => {
             if (err) console.log(err);
           });

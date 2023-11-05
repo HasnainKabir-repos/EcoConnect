@@ -2,7 +2,7 @@ const  mongoose  = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const passwordComplexity = require('joi-password-complexity');
-
+require('dotenv').config({ path: '../.env' });
 const userSchema = new mongoose.Schema({
     firstName:{type:String,required:true},
     lastName:{type:String,required:true},
@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function(){
-    const token = jwt.sign({_id:this._id},process.env.JWTPRIVATEKEY,{expiresIn:"7d"});
+    const token = jwt.sign({_id:this._id},`${process.env.JWTPRIVATEKEY}`,{expiresIn:"7d"});
     return token;
 };
 
