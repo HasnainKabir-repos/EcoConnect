@@ -58,7 +58,19 @@ const getUserProfile = async (req, res) => {
     }
 };
 
+
+const getUserName = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const username = await User.findOne({ email: email }).exec();
+        res.status(200).json(username);
+    } catch (error) {
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
 module.exports = {
     updateUserProfile,
     getUserProfile,
+    getUserName
 };

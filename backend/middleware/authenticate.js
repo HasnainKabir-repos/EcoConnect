@@ -7,7 +7,7 @@ const authenticate = async (req, res, next) => {
     try {
         const token = req.header('Authorization')?.replace('Bearer ', '');
         if (!token) {
-            return res.status(401).json({ message: 'Authentication failed' });
+            return res.status(401).json({ message: 'Authentication failed: No tokens found' });
         }
 
         const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
@@ -18,7 +18,7 @@ const authenticate = async (req, res, next) => {
         const user = await User.findById(decoded._id);
 
         if (!user) {
-            return res.status(401).json({ message: 'Authentication failed' });
+            return res.status(401).json({ message: 'Authentication failed: User not found' });
         }
 
         req.token = token;

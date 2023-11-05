@@ -4,6 +4,7 @@ const authenticate = require('../middleware/authenticate');
 const upload = require('../middleware/multer');
 
 const {
+    getUserName,
     updateUserProfile,
     getUserProfile,
 } = require('../controller/userProfileController');
@@ -16,5 +17,7 @@ router.get('/', authenticate, getUserProfile);
 
 // Retrieve user profile by email
 router.get('/find', getUserProfile);
+
+router.post('/getUsername', getUserName);
 
 module.exports = router;
