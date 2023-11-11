@@ -77,9 +77,31 @@ const EcoEventMarkInterestedUser = async (req, res) => {
     }
 };
 
+const getInterestedEvents = async (req, res) => {
+    try {
+        const { email } = req.user;
 
+        const interestedEvents = await EcoEvent.find({ interested: email }).sort({ date: -1 });
 
+        res.json(interestedEvents);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
 
+const getParticipatingEvents = async (req, res) => {
+    try {
+        const { email } = req.user;
+
+        const participatingEvents = await EcoEvent.find({ participants: email }).sort({ date: -1 });
+
+        res.json(participatingEvents);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
 
 
 module.exports = {
@@ -87,6 +109,8 @@ module.exports = {
     EcoEventMarkInterestedUser,
     EcoEventCreate,
     getEcoEvent,
+    getInterestedEvents,
+    getParticipatingEvents
 };
 
 

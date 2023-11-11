@@ -8,6 +8,8 @@ const {
     EcoEventMarkInterestedUser,
     EcoEventCreate,
     getEcoEvent,
+    getInterestedEvents,
+    getParticipatingEvents
 } = require('../controller/EcoEventController');
 
 
@@ -18,6 +20,10 @@ router.get('/', authenticate, getEcoEvent);
 router.put('/addParticipants/:eventId', authenticate, EcoEventAddParticipant);
 
 router.put('/addInterestedUser/:eventId', authenticate, EcoEventMarkInterestedUser);
+
+router.get('/interested', authenticate, getInterestedEvents);
+
+router.get('/participating', authenticate, getParticipatingEvents);
 
 
 
