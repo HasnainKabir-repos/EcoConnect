@@ -20,7 +20,7 @@ export const useUserProfile = () => {
     const [userInfo, setUserInfo] = useState({
         firstName: '',
         lastName: '',
-        email:'',
+        email: '',
     });
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export const useUserProfile = () => {
                 const { userProfiles, userInfo } = response.data;
                 setUserProfile(userProfiles);
                 setUserInfo(userInfo);
-                
+
             } catch (error) {
                 console.error('Fetch Error:', error);
             } finally {
