@@ -1,16 +1,17 @@
 const EcoEvent = require('../models/EcoEvent');
 
 const EcoEventCreate = async (req, res) => {
-    console.log("yes");
+    //console.log("yes");
     try {
         const { email } = req.user;
 
-        const { title, description, location, date, time, Event_type } = req.body;
+        const { title, description, lat, lng, date, time, Event_type } = req.body;
 
         const newEvent = new EcoEvent({
             title,
             description,
-            location,
+            lat,
+            lng,
             date,
             time,
             Event_type,

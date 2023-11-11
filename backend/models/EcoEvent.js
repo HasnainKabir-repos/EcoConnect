@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const EcoEventScehma = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    location: { type: String, required: true },
+    lat: { type: Number, required: true },
+    lng: { type: Number, required: true },
     date: { type: Date, required: true },
     time: { type: String, required: true },
     Event_type: { type: String, required: true },
