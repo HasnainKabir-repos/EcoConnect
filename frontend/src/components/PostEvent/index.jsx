@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import background from "../../assets/background2.jpg";
-import TopBar from "../TopBar";
 import Loader from "../Loader";
+import TopBar from "../TopBar";
 const PostEvent = () => {
   const [data, setData] = useState({
     title: "",
@@ -14,7 +14,7 @@ const PostEvent = () => {
   });
   let today = new Date();
   today.setDate(today.getDate() + 1);
-  today = today.toISOString().split('T')[0];
+  today = today.toISOString().split("T")[0];
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -23,7 +23,6 @@ const PostEvent = () => {
     console.log(data);
     setData({ ...data, [input.name]: input.value });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,7 +45,7 @@ const PostEvent = () => {
       ) {
         setError(error.response.data.message);
       }
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   };
@@ -62,11 +61,7 @@ const PostEvent = () => {
           backgroundPosition: "center",
         }}
       >
-        <div>
-          {
-            isLoading ? (<Loader />) : (console.log("Loaded"))
-          }
-        </div>
+        <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <main className="flex pt-20 items-center justify-center rounded-lg ">
           <div class="w-full px-40">
             <div className="w-full flex flex-row justify-center rounded-lg shadow-lg bg-white">
