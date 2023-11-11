@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import TopBar from "../TopBar";
-import Loader from "../Loader";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Loader from "../Loader";
+import TopBar from "../TopBar";
 const Events = () => {
-
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -12,13 +11,12 @@ const Events = () => {
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-
   useEffect(() => {
     // Fetch events data from your API
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('http://localhost:8080/api/event');
+        const response = await axios.get("http://localhost:8080/api/event");
         const eventsData = response.data;
 
         // Format the date for each event
@@ -26,15 +24,18 @@ const Events = () => {
           eventsData.map(async (event) => {
             const date = new Date(event.date);
             const yyyy = date.getFullYear();
-            const mm = String(date.getMonth() + 1).padStart(2, '0');
-            const dd = String(date.getDate()).padStart(2, '0');
+            const mm = String(date.getMonth() + 1).padStart(2, "0");
+            const dd = String(date.getDate()).padStart(2, "0");
             const formattedDate = `${yyyy}-${mm}-${dd}`;
 
             // Get the username for the event's email
             console.log(event.organizer);
-            const usernameResponse = await axios.post('http://localhost:8080/api/userInfo/getUsername', {
-              email: event.organizer,
-            });
+            const usernameResponse = await axios.post(
+              "http://localhost:8080/api/userInfo/getUsername",
+              {
+                email: event.organizer,
+              }
+            );
             console.log(usernameResponse.data);
             const username = usernameResponse.data;
 
@@ -57,7 +58,6 @@ const Events = () => {
 
     fetchData();
   }, []);
-
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -97,13 +97,12 @@ const Events = () => {
       };
       const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
       const response = await axios.put(url, {}, config);
-      console.log('Interested');
+      console.log("Interested");
     } catch (error) {
-      console.log({ "error": error });
+      console.log({ error: error });
     } finally {
       setIsLoading(false);
     }
-
   };
 
   const handleParticipatingClick = async (id, currentUserName) => {
@@ -117,9 +116,9 @@ const Events = () => {
       };
       const url = `http://localhost:8080/api/event/addParticipants/${id}`;
       const response = await axios.put(url, {}, config);
-      console.log('Interested');
+      console.log("Interested");
     } catch (error) {
-      console.log({ "error": error });
+      console.log({ error: error });
     } finally {
       setIsLoading(false);
     }
@@ -135,11 +134,7 @@ const Events = () => {
       <TopBar />
 
       <main className="pt-20 bg-gray-100 min-h-screen">
-        <div>{
-          isLoading ? (<Loader />) : (console.log("Loaded"))
-        }
-
-        </div>
+        <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <div className="flex flex-col md:flex-row">
           <div className="md:w-1/4 px-4 py-4 rounded-md ml-5 mt-4">
             <div className="mb-4">
@@ -220,9 +215,7 @@ const Events = () => {
                           Posted an Event
                         </p>
                       </div>
-                      <h2 className="font-bold text-2xl mb-2">
-                        {event.title}
-                      </h2>
+                      <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
 
                       <div className="inline-block mb-2 flex">
                         <div className="rounded bg-gradient-to-r from-green-500 to-cyan-500 text-black px-2 py-1 text-md inline-flex items-center mr-2">
