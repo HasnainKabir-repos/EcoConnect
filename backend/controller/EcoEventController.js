@@ -1,7 +1,6 @@
 const EcoEvent = require('../models/EcoEvent');
 
 const EcoEventCreate = async (req, res) => {
-    console.log("yes");
     try {
         const { email } = req.user;
 
@@ -32,22 +31,16 @@ const EcoEventCreate = async (req, res) => {
 
 const getEcoEvent = async (req, res) => {
     try {
-        const events = await EcoEvent.find().sort({ date: -1 });
+        const { email } = req.user;
+        const events = await EcoEvent.find({ organizer: { $ne: email } }).sort({ date: -1 });
+
         return res.json(events);
     } catch (error) {
         return res.status(500).json({ message: 'Error retrieving events', error: error });
     }
 };
 
-const getEventsCreatedByUser = async (req, res) => {
-    try {
-        const { email } = req.user;
-        const events = await EcoEvent.find({ organizer: email }).sort({ date: -1 });
-        return res.json(events);
-    } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving events created by the user', error: error });
-    }
-};
+
 
 const EcoEventAddParticipant = async (req, res) => {
     try {
@@ -84,34 +77,12 @@ const EcoEventMarkInterestedUser = async (req, res) => {
     }
 };
 
-const deleteEvent = async (req, res) => {
-    try {
-        const { email } = req.user;
-        const eventId = req.params.eventId;
 
-        // Find the event by ID and check if the organizer is the authenticated user
-        const event = await EcoEvent.findOne({ _id: eventId, organizer: email });
-
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found or unauthorized to delete' });
-        }
-
-        // Perform the event deletion
-        await EcoEvent.deleteOne({ _id: eventId });
-
-        res.json({ message: 'Event deleted successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
-    }
-};
 
 
 
 
 module.exports = {
-    deleteEvent,
-    getEventsCreatedByUser,
     EcoEventAddParticipant,
     EcoEventMarkInterestedUser,
     EcoEventCreate,

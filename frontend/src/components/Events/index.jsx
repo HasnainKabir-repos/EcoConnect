@@ -18,7 +18,12 @@ const Events = () => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get('http://localhost:8080/api/event');
+        const token = localStorage.getItem('token');
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: { Authorization: `Bearer ${tokenValue.data}` },
+        };
+        const response = await axios.get('http://localhost:8080/api/event', config);
         const eventsData = response.data;
 
         // Format the date for each event
