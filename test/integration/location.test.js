@@ -1,5 +1,6 @@
 const supertest = require("supertest");
 const app = require('../../backend/index');
+const { assert } = require("chai");
 
 
 describe('Integration test location', () => {
@@ -14,6 +15,7 @@ describe('Integration test location', () => {
             .expect(200)
             .end((err, res) => {
                 if (err) console.log(err);
+                assert.equal(res.status, 200);
             });
     });
 
@@ -28,6 +30,7 @@ describe('Integration test location', () => {
             .expect(200)
             .end((err, res) => {
                 if (err) console.log(err);
+                assert.equal(res.status, 200);
             });
     });
 

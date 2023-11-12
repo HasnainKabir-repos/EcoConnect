@@ -4,7 +4,7 @@ const getEvents = async (req, res) => {
     try {
         const { email } = req.user;
         const events = await EcoEvent.find({ organizer: email }).sort({ date: -1 });
-        return res.json(events);
+        return res.status(200).json(events);
     } catch (error) {
         return res.status(500).json({ message: 'Error retrieving events created by the user', error: error });
     }
@@ -25,7 +25,7 @@ const deleteEvent = async (req, res) => {
         // Perform the event deletion
         await EcoEvent.deleteOne({ _id: eventId });
 
-        res.json({ message: 'Event deleted successfully' });
+        res.status(200).json({ message: 'Event deleted successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
