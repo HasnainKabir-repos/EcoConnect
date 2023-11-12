@@ -29,5 +29,7 @@ describe('Integration test location', () => {
             .end((err, res) => {
                 if (err) console.log(err);
             });
-    })
+    });
+
+    
 })
