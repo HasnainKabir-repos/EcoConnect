@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import TopBar from "../TopBar";
 
 const My_Event = () => {
+  //dummy participants generataion
   const generateParticipants = (count) => {
     const participants = [];
     for (let i = 1; i <= count; i++) {
@@ -10,73 +11,72 @@ const My_Event = () => {
     return participants;
   };
   const [myEvents, setMyEvents] = useState([
-  {
-    _id: 1,
-    title: "Eco Event 2023",
-    location: "Green Valley Park",
-    Event_type: "Online",
-    formattedDate: "2023-11-12",
-    time: "10:00 AM",
-    description: "Join us for a day of environmental awareness and sustainable practices at Eco Event 2023.",
-    participants: generateParticipants(10),
-    interested: generateParticipants(10),
-  },
-  {
-    _id: 2,
-    title: "Sustainable Living Expo",
-    location: "Downtown Convention Center",
-    Event_type: "Physical",
-    formattedDate: "2023-11-15",
-    time: "2:00 PM",
-    description: "Explore eco-friendly products and learn about sustainable living at the Sustainable Living Expo.",
-    participants: generateParticipants(10),
-    interested: generateParticipants(10),
-  },
-  {
-    _id: 3,
-    title: "GreenTech Symposium",
-    location: "TechHub Auditorium",
-    Event_type: "Online",
-    formattedDate: "2023-11-20",
-    time: "3:30 PM",
-    description: "Discover the latest in green technology and innovations at the GreenTech Symposium.",
-    participants: generateParticipants(10),
-    interested: generateParticipants(10),
-  },
-  {
-    _id: 4,
-    title: "Hybrid Energy Summit",
-    location: "City Center Conference Center",
-    Event_type: "Hybrid",
-    formattedDate: "2023-11-25",
-    time: "5:00 PM",
-    description: "Join industry leaders and experts for discussions on the future of hybrid energy at the Hybrid Energy Summit.",
-    participants: generateParticipants(10),
-    interested: generateParticipants(10),
-  },
-  {
-    _id: 5,
-    title: "Green Living Fair",
-    location: "Community Park",
-    Event_type: "Physical",
-    formattedDate: "2023-11-30",
-    time: "7:00 PM",
-    description: "Experience sustainable living practices and eco-friendly products at the Green Living Fair.",
-    participants: generateParticipants(10),
-    interested: generateParticipants(10),
-  },
-]);
-
+    {
+      _id: 1,
+      title: "Eco Event 2023",
+      location: "Green Valley Park",
+      Event_type: "Online",
+      formattedDate: "2023-11-12",
+      time: "10:00 AM",
+      description:
+        "Join us for a day of environmental awareness and sustainable practices at Eco Event 2023.",
+      participants: generateParticipants(10),
+      interested: generateParticipants(10),
+    },
+    {
+      _id: 2,
+      title: "Sustainable Living Expo",
+      location: "Downtown Convention Center",
+      Event_type: "Physical",
+      formattedDate: "2023-11-15",
+      time: "2:00 PM",
+      description:
+        "Explore eco-friendly products and learn about sustainable living at the Sustainable Living Expo.",
+      participants: generateParticipants(10),
+      interested: generateParticipants(10),
+    },
+    {
+      _id: 3,
+      title: "GreenTech Symposium",
+      location: "TechHub Auditorium",
+      Event_type: "Online",
+      formattedDate: "2023-11-20",
+      time: "3:30 PM",
+      description:
+        "Discover the latest in green technology and innovations at the GreenTech Symposium.",
+      participants: generateParticipants(10),
+      interested: generateParticipants(10),
+    },
+    {
+      _id: 4,
+      title: "Hybrid Energy Summit",
+      location: "City Center Conference Center",
+      Event_type: "Hybrid",
+      formattedDate: "2023-11-25",
+      time: "5:00 PM",
+      description:
+        "Join industry leaders and experts for discussions on the future of hybrid energy at the Hybrid Energy Summit.",
+      participants: generateParticipants(10),
+      interested: generateParticipants(10),
+    },
+    {
+      _id: 5,
+      title: "Green Living Fair",
+      location: "Community Park",
+      Event_type: "Physical",
+      formattedDate: "2023-11-30",
+      time: "7:00 PM",
+      description:
+        "Experience sustainable living practices and eco-friendly products at the Green Living Fair.",
+      participants: generateParticipants(10),
+      interested: generateParticipants(10),
+    },
+  ]);
 
   const [showInterestedParticipants, setShowInterestedParticipants] =
     useState(false);
   const [showGoingParticipants, setShowGoingParticipants] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
-
-  const handleUpdateEvent = (eventId) => {
-    // Handle event update (dummy function)
-    console.log(`Update event with ID ${eventId}`);
-  };
 
   const handleDeleteEvent = (eventId) => {
     // Handle event deletion (dummy function)
@@ -101,6 +101,26 @@ const My_Event = () => {
       setShowGoingParticipants(true);
       setShowInterestedParticipants(false);
     }
+  };
+
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [updatedEvent, setUpdatedEvent] = useState(null);
+
+  const openUpdateModal = (event) => {
+    setSelectedEvent(event);
+    setUpdatedEvent({ ...event }); 
+    setIsUpdateModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+  };
+
+  const handleUpdateEvent = () => {
+    console.log("Updated Event: ", updatedEvent);
+  
+    closeUpdateModal();
   };
 
   return (
@@ -157,7 +177,7 @@ const My_Event = () => {
 
                 <div className="flex space-x-4">
                   <button
-                    onClick={() => handleUpdateEvent(event._id)}
+                    onClick={() => openUpdateModal(event)}
                     className="py-2.5 px-4 text-md bg-teal-400 hover:bg-green-500 text-black rounded-full w-32 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black"
                   >
                     Update
@@ -202,6 +222,140 @@ const My_Event = () => {
                   </ul>
                 </div>
               )}
+
+
+
+              {isUpdateModalOpen && (
+                <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-20">
+                  <div className="bg-white p-4 rounded-lg w-1/2">
+                    <h2 className="text-xl font-semibold mb-6 text-center">Update Your Event Details</h2>
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                      <div className="w-1/2 px-3 mb-6">
+                        <label className="block text-gray-600 mb-1">
+                          Title:
+                        </label>
+                        <input
+                          type="text"
+                          name="title"
+                          value={updatedEvent.title}
+                          onChange={(e) =>
+                            setUpdatedEvent({
+                              ...updatedEvent,
+                              title: e.target.value,
+                            })
+                          }
+                          className="w-full border border-black rounded-md p-2"
+                        />
+                      </div>
+                      <div className="w-1/2 px-3 mb-2">
+                        <label className="block text-gray-600 mb-1">
+                          Location:
+                        </label>
+                        <input
+                          type="text"
+                          name="location"
+                          value={updatedEvent.location}
+                          onChange={(e) =>
+                            setUpdatedEvent({
+                              ...updatedEvent,
+                              location: e.target.value,
+                            })
+                          }
+                          className="w-full border border-black rounded-md p-2"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                      <div className="w-1/3 px-3 mb-2">
+                        <label className="block text-gray-600 mb-1">
+                          Event Type:
+                        </label>
+                        <select
+                          name="event_type"
+                          value={updatedEvent.Event_type}
+                          onChange={(e) =>
+                            setUpdatedEvent({
+                              ...updatedEvent,
+                              Event_type: e.target.value,
+                            })
+                          }
+                          className="w-full border border-black rounded-md p-2"
+                        >
+                          <option value="Online">Online</option>
+                          <option value="Physical">Physical</option>
+                          <option value="Hybrid">Hybrid</option>
+                        </select>
+                      </div>
+                      <div className="w-1/3 px-3 mb-6">
+                        <label className="block text-gray-600 mb-1">
+                          Date:
+                        </label>
+                        <input
+                          type="date"
+                          name="formattedDate"
+                          value={updatedEvent.formattedDate}
+                          onChange={(e) =>
+                            setUpdatedEvent({
+                              ...updatedEvent,
+                              formattedDate: e.target.value,
+                            })
+                          }
+                          className="w-full border border-black rounded-md p-2"
+                        />
+                      </div>
+                      <div className="w-1/3 px-3 mb-6">
+                        <label className="block text-gray-600 mb-1">
+                          Time:
+                        </label>
+                        <input
+                          type="time"
+                          name="time"
+                          value={updatedEvent.time}
+                          onChange={(e) =>
+                            setUpdatedEvent({
+                              ...updatedEvent,
+                              time: e.target.value,
+                            })
+                          }
+                          className="w-full border border-black rounded-md p-2"
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3">
+                      <label className="block text-gray-600 mb-1">
+                        Description:
+                      </label>
+                      <textarea
+                        name="description"
+                        value={updatedEvent.description}
+                        onChange={(e) =>
+                          setUpdatedEvent({
+                            ...updatedEvent,
+                            description: e.target.value,
+                          })
+                        }
+                        className="w-full border border-black rounded-md p-2"
+                      />
+                    </div>
+                    <div className="flex space-x-8 justify-center mt-4">
+                      <button
+                        className="bg-teal-950 w-48 text-white px-4 py-2 rounded-full mr-2 hover:bg-teal-600"
+                        onClick={handleUpdateEvent}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="bg-red-500 w-48 text-white px-4 py-2 rounded-full hover-bg-red-600"
+                        onClick={closeUpdateModal}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+
             </div>
           ))}
         </div>
