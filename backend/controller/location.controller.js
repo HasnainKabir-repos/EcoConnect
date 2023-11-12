@@ -40,7 +40,7 @@ const autoCompleteLocation = async (req, res) => {
 const placeDetails = async (req, res) => {
 
     try {
-        const place_id = req.body.place_id;
+        const {place_id, location} = req.body;
 
         const response = await axios.get(
             apiUrl_details,
@@ -58,7 +58,8 @@ const placeDetails = async (req, res) => {
             const {lat, lng} = extractLongLat(response.data);
             res.status(200).json({
                 lat: lat,
-                lng: lng
+                lng: lng,
+                location: location
             })
         }
             
@@ -83,4 +84,4 @@ const extractLongLat = (data) => {
     return {lat, lng}; 
 };
 
-module.exports = {autoCompleteLocation, placeDetails};
+module.exports = {autoCompleteLocation, placeDetails, extractLongLat};

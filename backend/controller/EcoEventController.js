@@ -5,13 +5,14 @@ const EcoEventCreate = async (req, res) => {
     try {
         const { email } = req.user;
 
-        const { title, description, lat, lng, date, time, Event_type } = req.body;
+        const { title, description, lat, lng, location, date, time, Event_type } = req.body;
 
         const newEvent = new EcoEvent({
             title,
             description,
             lat,
             lng,
+            location,
             date,
             time,
             Event_type,

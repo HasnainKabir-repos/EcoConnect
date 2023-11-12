@@ -40,11 +40,13 @@ const LocationDropdown = ({ onChangePlace }) => {
   };
 
   const handleChange = async (selectedOption) => {
+    //console.log(selectedOption);
     if (selectedOption !== null) {
 
       try {
         const response = await axios.post('http://localhost:8080/api/location/details', {
-          place_id: selectedOption.value
+          place_id: selectedOption.value,
+          location: selectedOption.label
         });
         console.log(response.data);
         onChangePlace(response.data);

@@ -10,6 +10,7 @@ const PostEvent = () => {
     description: "",
     lat: "",
     lng: "",
+    location: "",
     date: "",
     time: "",
     Event_type: "",
@@ -28,11 +29,11 @@ const PostEvent = () => {
   };
 
   const handlePlaceGeometry = (data) => {
-
     setData(prevData => ({
       ...prevData, 
       lat: data.lat,
       lng: data.lng,
+      location: data.location,
     }));
   };
 
