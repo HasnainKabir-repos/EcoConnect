@@ -4,26 +4,28 @@ const authenticate = require('../middleware/authenticate');
 
 
 const {
-    deleteEvent,
-    getEventsCreatedByUser,
     EcoEventAddParticipant,
     EcoEventMarkInterestedUser,
     EcoEventCreate,
     getEcoEvent,
+    getInterestedEvents,
+    getParticipatingEvents
 } = require('../controller/EcoEventController');
 
 
 router.post('/', authenticate, EcoEventCreate);
 
-router.get('/', getEcoEvent);
-
-router.get('/', authenticate, getEventsCreatedByUser);
+router.get('/', authenticate, getEcoEvent);
 
 router.put('/addParticipants/:eventId', authenticate, EcoEventAddParticipant);
 
 router.put('/addInterestedUser/:eventId', authenticate, EcoEventMarkInterestedUser);
 
-router.delete('/:eventId', authenticate, deleteEvent);
+router.get('/interested', authenticate, getInterestedEvents);
+
+router.get('/participating', authenticate, getParticipatingEvents);
+
+
 
 
 module.exports = router;

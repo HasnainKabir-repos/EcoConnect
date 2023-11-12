@@ -10,6 +10,7 @@ const passwordResetRoutes = require('./routes/passwordReset');
 const UserInfoRoutes = require('./routes/userProfile_info');
 const EcoEventRoutes = require('./routes/EcoEvent');
 const locationRoutes = require('./routes/location.route');
+const MyEventRoutes = require('./routes/MyEvent');
 //database connection
 connection();
 
@@ -21,6 +22,7 @@ app.use(cors());
 //routes
 app.use('/api/userInfo', UserInfoRoutes);
 app.use('/api/Event', EcoEventRoutes);
+app.use('/api/MyEvent', MyEventRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);

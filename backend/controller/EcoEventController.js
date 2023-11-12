@@ -1,7 +1,7 @@
 const EcoEvent = require('../models/EcoEvent');
 
 const EcoEventCreate = async (req, res) => {
-    //console.log("yes");
+
     try {
         const { email } = req.user;
 
@@ -34,22 +34,16 @@ const EcoEventCreate = async (req, res) => {
 
 const getEcoEvent = async (req, res) => {
     try {
-        const events = await EcoEvent.find().sort({ date: -1 });
+        const { email } = req.user;
+        const events = await EcoEvent.find({ organizer: { $ne: email } }).sort({ date: -1 });
+
         return res.json(events);
     } catch (error) {
         return res.status(500).json({ message: 'Error retrieving events', error: error });
     }
 };
 
-const getEventsCreatedByUser = async (req, res) => {
-    try {
-        const { email } = req.user;
-        const events = await EcoEvent.find({ organizer: email }).sort({ date: -1 });
-        return res.json(events);
-    } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving events created by the user', error: error });
-    }
-};
+
 
 const EcoEventAddParticipant = async (req, res) => {
     try {
@@ -86,22 +80,26 @@ const EcoEventMarkInterestedUser = async (req, res) => {
     }
 };
 
-const deleteEvent = async (req, res) => {
+const getInterestedEvents = async (req, res) => {
     try {
         const { email } = req.user;
-        const eventId = req.params.eventId;
 
-        // Find the event by ID and check if the organizer is the authenticated user
-        const event = await EcoEvent.findOne({ _id: eventId, organizer: email });
+        const interestedEvents = await EcoEvent.find({ interested: email }).sort({ date: -1 });
 
-        if (!event) {
-            return res.status(404).json({ message: 'Event not found or unauthorized to delete' });
-        }
+        res.json(interestedEvents);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
 
-        // Perform the event deletion
-        await EcoEvent.deleteOne({ _id: eventId });
+const getParticipatingEvents = async (req, res) => {
+    try {
+        const { email } = req.user;
 
-        res.json({ message: 'Event deleted successfully' });
+        const participatingEvents = await EcoEvent.find({ participants: email }).sort({ date: -1 });
+
+        res.json(participatingEvents);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
@@ -109,15 +107,13 @@ const deleteEvent = async (req, res) => {
 };
 
 
-
-
 module.exports = {
-    deleteEvent,
-    getEventsCreatedByUser,
     EcoEventAddParticipant,
     EcoEventMarkInterestedUser,
     EcoEventCreate,
     getEcoEvent,
+    getInterestedEvents,
+    getParticipatingEvents
 };
 
 
