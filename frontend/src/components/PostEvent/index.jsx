@@ -76,7 +76,7 @@ const PostEvent = () => {
       >
         <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <main className="flex pt-20 items-center justify-center rounded-lg ">
-          <div class="w-full px-40">
+          <div class="w-full px-40 mt-10">
             <div className="w-full flex flex-row justify-center rounded-lg shadow-lg bg-white">
               <div className="rounded-lg w-full">
                 <div className="bg-cyan-950 px-3 py-3 rounded-t-lg w-full">
