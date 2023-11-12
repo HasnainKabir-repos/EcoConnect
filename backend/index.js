@@ -9,6 +9,7 @@ const authRoutes = require('./routes/auth');
 const passwordResetRoutes = require('./routes/passwordReset');
 const UserInfoRoutes = require('./routes/userProfile_info');
 const EcoEventRoutes = require('./routes/EcoEvent');
+const locationRoutes = require('./routes/location.route');
 const MyEventRoutes = require('./routes/MyEvent');
 //database connection
 connection();
@@ -26,7 +27,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use('/api/location', locationRoutes);
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}`));

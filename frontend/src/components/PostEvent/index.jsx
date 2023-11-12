@@ -2,16 +2,20 @@ import axios from "axios";
 import { useState } from "react";
 import background from "../../assets/background2.jpg";
 import Loader from "../Loader";
+import LocationDropdown from "../LocationDropdown";
 import TopBar from "../TopBar";
 const PostEvent = () => {
   const [data, setData] = useState({
     title: "",
     description: "",
+    lat: "",
+    lng: "",
     location: "",
     date: "",
     time: "",
     Event_type: "",
   });
+
   let today = new Date();
   today.setDate(today.getDate() + 1);
   today = today.toISOString().split("T")[0];
@@ -22,6 +26,15 @@ const PostEvent = () => {
   const handleChange = ({ currentTarget: input }) => {
     console.log(data);
     setData({ ...data, [input.name]: input.value });
+  };
+
+  const handlePlaceGeometry = (data) => {
+    setData(prevData => ({
+      ...prevData, 
+      lat: data.lat,
+      lng: data.lng,
+      location: data.location,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -123,15 +136,11 @@ const PostEvent = () => {
                         >
                           Event Location
                         </label>
-                        <input
-                          type="text"
-                          name="location"
-                          onChange={handleChange}
-                          value={data.location}
-                          className="block px-2.5 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
-                          placeholder="Enter Event Location"
-                          required
+                        <LocationDropdown 
+                          className = ""
+                          onChangePlace={handlePlaceGeometry}
                         />
+                        
                       </div>
 
                       <div className="relative z-0 mb-6 group">
