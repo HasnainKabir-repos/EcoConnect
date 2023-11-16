@@ -264,7 +264,7 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          className="py-2.5 px-4 text-md bg-teal-400 hover:bg-green-500 text-black rounded-lg w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10"
+                          className="py-2.5 px-4 text-md bg-teal-400 hover:bg-green-500 text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10"
                         >
                           Interested
                         </button>
@@ -277,9 +277,9 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          className="py-2.5 px-4 text-md bg-cyan-950 hover:bg-green-500 text-white rounded-lg w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6"
+                          className="py-2.5 px-4 text-md bg-cyan-950 hover:bg-green-500 text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6"
                         >
-                          Participating
+                          Going
                         </button>
                       </div>
                     </div>
