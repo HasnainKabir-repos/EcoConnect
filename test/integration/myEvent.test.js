@@ -82,15 +82,70 @@ describe('My Event test', () => {
             });
     });
 
+    it('should fetch participants for the created event', (done) => {
+        supertest(app)
+            .get(`/api/MyEvent/${eventId}/participants`)
+            .expect(200)
+            .end((err, res) => {
+                if (err) console.log(err);
+                assert.equal(res.status, 200);
+                assert.isArray(res.body, 'Response should be an array');
+                done();
+            });
+    });
+
+    it('should fetch interested users for the created event', (done) => {
+        supertest(app)
+            .get(`/api/MyEvent/${eventId}/interested`)
+            .expect(200)
+            .end((err, res) => {
+                if (err) console.log(err);
+                assert.equal(res.status, 200);
+                assert.isArray(res.body, 'Response should be an array');
+                done();
+            });
+    });
+
+    it('should update the created event', (done) => {
+        const updatedData = {
+            title: 'Updated Test Event',
+            description: 'Updated description for testing',
+            location: 'Updated Test site',
+            date: new Date('2023-11-26T00:00:00.000+00:00'),
+            time: '13:13',
+            Event_type: 'Virtual',
+        };
+
+        supertest(app)
+            .post(`/api/MyEvent/${eventId}`)
+            .set('Authorization', `Bearer ${token}`)
+            .send(updatedData)
+            .expect(200)
+            .end((err, res) => {
+                if (err) console.log(err);
+                assert.equal(res.status, 200);
+                assert.property(res.body, '_id');
+                assert.equal(res.body.title, updatedData.title);
+                assert.equal(res.body.description, updatedData.description);
+                assert.equal(res.body.location, updatedData.location);
+                assert.equal(res.body.date, updatedData.date.toISOString());
+                assert.equal(res.body.time, updatedData.time);
+                assert.equal(res.body.Event_type, updatedData.Event_type);
+
+                assert.equal(res.body.organizer, 'test@gmail.com');
+                done();
+            });
+    });
+
     it('should delete the created event', (done) => {
         supertest(app)
-        .delete(`/api/MyEvent/${eventId}`)
-        .set('Authorization', `Bearer ${token}`)
-        .expect(200)
-        .end((err, res) => {
-            if (err) console.log(err);
-            assert.equal(res.status, 200);
-            done();
-        });
+            .delete(`/api/MyEvent/${eventId}`)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+            .end((err, res) => {
+                if (err) console.log(err);
+                assert.equal(res.status, 200);
+                done();
+            });
     });
 })
