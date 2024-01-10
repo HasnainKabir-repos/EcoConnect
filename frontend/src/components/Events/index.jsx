@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
 import TopBar from "../TopBar";
+
 const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -10,6 +11,9 @@ const Events = () => {
 
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [interestedEvents, setInterestedEvents] = useState([]);
+  const [participatingEvents, setParticipatingEvents] = useState([]);
 
   useEffect(() => {
     // Fetch events data from your API
@@ -67,6 +71,43 @@ const Events = () => {
     fetchData();
   }, []);
 
+ useEffect(() => {
+   const fetchUserEvents = async () => {
+     try {
+       const token = localStorage.getItem("token");
+       const tokenValue = JSON.parse(token);
+       const config = {
+         headers: { Authorization: `Bearer ${tokenValue.data}` },
+       };
+
+       const interestedResponse = await axios.get(
+         "http://localhost:8080/api/event/interested",
+         config
+       );
+
+       const participatingResponse = await axios.get(
+         "http://localhost:8080/api/event/participating",
+         config
+       );
+
+       // Use the functional form of state-setting function to ensure the state is updated correctly
+       setInterestedEvents((prevInterestedEvents) => [
+         ...prevInterestedEvents,
+         ...interestedResponse.data,
+       ]);
+
+       setParticipatingEvents((prevParticipatingEvents) => [
+         ...prevParticipatingEvents,
+         ...participatingResponse.data,
+       ]);
+     } catch (error) {
+       console.error("Error fetching user events:", error);
+     }
+   };
+
+   fetchUserEvents();
+ }, []);
+
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
   };
@@ -94,43 +135,59 @@ const Events = () => {
     }
   };
 
-  const handleInterestedClick = async (id, currentUserName) => {
-    // Handle interested button click, send data to the event poster
-    try {
-      setIsLoading(true);
-      const token = localStorage.getItem("token");
-      const tokenValue = JSON.parse(token);
-      const config = {
-        headers: { Authorization: `Bearer ${tokenValue.data}` },
-      };
-      const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
-      const response = await axios.put(url, {}, config);
-      console.log("Interested");
-    } catch (error) {
-      console.log({ error: error });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+ const handleInterestedClick = async (id, currentUserName) => {
+   try {
+     setIsLoading(true);
 
-  const handleParticipatingClick = async (id, currentUserName) => {
-    // Handle participating button click, send data to the event poster
-    try {
-      setIsLoading(true);
-      const token = localStorage.getItem("token");
-      const tokenValue = JSON.parse(token);
-      const config = {
-        headers: { Authorization: `Bearer ${tokenValue.data}` },
-      };
-      const url = `http://localhost:8080/api/event/addParticipants/${id}`;
-      const response = await axios.put(url, {}, config);
-      console.log("Interested");
-    } catch (error) {
-      console.log({ error: error });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+     // Check if the event is already in the interestedEvents array
+     if (!interestedEvents.includes(id)) {
+       const token = localStorage.getItem("token");
+       const tokenValue = JSON.parse(token);
+       const config = {
+         headers: { Authorization: `Bearer ${tokenValue.data}` },
+       };
+       const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
+       const response = await axios.put(url, {}, config);
+
+       // Update the interestedEvents array
+       setInterestedEvents([...interestedEvents, id]);
+       console.log("Interested");
+     } else {
+       console.log("Already Interested");
+     }
+   } catch (error) {
+     console.log({ error: error });
+   } finally {
+     setIsLoading(false);
+   }
+ };
+
+ const handleParticipatingClick = async (id, currentUserName) => {
+   try {
+     setIsLoading(true);
+
+     // Check if the event is already in the participatingEvents array
+     if (!participatingEvents.includes(id)) {
+       const token = localStorage.getItem("token");
+       const tokenValue = JSON.parse(token);
+       const config = {
+         headers: { Authorization: `Bearer ${tokenValue.data}` },
+       };
+       const url = `http://localhost:8080/api/event/addParticipants/${id}`;
+       await axios.put(url, {}, config);
+
+       // Update the participatingEvents array
+       setParticipatingEvents([...participatingEvents, id]);
+       console.log("Participating");
+     } else {
+       console.log("Already Participating");
+     }
+   } catch (error) {
+     console.log({ error: error });
+   } finally {
+     setIsLoading(false);
+   }
+ };
 
   // Replace getCurrentUserName with your actual function for fetching the current user's name
   const getCurrentUserName = () => {
@@ -232,7 +289,7 @@ const Events = () => {
                           </span>
                         </div>
 
-                        <div className="rounded bg-cyan-300 text-black text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                        <div className="rounded bg-cyan-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             {event.Event_type} Event
                           </span>
@@ -264,12 +321,18 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          className="py-2.5 px-4 text-md bg-teal-400 hover:bg-green-500 text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10"
+                          disabled={interestedEvents.includes(event._id)}
+                          className={`py-2.5 px-4 text-md ${
+                            interestedEvents.includes(event._id)
+                              ? "bg-gray-400"
+                              : "bg-teal-400 hover:bg-green-500"
+                          } text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10`}
                         >
-                          Interested
+                          {interestedEvents.includes(event._id)
+                            ? "Already Interested"
+                            : "Interested"}
                         </button>
 
-                        {/* "Participating" button */}
                         <button
                           onClick={() =>
                             handleParticipatingClick(
@@ -277,9 +340,16 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          className="py-2.5 px-4 text-md bg-cyan-950 hover:bg-green-500 text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6"
+                          disabled={participatingEvents.includes(event._id)}
+                          className={`py-2.5 px-4 text-md ${
+                            participatingEvents.includes(event._id)
+                              ? "bg-gray-400"
+                              : "bg-cyan-950 hover:bg-green-500"
+                          } text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6`}
                         >
-                          Going
+                          {participatingEvents.includes(event._id)
+                            ? "Already Going"
+                            : "Going"}
                         </button>
                       </div>
                     </div>
