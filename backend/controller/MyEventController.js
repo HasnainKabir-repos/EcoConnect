@@ -106,7 +106,6 @@ const updateEvent = async (req, res) => {
             },
             { new: true }
         );
-        console.log("Event Updated Successfully");
         res.status(200).json(updatedEvent);
     } catch (error) {
         console.error(error);
