@@ -4,7 +4,7 @@ import Events from "./components/Events";
 import ForgotPassword from "./components/ForgotPassword";
 import Login from "./components/Login";
 import Main from "./components/Main";
-import My_Event from "./components/My_Event";
+import MyEvent from "./components/My_Event";
 import PasswordReset from "./components/PasswordReset";
 import PostEvent from "./components/PostEvent";
 import Profile from "./components/Profile";
@@ -20,21 +20,22 @@ function App() {
       {user && <Route path="/editprofile" exact element={<EditProfile />} />}
       {user && <Route path="/postevent" exact element={<PostEvent />} />}
       {user && <Route path="/events" exact element={<Events />} />}
-      {user && <Route path="/myevent" exact element={<My_Event />} />}
+      {user && <Route path="/myevent" exact element={<MyEvent />} />}
+      {user && <Route path="/login" element={<Navigate replace to="/" />} />}
+      {user && <Route path="/signup" element={<Navigate replace to="/" />} />}
 
-      <Route path="/signup" exact element={<Signup />} />
-      <Route path="/login" exact element={<Login />} />
+      {!user && <Route path="/signup" exact element={<Signup />} />}
+      {!user && <Route path="/login" exact element={<Login />} />}
 
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/password-reset/:id/:token" element={<PasswordReset />} />
-      <Route path="/profile" exact element={<Navigate replace to="/login" />} />
-      <Route path="/editprofile" exact element={<Navigate replace to="/login" />} />
-      <Route path="/postevent" exact element={<Navigate replace to="/login" />} />
+      {!user && <Route path="/forgot-password" element={<ForgotPassword />} />}
+      {!user && <Route path="/password-reset/:id/:token" element={<PasswordReset />} />}
 
-      <Route path="/" element={<Navigate replace to="/login" />} />
-      <Route path="/profile" element={<Navigate replace to="/login" />} />
-      <Route path="/events" element={<Navigate replace to="/login" />} />
-      <Route path="/myevent" element={<Navigate replace to="/login" />} />
+      {!user && <Route path="/" element={<Navigate replace to="/login" />} />}
+      {!user && <Route path="/profile" element={<Navigate replace to="/login" />} />}
+      {!user && <Route path="/editprofile" element={<Navigate replace to="/login" />} />}
+      {!user && <Route path="/postevent" element={<Navigate replace to="/login" />} />}
+      {!user && <Route path="/events" element={<Navigate replace to="/login" />} />}
+      {!user && <Route path="/myevent" element={<Navigate replace to="/login" />} />}
     </Routes>
   );
 }
