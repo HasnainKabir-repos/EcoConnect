@@ -49,9 +49,9 @@ const TopBar = () => {
                 </li>
                 <li>
                   <Link
-                    to=""
+                    to="/community"
                     className={`block py-2 pl-3 pr-4 rounded text-sm ${
-                      location.pathname === ""
+                      location.pathname === "/community"
                         ? "text-blue-700"
                         : "text-gray-700"
                     } hover:bg-blue-700 hover:text-white md:hover:bg-transparent md:hover:text-blue-700 md:p-0`}
