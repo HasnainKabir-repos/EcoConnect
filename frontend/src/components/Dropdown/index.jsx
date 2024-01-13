@@ -32,7 +32,7 @@ function Dropdown() {
           location.pathname.includes("/jobs")
             ? "text-blue-700"
             : "text-gray-700"
-        } bg-gradient-to-b from-amber-100 to-amber-50 border border-gray-300 rounded-lg hover:bg-gray-100 border-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500`}
+        } bg-gradient-to-b from-amber-100 to-amber-50 border-gray-300 rounded-lg hover:bg-gray-100 border-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500`}
         id="menu-button"
         aria-expanded={isOpen ? "true" : "false"}
         aria-haspopup="true"

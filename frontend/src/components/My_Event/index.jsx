@@ -134,23 +134,24 @@ const My_Event = () => {
               className="bg-white rounded-lg border-2 border-cyan-700 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3"
             >
               <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
-              <div className="inline-block mb-2 flex">
-                <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
-                  <span className="whitespace-no-wrap font-semibold">
-                    Location | {event.location}
-                  </span>
-                </div>
-                <div className="rounded bg-cyan-300 text-black text-black px-2 py-1 text-md inline-flex items-center mr-2">
+              <div className="inline-block mb-2">
+                <div className="rounded bg-cyan-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                   <span className="whitespace-no-wrap font-semibold">
                     {event.Event_type} Event
                   </span>
                 </div>
-                <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                  <span className="whitespace-no-wrap font-semibold">
+                    Location | {event.location}
+                  </span>
+                </div>
+
+                <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                   <span className="whitespace-no-wrap font-semibold">
                     Event Date | {event.formattedDate}
                   </span>
                 </div>
-                <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                   <span className="whitespace-no-wrap font-semibold">
                     Time | {event.time}
                   </span>
@@ -163,15 +164,15 @@ const My_Event = () => {
                 <div className="flex space-x-4 mr-40">
                   <button
                     onClick={() => toggleInterestedParticipants(event._id)}
-                    className="py-2.5 px-4 text-md bg-blue-500 hover:bg-blue-600 text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
+                    className="py-2.5 px-4 text-md border border-black bg-black hover:bg-white text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black"
                   >
-                    View Interested [{event.interested.length}]
+                    View Interested ({event.interested.length})
                   </button>
                   <button
                     onClick={() => toggleGoingParticipants(event._id)}
-                    className="py-2.5 px-4 text-md bg-yellow-500 hover:bg-yellow-600 text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black"
+                    className="py-2.5 px-4 text-md border border-black bg-black hover:bg-white text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black"
                   >
-                    View Going [{event.participants.length}]
+                    View Going ({event.participants.length})
                   </button>
                 </div>
 
@@ -184,7 +185,7 @@ const My_Event = () => {
                   </button>
                   <button
                     onClick={() => handleDeleteEvent(event._id)}
-                    className="py-2.5 px-4 text-md bg-red-500 hover:bg-red-600 text-white rounded-full w-32 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
+                    className="py-2.5 px-4 text-md bg-red-400 hover:bg-red-600 text-white rounded-full w-32 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
                   >
                     Delete
                   </button>
@@ -223,12 +224,12 @@ const My_Event = () => {
                 </div>
               )}
 
-
-
               {isUpdateModalOpen && (
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-20">
                   <div className="bg-white p-4 rounded-lg w-1/2">
-                    <h2 className="text-xl font-semibold mb-6 text-center">Update Your Event Details</h2>
+                    <h2 className="text-xl font-semibold mb-6 text-center">
+                      Update Your Event Details
+                    </h2>
                     <div className="flex flex-wrap -mx-3 mb-2">
                       <div className="w-1/2 px-3 mb-6">
                         <label className="block text-gray-600 mb-1">
@@ -354,8 +355,6 @@ const My_Event = () => {
                   </div>
                 </div>
               )}
-
-
             </div>
           ))}
         </div>

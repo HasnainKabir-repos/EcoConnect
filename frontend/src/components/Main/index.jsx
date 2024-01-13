@@ -8,40 +8,180 @@ const Main = () => {
 
   const posts = [
     {
-      community: "Green Earth",
       user: "EcoWarrior123",
-      text: "Just planted a tree in my backyard! 🌳 #EcoFriendly #PlantATree",
-    },
-    {
-      community: "Clean Oceans",
-      user: "OceanLover22",
-      text: "Spent the day picking up trash at the beach. Let's keep our oceans clean! 🌊🗑️ #BeachCleanup",
-    },
-    {
-      community: "Recycle Now",
-      user: "EcoActivist99",
-      text: "Reducing waste one step at a time. Started composting today! 🍂♻️ #SustainableLiving",
-    },
-    {
-      community: "Wildlife Conservation",
-      user: "WildlifeExplorer",
-      text: "Saw a family of deer in the forest today. Nature is truly beautiful. 🦌🌲 #NatureLover",
-    },
-    {
       community: "Green Earth",
-      user: "EcoActivist123",
-      text: "Visited a local eco-friendly farm and learned about sustainable agriculture. 🌱🚜 #Sustainability",
+      text: "Just planted a tree in my backyard! 🌳 #EcoFriendly #PlantATree",
+      createdAt: "2021-04-22",
     },
     {
-      community: "Clean Oceans",
-      user: "OceanLover42",
-      text: "Participated in a beach cleanup today. Let's protect our oceans! 🏖️♻️ #BeachCleanup",
+      user: "GreenThumb456",
+      community: "Green Earth",
+      text: "Harvested fresh vegetables from my garden! 🥦🍅 #SustainableLiving #HomeGarden",
+      createdAt: "2021-04-23",
     },
-
     {
+      user: "EarthAdvocate789",
+      community: "Green Earth",
+      text: "Attended an environmental awareness webinar today. Let's make a difference! 🌎💚 #EnvironmentalAwareness #ActForChange",
+      createdAt: "2021-04-24",
+    },
+    {
+      user: "OceanSaver456",
+      community: "Clean Ocean",
+      text: "Participated in a beach cleanup today! 🌊 #CleanOcean #SaveOurSeas",
+      createdAt: "2021-04-25",
+    },
+    {
+      user: "SeaExplorer789",
+      community: "Clean Ocean",
+      text: "Explored the beauty of the ocean and picked up litter along the shore. 🚣‍♂️🏖️ #OceanCleanup #ProtectMarineLife",
+      createdAt: "2021-04-26",
+    },
+    {
+      user: "BlueWaveAdvocate",
+      community: "Clean Ocean",
+      text: "Joined a campaign to reduce plastic use. Small actions can have a big impact! 🌊🐢 #PlasticFree #CleanSeas",
+      createdAt: "2021-04-27",
+    },
+    {
+      user: "RecycleHero789",
+      community: "Recycle Now",
+      text: "Sorted my waste for recycling! 🔄 #RecycleNow #ZeroWaste",
+      createdAt: "2021-04-28",
+    },
+    {
+      user: "WasteWarrior101",
+      community: "Recycle Now",
+      text: "Educated my neighbors on the importance of recycling. Let's recycle together! 🌐♻️ #CommunityRecycling #WasteReduction",
+      createdAt: "2021-04-29",
+    },
+    {
+      user: "ReuseChampion234",
+      community: "Recycle Now",
+      text: "Found creative ways to repurpose old items. Reduce, reuse, recycle! ♻️✨ #ReuseIdeas #Upcycling",
+      createdAt: "2021-04-30",
+    },
+    {
+      user: "WildlifeGuardian101",
+      community: "Wildlife Conservation",
+      text: "Spent the day volunteering at the local wildlife sanctuary! 🦁🌿 #WildlifeConservation #ProtectOurWildlife",
+      createdAt: "2021-05-01",
+    },
+    {
+      user: "NatureExplorer456",
+      community: "Wildlife Conservation",
+      text: "Observed rare bird species in their natural habitat. Let's preserve biodiversity! 🦉🌳 #Biodiversity #NatureObservation",
+      createdAt: "2021-05-02",
+    },
+    {
+      user: "ConservationAdvocate789",
+      community: "Wildlife Conservation",
+      text: "Advocated for stronger wildlife protection laws. Every species matters! 🐘🌍 #WildlifeProtection #Advocacy",
+      createdAt: "2021-05-03",
+    },
+    {
+      user: "ForestKeeper234",
       community: "Clean Forests",
-      user: "OceanLover42",
-      text: "Participated in a beach cleanup today. Let's protect our oceans! 🏖️♻️ #ForestCleanup",
+      text: "Hiked through a clean forest trail today! 🌲 #CleanForests #NatureLover",
+      createdAt: "2021-05-04",
+    },
+    {
+      user: "GreenExplorer789",
+      community: "Clean Forests",
+      text: "Explored a new forest area and admired the untouched beauty of nature. 🌿🍃 #ForestExploration #NatureAdventures",
+      createdAt: "2021-05-05",
+    },
+    {
+      user: "TreeHugger101",
+      community: "Clean Forests",
+      text: "Joined a reforestation project to plant trees and restore the ecosystem. 🌳💚 #Reforestation #EcoRestoration",
+      createdAt: "2021-05-06",
+    },
+  ];
+
+   const communities = [
+     {
+       name: "Green Earth",
+       members: [
+         "EcoWarrior123",
+         "GreenThumb456",
+         "EarthAdvocate789",
+         "NatureLover234",
+         "SustainableGuru567",
+       ],
+     },
+     {
+       name: "Clean Ocean",
+       members: [
+         "OceanSaver456",
+         "SeaExplorer789",
+         "BlueWaveAdvocate",
+         "MarineBiologist123",
+         "BeachCleaner789",
+       ],
+     },
+     {
+       name: "Recycle Now",
+       members: [
+         "RecycleHero789",
+         "WasteWarrior101",
+         "ReuseChampion234",
+         "EcoEducator567",
+         "ZeroWasteProponent789",
+       ],
+     },
+     {
+       name: "Wildlife Conservation",
+       members: [
+         "WildlifeGuardian101",
+         "NatureExplorer456",
+         "ConservationAdvocate789",
+         "AnimalLover234",
+         "WildlifePhotographer567",
+       ],
+     },
+     {
+       name: "Clean Forests",
+       members: [
+         "ForestKeeper234",
+         "GreenExplorer789",
+         "TreeHugger101",
+         "HikingEnthusiast567",
+         "ForestConservationist789",
+       ],
+     },
+   ];
+
+  const events = [
+    {
+      title: "Green Earth Expo",
+      date: "2021-04-22",
+      Event_Type: "Online",
+    },
+    {
+      title: "EcoTech Symposium",
+      date: "2021-06-15",
+      Event_Type: "Online",
+    },
+    {
+      title: "Sustainable Living Fair",
+      date: "2021-08-10",
+      Event_Type: "Hybrid",
+    },
+    {
+      title: "Global Climate Action Summit",
+      date: "2021-09-30",
+      Event_Type: "Hybrid",
+    },
+    {
+      title: "Zero Waste Conference",
+      date: "2021-11-05",
+      Event_Type: "Physical",
+    },
+    {
+      title: "Green Innovation Expo",
+      date: "2022-02-18",
+      Event_Type: "Physical",
     },
   ];
 
@@ -95,21 +235,21 @@ const Main = () => {
 
               <div className=" flex flex-col mt-2 h-2/3">
                 <div className="font-semibold text-xl text-teal-900 mb-2 mt-3">
-                  Communitites:
+                  My Communitites:
                 </div>
                 <div className="overflow-auto max-h-80 pr-2 rounded-lg border-2 border-teal-900 p-2">
                   <div>
                     <div className="flex flex-wrap flex-col ">
-                      {posts.map((post, index) => (
+                      {communities.map((community, index) => (
                         <div
                           key={index}
-                          className=" py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed bg-white-200 hover:bg-teal-200"
+                          className=" py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid bg-black text-white hover:bg-white hover:text-black"
                         >
                           <div
                             className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
                           ></div>
-                          <div className="text-base text-gray-900">
-                            {post.community}
+                          <div className="text-md">
+                            {community.name}
                           </div>
                         </div>
                       ))}
@@ -133,33 +273,35 @@ const Main = () => {
             </div>
           </div>
 
-          <div className="w-2/6 p-2 mr-2 ml-5">
-            <div className="">
-              <div className=" flex flex-col mt-2 h-2/3">
-                <div className="font-semibold text-xl text-teal-900 mb-2 mt-3">
-                  Interested Events:
-                </div>
-                <div className="overflow-auto max-h-80 pr-2 rounded-lg border-2 border-teal-900 p-2">
-                  <div>
-                    <div className="flex flex-wrap flex-col ">
-                      {posts.map((post, index) => (
-                        <div
-                          key={index}
-                          className=" py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed bg-white-200 hover:bg-teal-200"
-                        >
-                          <div className="text-base text-gray-900">
-                            {post.community}
-                          </div>
+          <div className="w-2/6 p-2 mr-2 ml-5 ">
+            <div className="flex flex-col mt-2">
+              <div className="font-semibold text-xl text-teal-900 mb-2 mt-3">
+                My Interested Events:
+              </div>
+              <div className="pr-2 rounded-lg border-2 border-teal-900 p-2 overflow-auto max-h-96">
+                <div>
+                  <div className="flex flex-wrap flex-col">
+                    {events.map((event, index) => (
+                      <div
+                        key={index}
+                        className="flex-col py-2 my-1 px-2 flex items-center justify-center rounded-lg border border-teal-900 border-solid bg-black text-white hover:bg-white hover:text-black"
+                      >
+                        <div className="text-lg font-bold justify-center text-center">
+                          {event.title}
                         </div>
-                      ))}
-                    </div>
+                        <div className="text-sm ml-2 justify-center text-center mb-1">
+                          Date: {event.date}
+                        </div>
+                        <div className="bg-teal-200 text-black font-bold text-sm ml-2 px-4 py-1 mb-2 rounded-full inline-block justify-center text-center">
+                          {event.Event_Type}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
       </main>
     </>

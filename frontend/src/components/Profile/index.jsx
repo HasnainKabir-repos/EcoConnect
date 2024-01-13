@@ -108,19 +108,6 @@ const Profile = () => {
                     Products Recycled: {userProfile.reCycled}
                   </div>
                 </div>
-                <div className="">
-                  <div className="mt-4">
-                    <h2 className="text-xl font-bold text-teal-600">Followed Communities</h2>
-                    <div className="flex flex-wrap mt-2">
-                      {userProfile.followed_communities.map((community, index) => (
-                        <div key={index} className="m-2 py-1 px-2 flex items-center rounded-2xl border border-teal-600">
-                          <div className={`w-4 h-4 rounded-full mr-2 ${getRandomColor()}`}></div>
-                          <div className="text-normal text-gray-600">{community}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             <div className="w-full flex items-center justify-center mt-5">
