@@ -257,14 +257,14 @@ const Events = () => {
             </div>
             <button
               onClick={handleFilterEvents}
-              className="w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-green-500 text-black active:bg-green-700 rounded-md focus:outline-none"
+              className="w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-green-500 hover:text-black active:bg-green-700 rounded-md focus:outline-none"
             >
               Apply Filter
             </button>
           </div>
 
           <div className="w-full md:w-3/4 px-4 py-4 mr-6">
-            <div className="flex-col items-center justify-center">
+            <div className="flex-col items-center justify-center mt-12">
               {filteredEvents.length > 0 ? (
                 filteredEvents.map((event) => (
                   <div
@@ -282,7 +282,7 @@ const Events = () => {
                       </div>
                       <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
 
-                      <div className="inline-block mb-2 flex">
+                      <div className="mb-2 flex">
                         <div className="rounded bg-gradient-to-r from-green-500 to-cyan-500 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             Location | {event.location}
