@@ -107,22 +107,23 @@ const My_Event = () => {
                 >
                   <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
                   <div className="inline-block mb-2 flex">
-                    <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
-                      <span className="whitespace-no-wrap font-semibold">
-                        Location | {event.location}
-                      </span>
-                    </div>
                     <div className="rounded bg-cyan-300 text-black text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
                         {event.Event_type} Event
                       </span>
                     </div>
-                    <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                    <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                      <span className="whitespace-no-wrap font-semibold">
+                        Location | {event.location}
+                      </span>
+                    </div>
+
+                    <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
                         Event Date | {event.formattedDate}
                       </span>
                     </div>
-                    <div className="rounded bg-lime-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                    <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
                         Time | {event.time}
                       </span>
@@ -135,15 +136,15 @@ const My_Event = () => {
                     <div className="flex space-x-4 mr-40">
                       <button
                         onClick={() => toggleInterestedParticipants(event._id)}
-                        className="py-2.5 px-4 text-md bg-blue-500 hover:bg-blue-600 text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
+                        className="py-2.5 border-black border-2 px-4 text-md bg-black text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
                       >
-                        View Interested [{event.interested.length}]
+                        View Interested ({event.interested.length})
                       </button>
                       <button
                         onClick={() => toggleGoingParticipants(event._id)}
-                        className="py-2.5 px-4 text-md bg-yellow-500 hover:bg-yellow-600 text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black"
+                        className="py-2.5 border-black border-2 px-4 text-md bg-black text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
                       >
-                        View Going [{event.participants.length}]
+                        View Going ({event.participants.length})
                       </button>
                     </div>
 
@@ -156,7 +157,7 @@ const My_Event = () => {
                       </button>
                       <button
                         onClick={() => handleDeleteEvent(event._id)}
-                        className="py-2.5 px-4 text-md bg-red-500 hover:bg-red-600 text-white rounded-full w-32 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
+                        className="py-2.5 px-4 text-md bg-red-400 hover:bg-red-600 text-white rounded-full w-32 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-white"
                       >
                         Delete
                       </button>
@@ -313,7 +314,9 @@ const My_Event = () => {
                         <div className="flex space-x-8 justify-center mt-4">
                           <button
                             className="bg-teal-950 w-48 text-white px-4 py-2 rounded-full mr-2 hover:bg-teal-600"
-                            onClick={() => {handleUpdateEvent(updatedEvent,event._id)}}
+                            onClick={() => {
+                              handleUpdateEvent(updatedEvent, event._id);
+                            }}
                           >
                             Update
                           </button>
@@ -329,7 +332,6 @@ const My_Event = () => {
                   )}
                 </div>
               ))}
-
             </div>
           )}
         </div>
