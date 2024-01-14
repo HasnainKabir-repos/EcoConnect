@@ -138,7 +138,7 @@ const EditProfile = () => {
                       </div>
                     </div>
                     <div className="flex flex-row items-center mb-4">
-                      <div className="text-lg font-medium text-gray-700">
+                      <div className="text-base font-medium text-gray-700">
                         Email:
                       </div>
                       <div className="text-base font-normal ml-2">
@@ -146,7 +146,7 @@ const EditProfile = () => {
                       </div>
                     </div>
                     <div className="flex flex-row items-center mb-4">
-                      <div className="text-lg font-medium text-gray-700">
+                      <div className="text-base font-medium text-gray-700">
                         Location:
                       </div>
                       <div className="text-base font-normal ml-2">
@@ -154,15 +154,7 @@ const EditProfile = () => {
                       </div>
                     </div>
                     <div className="flex flex-row items-center mb-4">
-                      <div className="text-lg font-medium text-gray-700">
-                        Points earned:
-                      </div>
-                      <div className="text-base font-normal ml-2">
-                        {userProfile.points_earned}
-                      </div>
-                    </div>
-                    <div className="flex flex-row items-center mb-4">
-                      <div className="text-lg font-medium text-gray-700 mb-2">
+                      <div className="text-base font-medium text-gray-700 mb-2">
                         Bio:
                       </div>
                       <div className="text-base font-normal ml-2 mb-2">
@@ -192,7 +184,7 @@ const EditProfile = () => {
               <div className="w-full flex items-center justify-center mt-5">
                 <button
                   onClick={() => handleModalOpen()}
-                  className="bg-gradient-to-r from-teal-600 to-cyan-600 py-4 text-center text-white rounded-lg font-bold w-2/3 h-12
+                  className="bg-gray-900 py-2 text-center text-white rounded-full font-bold w-2/3 h-12
                                             hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 flex items-center justify-center"
                 >
                   Edit information
@@ -202,7 +194,7 @@ const EditProfile = () => {
               <div className="w-full flex items-center justify-center mt-5">
                 <Link
                   to="/profile"
-                  className="bg-gradient-to-r from-teal-600 to-cyan-600 py-3 text-center text-white rounded-lg font-bold w-1/6
+                  className="bg-gray-900 py-2 text-center text-white rounded-full font-bold w-1/6
                                         hover:bg-gradient-to-t hover:from-teal-800 hover:to-cyan-800 mx-5"
                 >
                   Back{" "}

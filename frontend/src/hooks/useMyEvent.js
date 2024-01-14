@@ -7,7 +7,7 @@ export const useMyEvent = () => {
         title:"",
         location:"", 
         Event_type:"",
-        formattedDate:"",
+        date:"",
         time:"", 
         description:"", 
         participants:"",

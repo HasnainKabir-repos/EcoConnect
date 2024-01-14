@@ -107,8 +107,8 @@ const My_Event = () => {
                   className="bg-white rounded-lg border-2 border-cyan-700 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3"
                 >
                   <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
-                  <div className="inline-block mb-2 flex">
-                    <div className="rounded bg-cyan-300 text-black text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                  <div className="mb-2 flex">
+                    <div className="rounded bg-cyan-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
                         {event.Event_type} Event
                       </span>
@@ -121,7 +121,7 @@ const My_Event = () => {
 
                     <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
-                        Event Date | {event.formattedDate}
+                        Event Date | {event.date}
                       </span>
                     </div>
                     <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
