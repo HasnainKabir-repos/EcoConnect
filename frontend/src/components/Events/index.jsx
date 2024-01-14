@@ -2,12 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Loader from "../Loader";
 import TopBar from "../TopBar";
-
+import LocationDropdown from "../LocationDropdown";
 const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [location, setLocation] = useState({ lat: "", lng: "" });
 
   const [events, setEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,10 +26,25 @@ const Events = () => {
         const config = {
           headers: { Authorization: `Bearer ${tokenValue.data}` },
         };
-        const response = await axios.get(
-          "http://localhost:8080/api/event",
-          config
-        );
+
+        let response;
+
+        if (location.lat !== "" && location.lng !== "") {
+          console.log("Fetching...");
+          response = await axios.post(
+            "http://localhost:8080/api/location/search/nearby",
+            {
+              lat: location.lat,
+              lng: location.lng,
+            },
+            config
+          );
+
+          console.log(response.data);
+        } else {
+          response = await axios.get("http://localhost:8080/api/event", config);
+        }
+
         const eventsData = response.data;
 
         // Format the date for each event
@@ -40,15 +56,12 @@ const Events = () => {
             const dd = String(date.getDate()).padStart(2, "0");
             const formattedDate = `${yyyy}-${mm}-${dd}`;
 
-            // Get the username for the event's email
-            console.log(event.organizer);
             const usernameResponse = await axios.post(
               "http://localhost:8080/api/userInfo/getUsername",
               {
                 email: event.organizer,
               }
             );
-            console.log(usernameResponse.data);
             const username = usernameResponse.data;
 
             return {
@@ -69,44 +82,44 @@ const Events = () => {
     };
 
     fetchData();
+  }, [location]);
+
+  useEffect(() => {
+    const fetchUserEvents = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: { Authorization: `Bearer ${tokenValue.data}` },
+        };
+
+        const interestedResponse = await axios.get(
+          "http://localhost:8080/api/event/interested",
+          config
+        );
+
+        const participatingResponse = await axios.get(
+          "http://localhost:8080/api/event/participating",
+          config
+        );
+
+        // Use the functional form of state-setting function to ensure the state is updated correctly
+        setInterestedEvents((prevInterestedEvents) => [
+          ...prevInterestedEvents,
+          ...interestedResponse.data,
+        ]);
+
+        setParticipatingEvents((prevParticipatingEvents) => [
+          ...prevParticipatingEvents,
+          ...participatingResponse.data,
+        ]);
+      } catch (error) {
+        console.error("Error fetching user events:", error);
+      }
+    };
+
+    fetchUserEvents();
   }, []);
-
- useEffect(() => {
-   const fetchUserEvents = async () => {
-     try {
-       const token = localStorage.getItem("token");
-       const tokenValue = JSON.parse(token);
-       const config = {
-         headers: { Authorization: `Bearer ${tokenValue.data}` },
-       };
-
-       const interestedResponse = await axios.get(
-         "http://localhost:8080/api/event/interested",
-         config
-       );
-
-       const participatingResponse = await axios.get(
-         "http://localhost:8080/api/event/participating",
-         config
-       );
-
-       // Use the functional form of state-setting function to ensure the state is updated correctly
-       setInterestedEvents((prevInterestedEvents) => [
-         ...prevInterestedEvents,
-         ...interestedResponse.data,
-       ]);
-
-       setParticipatingEvents((prevParticipatingEvents) => [
-         ...prevParticipatingEvents,
-         ...participatingResponse.data,
-       ]);
-     } catch (error) {
-       console.error("Error fetching user events:", error);
-     }
-   };
-
-   fetchUserEvents();
- }, []);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -118,6 +131,13 @@ const Events = () => {
 
   const handleEndDateChange = (e) => {
     setEndDate(e.target.value);
+  };
+
+  const handlePlaceChange = (data) => {
+    setLocation({
+      lat: data.lat,
+      lng: data.lng,
+    });
   };
 
   const handleFilterEvents = () => {
@@ -135,59 +155,59 @@ const Events = () => {
     }
   };
 
- const handleInterestedClick = async (id, currentUserName) => {
-   try {
-     setIsLoading(true);
+  const handleInterestedClick = async (id, currentUserName) => {
+    try {
+      setIsLoading(true);
 
-     // Check if the event is already in the interestedEvents array
-     if (!interestedEvents.includes(id)) {
-       const token = localStorage.getItem("token");
-       const tokenValue = JSON.parse(token);
-       const config = {
-         headers: { Authorization: `Bearer ${tokenValue.data}` },
-       };
-       const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
-       const response = await axios.put(url, {}, config);
+      // Check if the event is already in the interestedEvents array
+      if (!interestedEvents.includes(id)) {
+        const token = localStorage.getItem("token");
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: { Authorization: `Bearer ${tokenValue.data}` },
+        };
+        const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
+        const response = await axios.put(url, {}, config);
 
-       // Update the interestedEvents array
-       setInterestedEvents([...interestedEvents, id]);
-       console.log("Interested");
-     } else {
-       console.log("Already Interested");
-     }
-   } catch (error) {
-     console.log({ error: error });
-   } finally {
-     setIsLoading(false);
-   }
- };
+        // Update the interestedEvents array
+        setInterestedEvents([...interestedEvents, id]);
+        console.log("Interested");
+      } else {
+        console.log("Already Interested");
+      }
+    } catch (error) {
+      console.log({ error: error });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
- const handleParticipatingClick = async (id, currentUserName) => {
-   try {
-     setIsLoading(true);
+  const handleParticipatingClick = async (id, currentUserName) => {
+    try {
+      setIsLoading(true);
 
-     // Check if the event is already in the participatingEvents array
-     if (!participatingEvents.includes(id)) {
-       const token = localStorage.getItem("token");
-       const tokenValue = JSON.parse(token);
-       const config = {
-         headers: { Authorization: `Bearer ${tokenValue.data}` },
-       };
-       const url = `http://localhost:8080/api/event/addParticipants/${id}`;
-       await axios.put(url, {}, config);
+      // Check if the event is already in the participatingEvents array
+      if (!participatingEvents.includes(id)) {
+        const token = localStorage.getItem("token");
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: { Authorization: `Bearer ${tokenValue.data}` },
+        };
+        const url = `http://localhost:8080/api/event/addParticipants/${id}`;
+        await axios.put(url, {}, config);
 
-       // Update the participatingEvents array
-       setParticipatingEvents([...participatingEvents, id]);
-       console.log("Participating");
-     } else {
-       console.log("Already Participating");
-     }
-   } catch (error) {
-     console.log({ error: error });
-   } finally {
-     setIsLoading(false);
-   }
- };
+        // Update the participatingEvents array
+        setParticipatingEvents([...participatingEvents, id]);
+        console.log("Participating");
+      } else {
+        console.log("Already Participating");
+      }
+    } catch (error) {
+      console.log({ error: error });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Replace getCurrentUserName with your actual function for fetching the current user's name
   const getCurrentUserName = () => {
@@ -254,6 +274,12 @@ const Events = () => {
                   className="block w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700"
                 />
               </div>
+            </div>
+            <div className="mb-4">
+              <LocationDropdown
+                className=""
+                onChangePlace={handlePlaceChange}
+              />
             </div>
             <button
               onClick={handleFilterEvents}
