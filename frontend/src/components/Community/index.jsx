@@ -199,7 +199,7 @@ const Community = () => {
                   {communities.map((community, index) => (
                     <div
                       key={index}
-                      className={`py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed 
+                      className={`font-bold py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed 
               ${
                 selectedCommunity === community.name
                   ? "bg-teal-900 text-white"
@@ -224,7 +224,7 @@ const Community = () => {
                 <div className="flex flex-wrap flex-col">
                   {members &&
                     members.map((member, index) => (
-                      <div key={index} className="text-base bg-teal-400 text-black rounded-full px-3 py-1 m-1">
+                      <div key={index} className="font-bold text-base bg-teal-300 text-black rounded-full px-3 py-1 m-1">
                         {member}
                       </div>
                     ))}
@@ -250,7 +250,7 @@ const Community = () => {
                     className="border rounded-lg p-3 mb-3 w-5/6"
                   />
                   <button
-                    className="px-4 py-2 rounded-full bg-black hover:bg-teal-700 text-white inline-block w-1/4"
+                    className="font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-700 text-white inline-block w-1/4"
                     type="submit"
                   >
                     Post
@@ -290,7 +290,7 @@ const Community = () => {
                       <div
                         className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
                       ></div>
-                      <div className="text-base">
+                      <div className="text-base font-bold">
                         {community.name}
                       </div>
                       <button

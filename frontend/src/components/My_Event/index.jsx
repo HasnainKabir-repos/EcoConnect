@@ -85,6 +85,7 @@ const My_Event = () => {
 
     
   };
+  
 
   return (
     <main className="pt-20 min-h-screen bg-gray-100">
@@ -93,10 +94,10 @@ const My_Event = () => {
       <div className="w-full flex items-center justify-center mt-10">
         <div className="flex-col items-center justify-center">
           {myEvents.length === 0 ? (
-            <div className="bg-white rounded-lg border-2 border-cyan-700 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3">
-              <h2 className="font-bold text-2xl mb-2">
-                You have not created any event
-              </h2>
+            <div className="bg-white rounded-lg border-4 border-red-500 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3">
+              <h4 className="font-bold text-xl">
+                You Have Not Created Any Event Yet
+              </h4>
             </div>
           ) : (
             <div>

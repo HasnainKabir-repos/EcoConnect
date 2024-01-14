@@ -25,8 +25,10 @@ const Post = ({ community, user, text, createdAt }) => {
         </div>
 
         <div className="flex flex-row items-center text-gray-700 text-sm mb-2">
-          <div className="mr-2">{user}</div>
-          <div className="text-gray-500 text-sm ml-auto">{createdAt}</div>
+          <div className="mr-2 font-bold">{user}</div>
+          <div className="text-gray-500 text-sm ml-auto font-bold">
+            {createdAt}
+          </div>
         </div>
 
         <div className="text-gray-900">{text}</div>

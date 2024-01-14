@@ -275,18 +275,23 @@ const Events = () => {
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <LocationDropdown
-                className=""
-                onChangePlace={handlePlaceChange}
-              />
-            </div>
+
             <button
               onClick={handleFilterEvents}
               className="w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-green-500 hover:text-black active:bg-green-700 rounded-md focus:outline-none"
             >
               Apply Filter
             </button>
+
+            <div className="mb-4">
+              <label className="block mb-2 mt-10 text-md font-semibold text-gray-900">
+                Filter by Location:
+              </label>
+              <LocationDropdown
+                className=""
+                onChangePlace={handlePlaceChange}
+              />
+            </div>
           </div>
 
           <div className="w-full md:w-3/4 px-4 py-4 mr-6">
@@ -309,7 +314,7 @@ const Events = () => {
                       <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
 
                       <div className="mb-2 flex">
-                        <div className="rounded bg-gradient-to-r from-green-500 to-cyan-500 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                        <div className="rounded bg-gradient-to-r bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             Location | {event.location}
                           </span>
