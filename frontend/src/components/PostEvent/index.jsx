@@ -4,6 +4,7 @@ import background from "../../assets/background2.jpg";
 import Loader from "../Loader";
 import LocationDropdown from "../LocationDropdown";
 import TopBar from "../TopBar";
+import {useNavigate} from "react-router-dom";
 const PostEvent = () => {
   const [data, setData] = useState({
     title: "",
@@ -62,6 +63,8 @@ const PostEvent = () => {
       setIsLoading(false);
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <>
@@ -269,7 +272,7 @@ const PostEvent = () => {
                     type="button"
                     onClick={() => {
                       setIsModalVisible(false);
-                      window.location.reload();
+                      navigate("/myevent");
                     }}
                     className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-emerald-600 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 0"
                   >
