@@ -5,14 +5,6 @@ import Loader from "../Loader";
 import axios from "axios";
 
 const My_Event = () => {
-  //dummy participants generataion
-  const generateParticipants = (count) => {
-    const participants = [];
-    for (let i = 1; i <= count; i++) {
-      participants.push(`Participant ${i}`);
-    }
-    return participants;
-  };
 
   const { myEvents, isLoading } = useMyEvent();
 
@@ -73,10 +65,25 @@ const My_Event = () => {
     setIsUpdateModalOpen(false);
   };
 
-  const handleUpdateEvent = () => {
-    console.log("Updated Event: ", updatedEvent);
+  const handleUpdateEvent = async (updatedData, eventId) => {
+    
+    try{
+      const token = localStorage.getItem('token');
+      const tokenValue = JSON.parse(token);
+      const config = {
+        headers: {
+            Authorization: `Bearer ${tokenValue.data}`
+        },
+      };
+      await axios.post(`http://localhost:8080/api/MyEvent/${eventId}`, updatedData, config);
+      window.location.reload();
+    }catch(error){
+      console.log(error);
+    }finally{
+      closeUpdateModal();
+    }
 
-    closeUpdateModal();
+    
   };
 
   return (
@@ -306,7 +313,7 @@ const My_Event = () => {
                         <div className="flex space-x-8 justify-center mt-4">
                           <button
                             className="bg-teal-950 w-48 text-white px-4 py-2 rounded-full mr-2 hover:bg-teal-600"
-                            onClick={handleUpdateEvent}
+                            onClick={() => {handleUpdateEvent(updatedEvent,event._id)}}
                           >
                             Update
                           </button>
