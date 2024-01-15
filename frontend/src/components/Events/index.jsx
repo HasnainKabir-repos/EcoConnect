@@ -220,8 +220,8 @@ const Events = () => {
 
       <main className="pt-20 bg-gray-100 min-h-screen">
         <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
-        <div className="flex flex-col md:flex-row">
-          <div className="md:w-1/4 px-4 py-4 rounded-md ml-5 mt-4">
+        <div className="flex">
+          <div className="w-1/4 px-4 py-4 rounded-lg ml-10 mt-16 bg-white min-h-0">
             <div className="mb-4">
               <label
                 htmlFor="categoryFilter"
@@ -243,7 +243,7 @@ const Events = () => {
                 {/* Add more category options */}
               </select>
             </div>
-            <div className="mb-4 flex space-x-4">
+            <div className="mb-4 flex space-x-4 m-2 justify-center">
               <div className="flex-1">
                 <label
                   htmlFor="startDateFilter"
@@ -256,7 +256,7 @@ const Events = () => {
                   id="startDateFilter"
                   value={startDate}
                   onChange={handleStartDateChange}
-                  className="block w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700"
+                  className="w-full py-2.5 px-4 text-sm font-semibold text-gray-900 bg-white border-2 border-cyan-700 rounded-md focus:outline-none focus:border-cyan-700"
                 />
               </div>
               <div className="flex-1">
@@ -278,14 +278,14 @@ const Events = () => {
 
             <button
               onClick={handleFilterEvents}
-              className="w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-green-500 hover:text-black active:bg-green-700 rounded-md focus:outline-none"
+              className="w-full py-2.5 px-4 text-md font-semibold text-white bg-cyan-950 hover:bg-teal-400 hover:text-black active:bg-green-700 rounded-md focus:outline-none"
             >
               Apply Filter
             </button>
 
             <div className="mb-4">
               <label className="block mb-2 mt-10 text-md font-semibold text-gray-900">
-                Filter by Location:
+                Filter by Location ( Find Events in 10 KM Radius )
               </label>
               <LocationDropdown
                 className=""
@@ -299,7 +299,7 @@ const Events = () => {
               {filteredEvents.length > 0 ? (
                 filteredEvents.map((event) => (
                   <div
-                    className="bg-white rounded-lg border-2 border-cyan-700 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3"
+                    className="bg-white rounded-lg shadow-lg p-6 mb-4 event-container hover:shadow-xl transition duration-300 ease-in-out"
                     key={event._id}
                   >
                     <div className="flex flex-col">

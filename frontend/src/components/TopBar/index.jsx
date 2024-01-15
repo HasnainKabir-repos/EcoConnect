@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import logout from "../../assets/logout.png";
 import Dropdown from "../Dropdown";
+import Dropdown2 from "../Dropdown2";
 const TopBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -26,7 +27,7 @@ const TopBar = () => {
                 <li>
                   <Link
                     to="/"
-                    className={`block py-2 pl-3 pr-4 rounded text-sm ${
+                    className={`block py-2 pl-3 pr-4 rounded text-base ${
                       location.pathname === "/"
                         ? "text-blue-700"
                         : "text-gray-700"
@@ -38,7 +39,7 @@ const TopBar = () => {
                 <li>
                   <Link
                     to="/profile"
-                    className={`block py-2 pl-3 pr-4 rounded text-sm ${
+                    className={`block py-2 pl-3 pr-4 rounded text-base ${
                       location.pathname === "/profile"
                         ? "text-blue-700"
                         : "text-gray-700"
@@ -50,7 +51,7 @@ const TopBar = () => {
                 <li>
                   <Link
                     to="/community"
-                    className={`block py-2 pl-3 pr-4 rounded text-sm ${
+                    className={`block py-2 pl-3 pr-4 rounded text-base ${
                       location.pathname === "/community"
                         ? "text-blue-700"
                         : "text-gray-700"
@@ -59,31 +60,22 @@ const TopBar = () => {
                     Communities
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to=""
-                    className={`block py-2 pl-3 pr-4 rounded text-sm ${
-                      location.pathname === ""
-                        ? "text-blue-700"
-                        : "text-gray-700"
-                    } hover:bg-blue-700 hover:text-white md:hover:bg-transparent md:hover:text-blue-700 md:p-0`}
-                  >
-                    Challenges
-                  </Link>
-                </li>
               </ul>
               <div className="mx-1">
-              <Dropdown />
-            </div>
+                <Dropdown2 />
+              </div>
+              <div className="mx-1">
+                <Dropdown />
+              </div>
             </div>
           </div>
 
-          <div className="right flex w-1/4 h-full flex align-items-center justify-center p-2 py-3">
+          <div className="right w-1/4 h-full flex align-items-center justify-center p-2 py-3">
             <button
               onClick={handleLogout}
-              className="relative inline-flex items-center justify-center px-10 overflow-hidden text-sm  transition duration-300 ease-out border-2 border-emerald-900 bg-emerald-900 rounded-3xl shadow-md group"
+              className="relative inline-flex items-center justify-center px-10 overflow-hidden text-sm text-black transition duration-300 ease-out border-2 border-teal-400 bg-teal-400 rounded-3xl shadow-md group"
             >
-              <span className="absolute inset-0 flex items-center justify-center w-full h-15 text-white duration-300 -translate-x-full bg-emerald-500 group-hover:translate-x-0 ease">
+              <span className="absolute inset-0 flex items-center justify-center w-full h-15 text-black duration-300 -translate-x-full border-2 border-teal-200 bg-teal-200 group-hover:translate-x-0 ease">
                 <img
                   className="w-5 h-5"
                   fill="none"
@@ -93,7 +85,7 @@ const TopBar = () => {
                   alt="Logout"
                 ></img>
               </span>
-              <span className="absolute flex items-center justify-center w-full h-15 text-white font-medium transition-all duration-300 transform group-hover:translate-x-full ease">
+              <span className="absolute flex items-center justify-center w-full h-15 text-black font-semibold transition-all duration-300 transform group-hover:translate-x-full ease">
                 Log Out
               </span>
               <span className="relative invisible">Log out</span>

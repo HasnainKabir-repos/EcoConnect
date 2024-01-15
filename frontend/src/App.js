@@ -10,6 +10,9 @@ import PostEvent from "./components/PostEvent";
 import Profile from "./components/Profile";
 import Signup from "./components/Signup";
 import Community from "./components/Community";
+import PostBin from "./components/PostBin";
+import MyBin from "./components/MyBin";
+import RecycleBin from "./components/RecycleBin";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -23,6 +26,9 @@ function App() {
       {user && <Route path="/events" exact element={<Events />} />}
       {user && <Route path="/myevent" exact element={<MyEvent />} />}
       {user && <Route path="/community" exact element={<Community />} />}
+      {user && <Route path="/recyclebin" exact element={<RecycleBin />} />}
+      {user && <Route path="/mybin" exact element={<MyBin />} />}
+      {user && <Route path="/postbin" exact element={<PostBin />} />}
       {user && <Route path="/login" element={<Navigate replace to="/" />} />}
       {user && <Route path="/signup" element={<Navigate replace to="/" />} />}
 
@@ -52,6 +58,15 @@ function App() {
       )}
       {!user && (
         <Route path="/community" element={<Navigate replace to="/login" />} />
+      )}
+      {!user && (
+        <Route path="/recyclebin" element={<Navigate replace to="/login" />} />
+      )}
+      {!user && (
+        <Route path="/mybin" element={<Navigate replace to="/login" />} />
+      )}
+      {!user && (
+        <Route path="/postbin" element={<Navigate replace to="/login" />} />
       )}
     </Routes>
   );
