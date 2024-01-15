@@ -31,7 +31,7 @@ export const useMyEvent = () => {
                 };
 
                 const response = await axios.get('http://localhost:8080/api/MyEvent/', config);
-                console.log(response.data);
+               // console.log(response.data);
                 const events = response.data;
                 setMyEvents(events);
 
