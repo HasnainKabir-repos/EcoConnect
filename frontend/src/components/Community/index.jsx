@@ -9,7 +9,6 @@ const Community = () => {
     useCommunities();
 
   const [isLoading2, setIsLoading2] = useState(false);
-
   const handleJoinCommunity = async (community) => {
     try {
       setIsLoading2(true);
@@ -35,6 +34,13 @@ const Community = () => {
   );
 
   const [postContent, setPostContent] = useState("");
+  const [isFormMinimized, setIsFormMinimized] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
 
   const handlePostSubmit = async (selectedCommunity) => {
     try {
@@ -60,6 +66,10 @@ const Community = () => {
       setIsLoading2(false)
     }
     setPostContent("");
+    window.location.reload();
+  };
+  const toggleFormVisibility = () => {
+    setIsFormMinimized(!isFormMinimized);
   };
 
   const [posts, setPosts] = useState([{
@@ -111,19 +121,18 @@ const Community = () => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return randomColor;
   };
-
   return (
     <>
       <TopBar />
       <main className="pt-20 min-h-screen min-w-screen bg-gray-200">
         <div>{isLoading || isLoading2 ? <Loader /> : console.log("Loaded")}</div>
         <div className="fixed flex flex-row w-full">
-          <div className="w-2/6 p-2 ml-4">
-            <div className="flex flex-col mt-2 h-full">
-              <div className="font-semibold text-xl text-teal-900 mb-2 mt-3">
-                My Communities:
-              </div>
-              <div className="overflow-auto max-h-80 pr-2 rounded-lg border-2 border-teal-900 p-2 cursor-pointer">
+          <div className="w-2/6 p-2 ml-4 mt-10 mb-2">
+            <div className="flex flex-col  h-full">
+              <div className="overflow-auto max-h-80 rounded-lg bg-white px-6 py-4 cursor-pointer mb-4">
+                <div className="font-semibold text-xl text-teal-900 mb-2">
+                  My Communities:
+                </div>
                 <div className="flex flex-wrap flex-col">
                   {(joinedCommunities.length > 0) ? joinedCommunities.map((community, index) => (
                     <div
@@ -148,7 +157,6 @@ const Community = () => {
                   }
                 </div>
               </div>
-
               <div className="font-semibold text-xl text-teal-900 mb-2 mt-6">
                 Members of {selectedCommunity.name}:
               </div>
@@ -158,7 +166,7 @@ const Community = () => {
                     selectedCommunity.members.map((member, index) => (
                       <div
                         key={index}
-                        className="font-bold text-base bg-teal-300 text-black rounded-full px-3 py-1 m-1"
+                        className="font-semibold text-base bg-gray-300 text-black rounded-full px-3 py-1 m-1"
                       >
                         {member}
                       </div>
@@ -195,9 +203,32 @@ const Community = () => {
                     type="submit"
                     onClick={() => {handlePostSubmit(selectedCommunity)}}
                   >
-                    Post
-                  </button>
-                </form>
+                    <textarea
+                      value={postContent}
+                      onChange={(e) => setPostContent(e.target.value)}
+                      placeholder="Type your Post Here..."
+                      className="border-2 rounded-lg p-3 mb-3 w-5/6"
+                    />
+                    <div className="flex flex-col w-full">
+                      <label className="ml-16 mb-1 mt-3 text-md font-semibold">
+                        Attach Relevant Image (If Any):
+                      </label>
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="mb-3 ml-16"
+                      />
+                    </div>
+                    <button
+                      className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
+                      type="submit"
+                    >
+                      Post
+                    </button>
+                  </form>
+                )}
               </div>
               {selectedCommunity !== "" ?
                 <h3 className="text-xl font-bold text-center mt-10">
@@ -234,10 +265,10 @@ const Community = () => {
 
           <div className="w-2/6 p-2 ml-4 mr-4">
             <div className="flex flex-col mt-2">
-              <div className="font-semibold text-xl text-teal-900 mb-2 mt-3">
-                Join a Community:
-              </div>
-              <div className="overflow-auto max-h-80 pr-2 rounded-lg border-2 border-teal-900 p-2">
+              <div className="overflow-auto max-h-80 rounded-lg bg-white px-4 py-4 mt-8 shadow-lg">
+                <div className="font-semibold text-xl text-teal-900 mb-2">
+                  Join a Community:
+                </div>
                 <div className="flex flex-wrap flex-col">
                   {notJoinedCommunities.length > 0 ? (
                     notJoinedCommunities.map((community, index) => (

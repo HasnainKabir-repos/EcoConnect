@@ -88,7 +88,7 @@ const My_Event = () => {
   
 
   return (
-    <main className="pt-20 min-h-screen bg-gray-100">
+    <main className="pt-20 min-h-screen bg-gray-200">
       <TopBar />
       <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
       <div className="w-full flex items-center justify-center mt-10">
@@ -104,7 +104,7 @@ const My_Event = () => {
               {myEvents.map((event) => (
                 <div
                   key={event._id}
-                  className="bg-white rounded-lg border-2 border-cyan-700 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3"
+                  className="bg-white rounded-lg shadow-lg p-6 mb-4 event-container hover:shadow-xl"
                 >
                   <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
                   <div className="mb-2 flex">
@@ -137,13 +137,13 @@ const My_Event = () => {
                     <div className="flex space-x-4 mr-40">
                       <button
                         onClick={() => toggleInterestedParticipants(event._id)}
-                        className="py-2.5 border-black border-2 px-4 text-md bg-black text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
+                        className="py-2.5 border-gray-700 border-2 px-4 text-md bg-gray-700 text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
                       >
                         View Interested ({event.interested.length})
                       </button>
                       <button
                         onClick={() => toggleGoingParticipants(event._id)}
-                        className="py-2.5 border-black border-2 px-4 text-md bg-black text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
+                        className="py-2.5 border-gray-700 border-2 px-4 text-md bg-gray-700 text-white hover:bg-white hover:text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out"
                       >
                         View Going ({event.participants.length})
                       </button>
