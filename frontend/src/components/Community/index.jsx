@@ -8,6 +8,11 @@ const Community = () => {
   const { joinedCommunities, notJoinedCommunities, isLoading } =
     useCommunities();
 
+    const [selectedCommunity, setSelectedCommunity] = useState(
+      (joinedCommunities.length > 0) ? joinedCommunities[0] : ""
+    );
+    console.log(selectedCommunity);
+
   const [isLoading2, setIsLoading2] = useState(false);
   const handleJoinCommunity = async (community) => {
     try {
@@ -29,9 +34,7 @@ const Community = () => {
     }
   };
 
-  const [selectedCommunity, setSelectedCommunity] = useState(
-    (joinedCommunities.length > 0) ? joinedCommunities[0] : ""
-  );
+  
 
   const [postContent, setPostContent] = useState("");
   const [isFormMinimized, setIsFormMinimized] = useState(true);
@@ -184,7 +187,7 @@ const Community = () => {
 
           <div className="w-5/6 mt-8 ml-4 mr-5 pr-2 pb-36 overflow-auto max-h-screen">
             <div className="flex flex-col mx-auto p-4">
-              <div className="flex flex-col mx-4 w-full border-2 border-gray-500 rounded-lg p-2">
+              <div className="flex flex-col mx-4 w-full p-2">
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
                 </h3>
@@ -198,17 +201,7 @@ const Community = () => {
                     placeholder="Type your Post Here..."
                     className="border rounded-lg p-3 mb-3 w-5/6"
                   />
-                  <button
-                    className="font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-700 text-white inline-block w-1/4"
-                    type="submit"
-                    onClick={() => {handlePostSubmit(selectedCommunity)}}
-                  >
-                    <textarea
-                      value={postContent}
-                      onChange={(e) => setPostContent(e.target.value)}
-                      placeholder="Type your Post Here..."
-                      className="border-2 rounded-lg p-3 mb-3 w-5/6"
-                    />
+
                     <div className="flex flex-col w-full">
                       <label className="ml-16 mb-1 mt-3 text-md font-semibold">
                         Attach Relevant Image (If Any):
@@ -224,11 +217,14 @@ const Community = () => {
                     <button
                       className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
                       type="submit"
+                      onClick={() => {handlePostSubmit(selectedCommunity)}}
+
                     >
                       Post
                     </button>
                   </form>
-                )}
+                
+
               </div>
               {selectedCommunity !== "" ?
                 <h3 className="text-xl font-bold text-center mt-10">
@@ -238,7 +234,7 @@ const Community = () => {
                 : <></>}
 
               <div className="flex flex-col mx-4 w-full p-4">
-                {posts &&
+                { posts &&
                   posts.length !== 0 ? (
                   posts
                     
