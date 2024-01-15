@@ -54,11 +54,15 @@ const joinCommunity = async (req, res) => {
     }
 };
 
-// Controller for getting communities that the user has joined
 const getJoinedCommunities = async (req, res) => {
     try {
         const userId = req.user._id;
-        const joinedCommunities = await Community.find({ members: userId });
+        const joinedCommunities = await Community.find({ members: userId })
+            .populate({
+                path: 'members',
+                model: 'user'
+            });
+
         res.status(200).json({ joinedCommunities });
     } catch (error) {
         console.error(error);

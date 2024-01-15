@@ -35,8 +35,24 @@ const getPosts = async (req, res) => {
     try {
         const communityId = req.params.communityId;
 
-        // Find the community
-        const community = await Community.findById(communityId).populate('posts');
+        // Find the community and populate its posts with author, likes, and comments
+        const community = await Community.findById(communityId).populate({
+            path: 'posts',
+            populate: [
+                {
+                    path: 'author',
+                    model: 'user'
+                },
+                {
+                    path: 'likes',
+                    model: 'user'
+                },
+                {
+                    path: 'comments.author',
+                    model: 'user'
+                }
+            ]
+        });
 
         if (!community) {
             return res.status(404).json({ message: 'Community not found' });
@@ -51,6 +67,7 @@ const getPosts = async (req, res) => {
         res.status(500).json({ message: 'Error fetching community posts' });
     }
 };
+
 // Controller for inserting a comment to a post
 const insertComment = async (req, res) => {
     try {
