@@ -194,7 +194,7 @@ const Community = () => {
 
           <div className="w-5/6 mt-8 ml-4 mr-5 pr-2 pb-36 overflow-auto max-h-screen">
             <div className="flex flex-col mx-auto p-4">
-              <div className="flex flex-col mx-4 w-full p-2">
+              <div className="flex flex-col mx-4 w-full py-4 bg-white rounded-lg">
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
                 </h3>
@@ -203,7 +203,7 @@ const Community = () => {
                     value={postContent}
                     onChange={(e) => setPostContent(e.target.value)}
                     placeholder="Type your Post Here..."
-                    className="border rounded-lg p-3 mb-3 w-5/6"
+                    className="border-2 border-gray-300 rounded-lg p-3 mb-3 w-5/6"
                   />
 
                     <div className="flex flex-col w-full">
@@ -219,7 +219,7 @@ const Community = () => {
                       />
                     </div>
                     <button
-                      className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
+                      className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-gray-700 hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
                       type="submit"
                       onClick={() => {handlePostSubmit(selectedCommunity)}}
 
@@ -275,7 +275,7 @@ const Community = () => {
                     notJoinedCommunities.map((community, index) => (
                       <div
                         key={index}
-                        className="py-2 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid bg-black text-white hover:bg-white hover:text-black transition ease-in-out duration-400"
+                        className="py-2 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid bg-gray-700 text-white hover:bg-white hover:text-black transition ease-in-out duration-400"
                       >
                         <div
                           className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
