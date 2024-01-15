@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Post from "../CommunityPost";
 import TopBar from "../TopBar";
 import { useCommunities } from "../../hooks/useCommunities";
@@ -61,6 +61,43 @@ const Community = () => {
     }
     setPostContent("");
   };
+
+  const [posts, setPosts] = useState([{
+    _id:"",
+    author:"",
+    content:"",
+    createdAt:null,
+    likes:[],
+    comments:[]
+  }]);
+
+  useEffect(()=> {
+    const fetchPosts = async (selectedCommunity) => {
+      try {
+        setIsLoading2(true);
+        const token = localStorage.getItem('token');
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${tokenValue.data}`
+          },
+        };
+        const response =  await axios.get(`http://localhost:8080/api/post/${selectedCommunity._id}`, config);
+        //console.log(response.data.communityPosts);
+        setPosts(response.data.communityPosts);
+        //console.log(posts);
+      }catch(error){
+        console.log(error);
+      }finally{
+        setIsLoading2(false)
+      }
+    };
+    fetchPosts(selectedCommunity);
+  }, [selectedCommunity]);
+
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
 
   const getRandomColor = () => {
     const colors = [
@@ -170,16 +207,16 @@ const Community = () => {
                 : <></>}
 
               <div className="flex flex-col mx-4 w-full p-4">
-                {selectedCommunity.posts &&
-                  selectedCommunity.posts.length !== 0 ? (
-                  selectedCommunity.posts
-                    //.filter((post) => post.community === selectedCommunity)
+                {posts &&
+                  posts.length !== 0 ? (
+                  posts
+                    
                     .map((post, index) => (
                       <div key={index} className="">
                         <Post
-                          community={post.community}
-                          user={post.user}
-                          text={post.text}
+                          community={selectedCommunity.name}
+                          user={post.author}
+                          text={post.content}
                           createdAt={post.createdAt}
                           likes={post.likes}
                           comments={post.comments}
