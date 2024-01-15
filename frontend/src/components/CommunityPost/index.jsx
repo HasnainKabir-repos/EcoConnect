@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaHeart, FaComment } from "react-icons/fa";
 import Loader from "../Loader";
 
-const Post = ({ community, user, text, createdAt, likes, comments }) => {
+const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
   const [isCommenting, setIsCommenting] = useState(false);
   const [comment, setComment] = useState("");
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] = useState(false);
@@ -61,6 +61,15 @@ const Post = ({ community, user, text, createdAt, likes, comments }) => {
         </div>
 
         <div className="text-gray-900 mb-2">{text}</div>
+        
+          {image && (
+            <img
+              src={image}
+              alt="Post"
+              className="mb-2 rounded-xl w-5/6 h-5/6 object-cover mx-auto mt-6"
+            />
+          )}
+        
 
         <div className="flex items-center justify-left mt-6">
           <button
@@ -109,7 +118,7 @@ const Post = ({ community, user, text, createdAt, likes, comments }) => {
                 <textarea
                   rows="2"
                   placeholder="Add your comment..."
-                  className="w-full mt-2 p-2 border-2 border-black rounded-lg"
+                  className="w-full mt-2 p-2 border-2 border-gray-400 rounded-lg"
                   value={comment}
                   onChange={(e) => setComment(e.target.value)}
                 />
@@ -117,7 +126,7 @@ const Post = ({ community, user, text, createdAt, likes, comments }) => {
                   <Loader />
                 ) : (
                   <button
-                    className="mt-2 px-4 py-2 bg-black font-semibold text-white rounded-full"
+                    className="mt-2 px-6 py-2 bg-gray-700 font-semibold text-white rounded-full"
                     onClick={handleAddComment}
                   >
                     Post Comment

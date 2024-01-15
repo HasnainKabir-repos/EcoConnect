@@ -201,6 +201,7 @@ const Community = () => {
                     placeholder="Type your Post Here..."
                     className="border rounded-lg p-3 mb-3 w-5/6"
                   />
+
                     <div className="flex flex-col w-full">
                       <label className="ml-16 mb-1 mt-3 text-md font-semibold">
                         Attach Relevant Image (If Any):
@@ -217,11 +218,13 @@ const Community = () => {
                       className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
                       type="submit"
                       onClick={() => {handlePostSubmit(selectedCommunity)}}
+
                     >
                       Post
                     </button>
                   </form>
                 
+
               </div>
               {selectedCommunity !== "" ?
                 <h3 className="text-xl font-bold text-center mt-10">

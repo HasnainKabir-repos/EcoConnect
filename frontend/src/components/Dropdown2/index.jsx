@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-function Dropdown() {
+function Dropdown2() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
@@ -29,7 +29,7 @@ function Dropdown() {
         type="button"
         onClick={handleClick}
         className={`inline-flex justify-center items-center w-full px-4 py-2 text-base font-medium ${
-          location.pathname.includes("/jobs")
+          location.pathname.includes("/recyclebin")
             ? "text-blue-700"
             : "text-gray-700"
         } bg-gradient-to-b from-amber-100 to-amber-50 border-gray-300 rounded-lg hover:bg-gray-100 border-0 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-green-500`}
@@ -37,7 +37,7 @@ function Dropdown() {
         aria-expanded={isOpen ? "true" : "false"}
         aria-haspopup="true"
       >
-        Events
+        Recycle Bin
         <svg
           className={`-mr-1 ml-2 h-5 w-5 text-gray-500 transform ${
             isOpen ? "rotate-180" : ""
@@ -57,37 +57,39 @@ function Dropdown() {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
           <Link
-            to="/events"
+            to="/recyclebin"
             className={`block px-4 py-2 text-sm font-semibold ${
-              location.pathname === "/events" ? "text-blue-700" : "text-gray-700"
+              location.pathname === "/"
+                ? "text-blue-700"
+                : "text-gray-700"
             } hover:bg-emerald-600 hover:text-white`}
             onClick={handleClick}
           >
-            View All Events
+            View Recycle Bin
           </Link>
           <a
-            href="/myevent"
+            href="/mybin"
             className={`block px-4 py-2 text-sm font-semibold ${
-              location.pathname === "/myevent"
+              location.pathname === "/mybin"
                 ? "text-blue-700"
                 : "text-gray-700"
             } hover:bg-emerald-600 hover:text-white`}
             role="menuitem"
             onClick={handleClick}
           >
-            My Events
+            My Recycle Bin
           </a>
           <a
-            href="/postevent"
+            href="/postbin"
             className={`block px-4 py-2 text-sm font-semibold ${
-              location.pathname === "/postevent"
+              location.pathname === "/postbin"
                 ? "text-blue-700"
                 : "text-gray-700"
             } hover:bg-emerald-600 hover:text-white`}
             role="menuitem"
             onClick={handleClick}
           >
-            Post An Event
+            Post an Item
           </a>
         </div>
       )}
@@ -95,4 +97,4 @@ function Dropdown() {
   );
 }
 
-export default Dropdown;
+export default Dropdown2;
