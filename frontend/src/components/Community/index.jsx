@@ -128,7 +128,9 @@ const Community = () => {
     <>
       <TopBar />
       <main className="pt-20 min-h-screen min-w-screen bg-gray-200">
-        <div>{isLoading || isLoading2 ? <Loader /> : console.log("Loaded")}</div>
+        <div>
+          {isLoading || isLoading2 ? <Loader /> : console.log("Loaded")}
+        </div>
         <div className="fixed flex flex-row w-full">
           <div className="w-2/6 p-2 ml-4 mt-10 mb-2">
             <div className="flex flex-col  h-full">
@@ -137,35 +139,41 @@ const Community = () => {
                   My Communities:
                 </div>
                 <div className="flex flex-wrap flex-col">
-                  {(joinedCommunities.length > 0) ? joinedCommunities.map((community, index) => (
-                    <div
-                      key={index}
-                      className={`font-bold py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed 
-              ${selectedCommunity === community
-                          ? "bg-teal-900 text-white"
-                          : "bg-white text-gray-900"
-                        }
-            `}
-                      onClick={() => setSelectedCommunity(community)}
-                    >
+                  {joinedCommunities.length > 0 ? (
+                    joinedCommunities.map((community, index) => (
                       <div
-                        className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
-                      ></div>
-                      <div className="text-base">{community.name}</div>
-                    </div>
-                  ))
-                    : <h3 className="text-xl font-bold text-center mt-10">
+                        key={index}
+                        className={`font-bold py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid hover:border-dashed 
+              ${
+                selectedCommunity === community
+                  ? "bg-teal-900 text-white"
+                  : "bg-white text-gray-900"
+              }
+            `}
+                        onClick={() => setSelectedCommunity(community)}
+                      >
+                        <div
+                          className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
+                        ></div>
+                        <div className="text-base">{community.name}</div>
+                      </div>
+                    ))
+                  ) : (
+                    <h3 className="text-xl font-bold text-center mt-10">
                       Join a community to start
                     </h3>
-                  }
+                  )}
                 </div>
               </div>
-              <div className="font-semibold text-xl text-teal-900 mb-2 mt-6">
-                Members of {selectedCommunity.name}:
-              </div>
-              <div className="overflow-auto max-h-80 pr-2 rounded-lg border-2 border-teal-900 p-2 cursor-pointer">
+
+              <div className="overflow-auto max-h-80 bg-white rounded-lg  px-6 py-4 cursor-pointer mt-6">
+                <div className="font-semibold text-xl text-teal-900 mb-2">
+                  Members of {selectedCommunity.name}:
+                </div>
                 <div className="flex flex-wrap flex-col">
-                  {selectedCommunity != "" && selectedCommunity.members && selectedCommunity.members.length > 0 ?
+                  {selectedCommunity !== "" &&
+                  selectedCommunity.members &&
+                  selectedCommunity.members.length > 0 ? (
                     selectedCommunity.members.map((member, index) => (
                       <div
                         key={index}
@@ -173,13 +181,12 @@ const Community = () => {
                       >
                         {member}
                       </div>
-                    )) :
-                    <div
-                      className="font-bold text-base bg-teal-300 text-black rounded-full px-3 py-1 m-1"
-                    >
-                      No members in this community
+                    ))
+                  ) : (
+                    <div className="font-bold text-base bg-gray-300 text-black rounded-full px-3 py-1 m-1">
+                      No members
                     </div>
-                  }
+                  )}
                 </div>
               </div>
             </div>
@@ -191,10 +198,7 @@ const Community = () => {
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
                 </h3>
-                <form
-                  className="flex flex-col items-center w-full"
-                  
-                >
+                <form className="flex flex-col items-center w-full">
                   <textarea
                     value={postContent}
                     onChange={(e) => setPostContent(e.target.value)}
@@ -226,12 +230,13 @@ const Community = () => {
                 
 
               </div>
-              {selectedCommunity !== "" ?
+              {selectedCommunity !== "" ? (
                 <h3 className="text-xl font-bold text-center mt-10">
                   See Other Posts from {selectedCommunity.name}
                 </h3>
-
-                : <></>}
+              ) : (
+                <></>
+              )}
 
               <div className="flex flex-col mx-4 w-full p-4">
                 { posts &&
@@ -285,11 +290,12 @@ const Community = () => {
                           Join
                         </button>
                       </div>
-                    ))) :
-                    <h3 className="text-xl font-bold text-center mt-10">
-                      You have joined all communities
+                    ))
+                  ) : (
+                    <h3 className="text-base font-bold text-center mt-10">
+                      Congratulations! You have joined All Available Communities
                     </h3>
-                  }
+                  )}
                 </div>
               </div>
             </div>
