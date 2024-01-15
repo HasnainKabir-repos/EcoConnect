@@ -8,6 +8,11 @@ const Community = () => {
   const { joinedCommunities, notJoinedCommunities, isLoading } =
     useCommunities();
 
+    const [selectedCommunity, setSelectedCommunity] = useState(
+      (joinedCommunities.length > 0) ? joinedCommunities[0] : ""
+    );
+    console.log(selectedCommunity);
+
   const [isLoading2, setIsLoading2] = useState(false);
   const handleJoinCommunity = async (community) => {
     try {
@@ -29,9 +34,7 @@ const Community = () => {
     }
   };
 
-  const [selectedCommunity, setSelectedCommunity] = useState(
-    (joinedCommunities.length > 0) ? joinedCommunities[0] : ""
-  );
+  
 
   const [postContent, setPostContent] = useState("");
   const [isFormMinimized, setIsFormMinimized] = useState(true);
@@ -191,7 +194,7 @@ const Community = () => {
 
           <div className="w-5/6 mt-8 ml-4 mr-5 pr-2 pb-36 overflow-auto max-h-screen">
             <div className="flex flex-col mx-auto p-4">
-              <div className="flex flex-col mx-4 w-full bg-white rounded-lg p-4">
+              <div className="flex flex-col mx-4 w-full p-2">
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
                 </h3>
@@ -202,26 +205,30 @@ const Community = () => {
                     placeholder="Type your Post Here..."
                     className="border rounded-lg p-3 mb-3 w-5/6"
                   />
-                  <div className="flex flex-col w-full">
-                    <label className="ml-16 mb-1 mt-3 text-md font-semibold">
-                      Attach Relevant Image (If Any):
-                    </label>
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="mb-3 ml-16"
-                    />
-                  </div>
-                  <button
-                    className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-gray-700 hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
-                    type="submit"
-                    onClick={() => handlePostSubmit(selectedCommunity)}
-                  >
-                    Post
-                  </button>
-                </form>
+
+                    <div className="flex flex-col w-full">
+                      <label className="ml-16 mb-1 mt-3 text-md font-semibold">
+                        Attach Relevant Image (If Any):
+                      </label>
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="mb-3 ml-16"
+                      />
+                    </div>
+                    <button
+                      className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-black hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
+                      type="submit"
+                      onClick={() => {handlePostSubmit(selectedCommunity)}}
+
+                    >
+                      Post
+                    </button>
+                  </form>
+                
+
               </div>
               {selectedCommunity !== "" ? (
                 <h3 className="text-xl font-bold text-center mt-10">
@@ -232,19 +239,22 @@ const Community = () => {
               )}
 
               <div className="flex flex-col mx-4 w-full p-4">
-                {posts && posts.length !== 0 ? (
-                  posts.map((post, index) => (
-                    <div key={index} className="">
-                      <Post
-                        community={selectedCommunity.name}
-                        user={post.author}
-                        text={post.content}
-                        createdAt={post.createdAt}
-                        likes={post.likes}
-                        comments={post.comments}
-                      />
-                    </div>
-                  ))
+                { posts &&
+                  posts.length !== 0 ? (
+                  posts
+                    
+                    .map((post, index) => (
+                      <div key={index} className="">
+                        <Post
+                          community={selectedCommunity.name}
+                          user={post.author}
+                          text={post.content}
+                          createdAt={post.createdAt}
+                          likes={post.likes}
+                          comments={post.comments}
+                        />
+                      </div>
+                    ))
                 ) : (
                   <h3 className="text-xl font-bold text-center mt-10">
                     No posts available
