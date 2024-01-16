@@ -208,7 +208,11 @@ const Events = () => {
       setIsLoading(false);
     }
   };
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
   // Replace getCurrentUserName with your actual function for fetching the current user's name
   const getCurrentUserName = () => {
     return "CurrentUserName"; //put the actual implementation here
@@ -218,10 +222,10 @@ const Events = () => {
     <>
       <TopBar />
 
-      <main className="pt-20 bg-gray-100 min-h-screen">
+      <main className="pt-20 bg-gray-200 min-h-screen">
         <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <div className="flex">
-          <div className="w-1/4 px-4 py-4 rounded-lg ml-10 mt-16 bg-white min-h-0">
+          <div className="w-1/4 px-4 py-4 rounded-lg ml-10 mt-8 bg-white min-h-0">
             <div className="mb-4">
               <label
                 htmlFor="categoryFilter"
@@ -285,7 +289,8 @@ const Events = () => {
 
             <div className="mb-4">
               <label className="block mb-2 mt-10 text-md font-semibold text-gray-900">
-                Filter by Location ( Find Events in 10 KM Radius )
+                Filter by Location<br />
+                (Find Events in 10 KM Radius)
               </label>
               <LocationDropdown
                 className=""
@@ -295,11 +300,11 @@ const Events = () => {
           </div>
 
           <div className="w-full md:w-3/4 px-4 py-4 mr-6">
-            <div className="flex-col items-center justify-center mt-12">
+            <div className="flex-col items-center justify-center mt-4">
               {filteredEvents.length > 0 ? (
                 filteredEvents.map((event) => (
                   <div
-                    className="bg-white rounded-lg shadow-lg p-6 mb-4 event-container hover:shadow-xl transition duration-300 ease-in-out"
+                    className="bg-white rounded-lg shadow-lg px-14 py-8 mb-4 event-container hover:shadow-xl transition duration-300 ease-in-out"
                     key={event._id}
                   >
                     <div className="flex flex-col">
@@ -314,7 +319,7 @@ const Events = () => {
                       <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
 
                       <div className="mb-2 flex">
-                        <div className="rounded bg-gradient-to-r bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                        <div className="rounded bg-gradient-to-r bg-teal-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             Location | {event.location}
                           </span>
@@ -326,22 +331,49 @@ const Events = () => {
                           </span>
                         </div>
 
-                        <div className="rounded bg-fuchsia-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                        <div className="rounded bg-teal-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             Event Date | {event.formattedDate}
                           </span>
                         </div>
 
-                        <div className="rounded bg-indigo-300 text-black px-2 py-1 text-md inline-flex items-center mr-2">
+                        <div className="rounded bg-teal-200 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                           <span className="whitespace-no-wrap font-semibold">
                             Time | {event.time}
                           </span>
                         </div>
                       </div>
 
-                      <p className="text-gray-700 font-semibold text-md">
-                        Description: {event.description}
+                      <p className="text-teal-900 font-bold text-lg mt-4">
+                        Event Description:
                       </p>
+                      <div
+                        className="overflow-hidden transition-max-h duration-700 ease-in-out"
+                      >
+                        <p className="text-gray-700 font-semibold text-md">
+                          {showFullDescription
+                            ? event.description
+                            : `${event.description.slice(0, 200)}${
+                                event.description.length > 200 ? "..." : ""
+                              }`}
+                        </p>
+                        {event.description.length > 200 && (
+                          <button
+                            onClick={toggleDescription}
+                            className="text-blue-500 font-semibold cursor-pointer mt-2 hover:underline"
+                          >
+                            {showFullDescription ? "See less" : "See more"}
+                          </button>
+                        )}
+                      </div>
+
+                      {event.image && (
+                        <img
+                          src={event.image}
+                          alt="event"
+                          className="mb-2 rounded-2xl w-3/5 h-3/5 mx-auto object-cover mt-6"
+                        />
+                      )}
 
                       <div className="flex items-center justify-center mt-6">
                         {/* "Interested" button */}
