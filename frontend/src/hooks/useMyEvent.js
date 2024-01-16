@@ -11,7 +11,8 @@ export const useMyEvent = () => {
         time:"", 
         description:"", 
         participants:"",
-        interested:""
+        interested:"",
+        eventImage:null
     }]);
 
 

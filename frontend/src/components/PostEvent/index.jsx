@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import background from "../../assets/background2.jpg";
 import Loader from "../Loader";
 import LocationDropdown from "../LocationDropdown";
 import TopBar from "../TopBar";
@@ -15,6 +14,7 @@ const PostEvent = () => {
     date: "",
     time: "",
     Event_type: "",
+    eventImage:null,
   });
 
   let today = new Date();
@@ -37,7 +37,9 @@ const PostEvent = () => {
       location: data.location,
     }));
   };
-
+const handleImageChange = (e) => {
+  setData({ ...data, eventImage: e.target.files[0] });
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -47,8 +49,19 @@ const PostEvent = () => {
       const config = {
         headers: { Authorization: `Bearer ${tokenValue.data}` },
       };
+
+      const formData = new FormData();
+      formData.append('title', data.title);
+      formData.append('description', data.description);
+      formData.append('eventImage', data.eventImage);
+      formData.append('lat', data.lat);
+      formData.append('lng', data.lng);
+      formData.append('location', data.location);
+      formData.append('date', data.date);
+      formData.append('time', data.time);
+      formData.append('Event_type', data.Event_type);
       const url = "http://localhost:8080/api/Event";
-      const { data: res } = await axios.post(url, data, config);
+      const { data: res } = await axios.post(url, formData, config);
       console.log(data);
       setIsModalVisible(true);
     } catch (error) {
@@ -69,15 +82,13 @@ const PostEvent = () => {
   return (
     <>
       <TopBar />
-      <div
-        className="flex flex-col min-h-screen bg-gray-200"
-      >
+      <div className="flex flex-col min-h-screen bg-gray-200">
         <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <main className="flex pt-20 items-center justify-center rounded-lg ">
-          <div class="w-full px-40 mt-10">
+          <div class="w-5/6 px-40 mt-10">
             <div className="w-full flex flex-row justify-center rounded-lg shadow-lg bg-white">
               <div className="rounded-lg w-full">
-                <div className="bg-cyan-950 px-3 py-3 rounded-t-lg w-full">
+                <div className="bg-gray-700 px-3 py-3 rounded-t-lg w-full">
                   <h1 className="font-bold font-sans text-white text-center text-xl">
                     Create a New Event for Your Peers
                   </h1>
@@ -134,11 +145,10 @@ const PostEvent = () => {
                         >
                           Event Location
                         </label>
-                        <LocationDropdown 
-                          className = ""
+                        <LocationDropdown
+                          className=""
                           onChangePlace={handlePlaceGeometry}
                         />
-                        
                       </div>
 
                       <div className="relative z-0 mb-6 group">
@@ -171,7 +181,7 @@ const PostEvent = () => {
                           name="time"
                           onChange={handleChange}
                           value={data.time}
-                          className="block px-2.5 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
+                          className="block px-2.5 py-2.5 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
                           required
                         />
                       </div>
@@ -196,6 +206,22 @@ const PostEvent = () => {
                     </div>
 
                     <div className="relative z-0 w-full mb-6 group">
+                      <label
+                        htmlFor="image"
+                        className="block mb-2 text-sm font-medium text-gray-900"
+                      >
+                        Event Image
+                      </label>
+                      <input
+                        type="file"
+                        name="image"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="block px-2.5 py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none focus:outline-none focus:border-green-600 peer"
+                      />
+                    </div>
+
+                    <div className="relative z-0 w-full mb-6 group">
                       {error && (
                         <div className="bg-red-500 px-5 py-3 rounded-lg font-normal text-white">
                           {error}!
@@ -205,7 +231,7 @@ const PostEvent = () => {
                     <div className="flex justify-center">
                       <button
                         type="submit"
-                        className="bg-cyan-950 hover:bg-teal-400 text-white rounded-lg w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6"
+                        className="bg-gray-700 hover:bg-teal-400 text-white rounded-full w-96 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6"
                       >
                         Post Event
                       </button>

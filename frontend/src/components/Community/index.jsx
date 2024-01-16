@@ -8,101 +8,182 @@ const Community = () => {
   const { joinedCommunities, notJoinedCommunities, isLoading } =
     useCommunities();
 
-    const [selectedCommunity, setSelectedCommunity] = useState(
-      (joinedCommunities.length > 0) ? joinedCommunities[0] : ""
-    );
-    console.log(selectedCommunity);
-
   const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
+
+  const [selectedCommunity, setSelectedCommunity] = useState("");
+
+  useEffect(() => {
+    if (selectedCommunity === "" && joinedCommunities && joinedCommunities.length > 0) {
+      setSelectedCommunity(joinedCommunities[0]);
+    }
+  }, [joinedCommunities]);
+
+  console.log(selectedCommunity);
   const handleJoinCommunity = async (community) => {
     try {
       setIsLoading2(true);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
       const config = {
         headers: {
-          Authorization: `Bearer ${tokenValue.data}`
+          Authorization: `Bearer ${tokenValue.data}`,
         },
       };
 
-      await axios.put(`http://localhost:8080/api/community/join/${community._id}`, {}, config);
+      await axios.put(
+        `http://localhost:8080/api/community/join/${community._id}`,
+        {},
+        config
+      );
       window.location.reload();
-    }catch(error){
+    } catch (error) {
       console.log(error);
-    }finally{
-      setIsLoading2(false)
+    } finally {
+      setIsLoading2(false);
     }
   };
 
-  
-
-  const [postContent, setPostContent] = useState("");
+  const [formData, setFormData] = useState({
+    content: "",
+    postImage: null,
+  });
   const [isFormMinimized, setIsFormMinimized] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedImage(file);
-  };
 
   const handlePostSubmit = async (selectedCommunity) => {
     try {
       setIsLoading2(true);
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
       const config = {
         headers: {
-          Authorization: `Bearer ${tokenValue.data}`
+          Authorization: `Bearer ${tokenValue.data}`,
         },
       };
-      console.log(postContent);
-      const data = {
-        content:postContent
-      }
-      const response =  await axios.post(`http://localhost:8080/api/post/create/${selectedCommunity._id}`, data, config);
-      console.log(response);
-      
-      //window.location.reload();
-    }catch(error){
+      const data = new FormData();
+      data.append("content", formData.content);
+      data.append("postImage", formData.postImage);
+      const response = await axios.post(
+        `http://localhost:8080/api/post/create/${selectedCommunity._id}`,
+        data,
+        config
+      );
+      console.log(response.data);
+
+    } catch (error) {
       console.log(error);
-    }finally{
-      setIsLoading2(false)
+    } finally {
+      setIsLoading2(false);
     }
-    setPostContent("");
+
     window.location.reload();
   };
+
+  const handleContent = (e) => {
+    setFormData({
+      ...formData,
+      content: e.target.value,
+    });
+  };
+
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFormData({
+      ...formData,
+      postImage: file,
+    });
+  };
+
   const toggleFormVisibility = () => {
     setIsFormMinimized(!isFormMinimized);
   };
 
-  const [posts, setPosts] = useState([{
-    _id:"",
-    author:"",
-    content:"",
-    createdAt:null,
-    likes:[],
-    comments:[]
-  }]);
+  const handleLike = async (post) => {
+    try{
+      setIsLoading3(true);
+      const token = localStorage.getItem("token");
+      const tokenValue = JSON.parse(token);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokenValue.data}`,
+        },
+      };
 
-  useEffect(()=> {
+      await axios.put(
+        `http://localhost:8080/api/post/like/${post._id}`,
+        {},
+        config
+      );
+
+    }catch(error){
+      console.log(error);
+    }finally{
+      setIsLoading3(false);
+    }
+  };
+  const [comment, setComment] = useState("");
+
+
+  const handleAddComment = async (post) => {
+    try{
+      setIsLoading3(true);
+      const token = localStorage.getItem("token");
+      const tokenValue = JSON.parse(token);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${tokenValue.data}`,
+        },
+      };
+
+      await axios.put(
+        `http://localhost:8080/api/post/comment/${post._id}`,
+        {
+          text:comment
+        },
+        config
+      );
+
+    }catch(error){
+      console.log(error);
+    }finally{
+      setIsLoading3(false);
+    }
+  };
+
+  const [posts, setPosts] = useState([
+    {
+      _id: "",
+      author: "",
+      content: "",
+      createdAt: null,
+      postImage:null,
+      likes: [],
+      comments: [],
+    },
+  ]);
+
+  useEffect(() => {
     const fetchPosts = async (selectedCommunity) => {
       try {
         setIsLoading2(true);
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem("token");
         const tokenValue = JSON.parse(token);
         const config = {
           headers: {
-            Authorization: `Bearer ${tokenValue.data}`
+            Authorization: `Bearer ${tokenValue.data}`,
           },
         };
-        const response =  await axios.get(`http://localhost:8080/api/post/${selectedCommunity._id}`, config);
+        const response = await axios.get(
+          `http://localhost:8080/api/post/${selectedCommunity._id}`,
+          config
+        );
         //console.log(response.data.communityPosts);
         setPosts(response.data.communityPosts);
         //console.log(posts);
-      }catch(error){
+      } catch (error) {
         console.log(error);
-      }finally{
-        setIsLoading2(false)
+      } finally {
+        setIsLoading2(false);
       }
     };
     fetchPosts(selectedCommunity);
@@ -179,7 +260,7 @@ const Community = () => {
                         key={index}
                         className="font-semibold text-base bg-gray-300 text-black rounded-full px-3 py-1 m-1"
                       >
-                        {member}
+                        {member.firstName} {member.lastName}
                       </div>
                     ))
                   ) : (
@@ -200,35 +281,32 @@ const Community = () => {
                 </h3>
                 <form className="flex flex-col items-center w-full">
                   <textarea
-                    value={postContent}
-                    onChange={(e) => setPostContent(e.target.value)}
+                    value={formData.content}
+                    onChange={handleContent}
                     placeholder="Type your Post Here..."
                     className="border-2 border-gray-300 rounded-lg p-3 mb-3 w-5/6"
                   />
 
-                    <div className="flex flex-col w-full">
-                      <label className="ml-16 mb-1 mt-3 text-md font-semibold">
-                        Attach Relevant Image (If Any):
-                      </label>
-                      <input
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        className="mb-3 ml-16"
-                      />
-                    </div>
-                    <button
-                      className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-gray-700 hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
-                      type="submit"
-                      onClick={() => {handlePostSubmit(selectedCommunity)}}
-
-                    >
-                      Post
-                    </button>
-                  </form>
-                
-
+                  <div className="flex flex-col w-full">
+                    <label className="ml-16 mb-1 mt-3 text-md font-semibold">
+                      Attach Relevant Image (If Any):
+                    </label>
+                    <input
+                      type="file"
+                      id="image"
+                      accept="image/*"
+                      onChange={handleImage}
+                      className="mb-3 ml-16"
+                    />
+                  </div>
+                  <button
+                    className="mt-4 mb-4 font-bold px-4 py-2 rounded-full bg-gray-700 hover:bg-teal-400 hover:text-black text-white inline-block w-1/4"
+                    type="submit"
+                    onClick={() => {handlePostSubmit(selectedCommunity)}}
+                  >
+                    Post
+                  </button>
+                </form>
               </div>
               {selectedCommunity !== "" ? (
                 <h3 className="text-xl font-bold text-center mt-10">
@@ -239,22 +317,47 @@ const Community = () => {
               )}
 
               <div className="flex flex-col mx-4 w-full p-4">
-                { posts &&
-                  posts.length !== 0 ? (
-                  posts
+                {posts && posts.length !== 0 ? (
+                  posts.map((post, index) => (
+
+                  (post.postImage ? (
+                    <div key={index} className="">
+                      <Post
+                        _id={post._id}
+                        community={selectedCommunity.name}
+                        user={post.author.firstName + post.author.lastName}
+                        text={post.content}
+                        createdAt={post.createdAt}
+                        likes={post.likes}
+                        comments={post.comments}
+                        image={
+                          `http://localhost:8080/api/uploads/${post.postImage}`
+                        }
+                        loading={isLoading3}
+                        handleChangeComment={(e) => {setComment(e.target.value)}}
+                        handleAddComment={() => handleAddComment(post)}
+                        handleLike={() => handleLike(post)}
+                      />
+                    </div>
+                  ): (
+                    <div key={index} className="">
+                      <Post
+                        _id={post._id}
+                        community={selectedCommunity.name}
+                        user={post.author.firstName + post.author.lastName}
+                        text={post.content}
+                        createdAt={post.createdAt}
+                        likes={post.likes}
+                        comments={post.comments}
+                        loading={isLoading3}
+                        handleChangeComment={(e) => {setComment(e.target.value)}}
+                        handleAddComment={() => handleAddComment(post)}
+                        handleLike={() => handleLike(post)}
+                      />
+                    </div>
+                  ))
                     
-                    .map((post, index) => (
-                      <div key={index} className="">
-                        <Post
-                          community={selectedCommunity.name}
-                          user={post.author}
-                          text={post.content}
-                          createdAt={post.createdAt}
-                          likes={post.likes}
-                          comments={post.comments}
-                        />
-                      </div>
-                    ))
+                  ))
                 ) : (
                   <h3 className="text-xl font-bold text-center mt-10">
                     No posts available
