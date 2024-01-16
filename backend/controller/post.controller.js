@@ -177,11 +177,7 @@ const getAllPosts = async (req, res) => {
 };
 
 
-<<<<<<< Updated upstream
-module.exports = { createPost, getPosts, insertComment, insertLike, getPostById };
-=======
 
 
 
 module.exports = { createPost, getPosts, insertComment, insertLike ,getAllPosts};
->>>>>>> Stashed changes
