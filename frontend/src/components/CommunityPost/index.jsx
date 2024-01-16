@@ -1,34 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaHeart, FaComment } from "react-icons/fa";
 import Loader from "../Loader";
-
-const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
+import axios from "axios";
+const Post = ({ _id, community, user, text, createdAt, likes, comments, image, 
+              handleLike, handleAddComment, loading, handleChangeComment }) => {
   const [isCommenting, setIsCommenting] = useState(false);
   const [comment, setComment] = useState("");
   const [isCommentDrawerOpen, setIsCommentDrawerOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const hasComments = Array.isArray(comments) && comments.length > 0;
+  const [likes2, setlikes2] = useState(likes);
+  const [comments2, setcomments2] = useState(comments);
 
-  const handleLike = () => {
-  };
+  const hasComments = Array.isArray(comments2) && comments2.length > 0;
 
   const handleComment = () => {
     setIsCommenting(true);
     setIsCommentDrawerOpen(!isCommentDrawerOpen);
   };
-
-  const handleAddComment = () => {
-    setLoading(true);
-
-    // Simulate an asynchronous operation (replace with your actual logic)
-    setTimeout(() => {
-      setIsCommenting(false);
-      setComment("");
-      setLoading(false);
-    }, 1000);
-  };
-
 
   const getRandomColor = () => {
     const colors = [
@@ -42,6 +30,31 @@ const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return randomColor;
   };
+
+  useEffect(() => {
+    const updatePost = async(_id) =>{
+      try {
+        const token = localStorage.getItem("token");
+        const tokenValue = JSON.parse(token);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${tokenValue.data}`,
+          },
+        };
+        const response = await axios.get(
+          `http://localhost:8080/api/post/update/${_id}`,
+          config
+        );
+        console.log(response.data.likes);
+        setlikes2(response.data.likes);
+        setcomments2(response.data.comments);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    updatePost(_id);
+  }, [loading, handleLike, handleAddComment]);
 
   return (
     <>
@@ -77,7 +90,7 @@ const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
             onClick={handleLike}
           >
             <FaHeart className="w-5 h-5 mr-3" />
-            {likes}
+            {likes2.length} 
           </button>
 
           <button
@@ -85,7 +98,7 @@ const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
             onClick={handleComment}
           >
             <FaComment className="w-5 h-5 mr-3" />
-            {hasComments ? `${comments.length} ` : "0"}
+            {hasComments ? `${comments2.length} ` : "0"}
           </button>
         </div>
 
@@ -94,7 +107,7 @@ const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
             {hasComments && (
               <div className="mt-4">
                 <strong>Comments:</strong>
-                {comments
+                {comments2
                   .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
                   .map((comment, index) => (
                     <div
@@ -119,8 +132,7 @@ const Post = ({ community, user, text, createdAt, likes, comments, image }) => {
                   rows="2"
                   placeholder="Add your comment..."
                   className="w-full mt-2 p-2 border-2 border-gray-400 rounded-lg"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
+                  onChange={handleChangeComment}
                 />
                 {loading ? (
                   <Loader />
