@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const Community = require('../models/community');
+const path = require('path');
 
 // Controller for creating a new post
 const createPost = async (req, res) => {
@@ -7,9 +8,12 @@ const createPost = async (req, res) => {
         const { content } = req.body;
         const author = req.user._id;
         const communityId = req.params.communityId;
+        
+        const PostImagePath = req.file ? req.file.path : undefined;
 
         const newPost = new Post({
             content,
+            postImage: PostImagePath ? path.basename(PostImagePath) : undefined,
             author,
         });
 
