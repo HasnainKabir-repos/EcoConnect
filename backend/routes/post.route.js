@@ -11,7 +11,13 @@ router.get('/:communityId', authenticate, postController.getPosts);
 
 router.put('/comment/:postId', authenticate, postController.insertComment);
 
+<<<<<<< Updated upstream
 router.put('/like/:postId',authenticate, postController.insertLike);
 router.get('/update/:postId', authenticate, postController.getPostById);
+=======
+router.put('/like/:postId', authenticate, postController.insertLike);
+
+router.get('/', authenticate, postController.getAllPosts);
+>>>>>>> Stashed changes
 
 module.exports = router;

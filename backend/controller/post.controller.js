@@ -138,6 +138,50 @@ const insertLike = async (req, res) => {
     }
 };
 
+const getAllPosts = async (req, res) => {
+    try {
+        const user = req.user;
+
+        const communities = await Community.find({ members: { $in: [user._id] } }).populate({
+            path: 'posts',
+            populate: [
+                {
+                    path: 'author',
+                    model: 'user'
+                },
+                {
+                    path: 'likes',
+                    model: 'user'
+                },
+                {
+                    path: 'comments.author',
+                    model: 'user'
+                }
+            ]
+        }).sort({ date: -1 }).exec();
+
+        if (!communities || communities.length === 0) {
+            return res.status(404).json({ message: 'User is not a member of any community' });
+        }
+
+        const allPosts = communities.flatMap(community => community.posts);
+
+        const filteredPosts = allPosts.filter(post => post.author._id.toString() !== user._id.toString());
+
+        res.status(200).json(filteredPosts);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error fetching community posts' });
+    }
+};
 
 
+<<<<<<< Updated upstream
 module.exports = { createPost, getPosts, insertComment, insertLike, getPostById };
+=======
+
+
+
+module.exports = { createPost, getPosts, insertComment, insertLike ,getAllPosts};
+>>>>>>> Stashed changes
