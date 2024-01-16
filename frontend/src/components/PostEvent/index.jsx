@@ -70,12 +70,7 @@ const PostEvent = () => {
     <>
       <TopBar />
       <div
-        className="flex flex-col min-h-screen"
-        style={{
-          backgroundImage: `url(${background})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="flex flex-col min-h-screen bg-gray-200"
       >
         <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
         <main className="flex pt-20 items-center justify-center rounded-lg ">
