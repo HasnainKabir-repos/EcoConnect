@@ -14,7 +14,7 @@ const PostEvent = () => {
     date: "",
     time: "",
     Event_type: "",
-    image:"",
+    eventImage:null,
   });
 
   let today = new Date();
@@ -38,7 +38,7 @@ const PostEvent = () => {
     }));
   };
 const handleImageChange = (e) => {
-  setData({ ...data, image: e.target.files[0] });
+  setData({ ...data, eventImage: e.target.files[0] });
 };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,8 +49,19 @@ const handleImageChange = (e) => {
       const config = {
         headers: { Authorization: `Bearer ${tokenValue.data}` },
       };
+
+      const formData = new FormData();
+      formData.append('title', data.title);
+      formData.append('description', data.description);
+      formData.append('eventImage', data.eventImage);
+      formData.append('lat', data.lat);
+      formData.append('lng', data.lng);
+      formData.append('location', data.location);
+      formData.append('date', data.date);
+      formData.append('time', data.time);
+      formData.append('Event_type', data.Event_type);
       const url = "http://localhost:8080/api/Event";
-      const { data: res } = await axios.post(url, data, config);
+      const { data: res } = await axios.post(url, formData, config);
       console.log(data);
       setIsModalVisible(true);
     } catch (error) {

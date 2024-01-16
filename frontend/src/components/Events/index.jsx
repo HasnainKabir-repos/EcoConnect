@@ -367,9 +367,9 @@ const Events = () => {
                         )}
                       </div>
 
-                      {event.image && (
+                      {event.eventImage && (
                         <img
-                          src={event.image}
+                          src={ `http://localhost:8080/api/uploads/${event.eventImage}`}
                           alt="event"
                           className="mb-2 rounded-2xl w-3/5 h-3/5 mx-auto object-cover mt-6"
                         />
