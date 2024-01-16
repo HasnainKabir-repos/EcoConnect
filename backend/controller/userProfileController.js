@@ -69,8 +69,26 @@ const getUserName = async (req, res) => {
     }
 };
 
+const getSpeceficUserProfile = async (req, res) => {
+    try {
+        const {email} =req.body;
+        const userProfiles = await UserProfile.findOne({ useremail: email });
+        const userInfo = await User.findOne({ email: email });
+
+        if (userProfiles && userInfo) {
+            res.json({ userProfiles, userInfo });
+        } else {
+            res.status(404).json({ message: 'User profile not found' });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error retrieving user profile', error: error.message });
+    }
+};
+
 module.exports = {
     updateUserProfile,
     getUserProfile,
-    getUserName
+    getUserName,
+    getSpeceficUserProfile
 };

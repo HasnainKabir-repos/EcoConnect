@@ -7,6 +7,7 @@ const {
     getUserName,
     updateUserProfile,
     getUserProfile,
+    getSpeceficUserProfile,
 } = require('../controller/userProfileController');
 
 // Update user profile, including profile image
@@ -16,7 +17,7 @@ router.post('/', authenticate, upload.single('profileImage'), updateUserProfile)
 router.get('/', authenticate, getUserProfile);
 
 // Retrieve user profile by email
-router.get('/find', getUserProfile);
+router.get('/find', getSpeceficUserProfile);
 
 router.post('/getUsername', getUserName);
 
