@@ -1,4 +1,5 @@
 const EcoEvent = require('../models/EcoEvent');
+const path = require('path');
 
 const getEvents = async (req, res) => {
     try {
@@ -79,7 +80,7 @@ const updateEvent = async (req, res) => {
 
         // Check if the event exists
         const existingEvent = await EcoEvent.findById(eventId);
-        const EventImagePath = req.file ? req.file.path : undefined;
+        const eventImagePath = req.file ? req.file.path : undefined;
 
         if (!existingEvent) {
             return res.status(404).json({ message: 'Event not found' });
@@ -93,28 +94,32 @@ const updateEvent = async (req, res) => {
 
         // Extract and validate updated event details from the request body
         const { title, description, location, date, time, Event_type } = req.body;
-       
+
+        // Create an object with the fields to be updated
+        const eventUpdate = {
+            title,
+            description,
+            eventImage: eventImagePath ? path.basename(eventImagePath) : existingEvent.eventImage,
+            location,
+            date,
+            time,
+            Event_type,
+        };
 
         // Update the event
-        const updatedEvent = await EcoEvent.findByIdAndUpdate(
-            eventId,
-            {
-                title,
-                description,
-                eventImage: path.basename(EventImagePath),
-                location,
-                date,
-                time,
-                Event_type,
-            },
-            { new: true }
-        );
-        res.status(200).json(updatedEvent);
+        const updatedEvent = await EcoEvent.findByIdAndUpdate(eventId, eventUpdate, { new: true });
+        
+        if (updatedEvent) {
+            res.status(200).json(updatedEvent);
+        } else {
+            res.status(500).json({ message: 'Failed to update event' });
+        }
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal Server Error' });
+        res.status(500).json({ message: 'Internal Server Error', error: error.message });
     }
 };
+
 
 
 

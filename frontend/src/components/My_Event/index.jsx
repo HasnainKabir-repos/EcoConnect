@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import TopBar from "../TopBar";
-import {useMyEvent} from "../../hooks/useMyEvent";
+import { useMyEvent } from "../../hooks/useMyEvent";
 import Loader from "../Loader";
 import axios from "axios";
 
 const My_Event = () => {
-
   const { myEvents, isLoading } = useMyEvent();
 
   const [showInterestedParticipants, setShowInterestedParticipants] =
@@ -14,29 +13,30 @@ const My_Event = () => {
   const [selectedEventId, setSelectedEventId] = useState(null);
 
   const handleDeleteEvent = async (eventId) => {
-
-    try{
-      const token = localStorage.getItem('token');
+    try {
+      const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
       const config = {
         headers: {
-            Authorization: `Bearer ${tokenValue.data}`
+          Authorization: `Bearer ${tokenValue.data}`,
         },
       };
-      await axios.delete(`http://localhost:8080/api/MyEvent/${eventId}`, config);
+      await axios.delete(
+        `http://localhost:8080/api/MyEvent/${eventId}`,
+        config
+      );
       window.location.reload();
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-   
   };
-const formatEventDate = (dateString) => {
-  const date = new Date(dateString);
-  const yyyy = date.getFullYear();
-  const mm = String(date.getMonth() + 1).padStart(2, "0");
-  const dd = String(date.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-};
+  const formatEventDate = (dateString) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  };
   const toggleInterestedParticipants = (eventId) => {
     if (selectedEventId === eventId && showInterestedParticipants) {
       setShowInterestedParticipants(false);
@@ -59,7 +59,15 @@ const formatEventDate = (dateString) => {
 
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [updatedEvent, setUpdatedEvent] = useState(null);
+  const [updatedEvent, setUpdatedEvent] = useState({
+    title: "",
+    description: "",
+    eventImage: null,
+    location: "",
+    date: "",
+    time: "",
+    Event_type: "",
+  });
 
   const openUpdateModal = (event) => {
     setSelectedEvent(event);
@@ -71,31 +79,54 @@ const formatEventDate = (dateString) => {
     setIsUpdateModalOpen(false);
   };
 
-  const handleUpdateEvent = async (updatedData, eventId) => {
-    
-    try{
-      const token = localStorage.getItem('token');
+  const handleImageChange = (e) => {
+      setUpdatedEvent({
+        ...updatedEvent,
+        eventImage: e.target.files[0],
+      });
+  };
+
+  const handleChange = ({ currentTarget: input }) => {
+    setUpdatedEvent({ ...updatedEvent, [input.name]: input.value });
+  };
+
+  const handleUpdateEvent = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
       const config = {
         headers: {
-            Authorization: `Bearer ${tokenValue.data}`
+          Authorization: `Bearer ${tokenValue.data}`,
         },
       };
-      await axios.post(`http://localhost:8080/api/MyEvent/${eventId}`, updatedData, config);
+      const formData = new FormData();
+      formData.append('title', updatedEvent.title);
+      formData.append('description', updatedEvent.description);
+      formData.append('eventImage', updatedEvent.eventImage);
+      formData.append('location', updatedEvent.location);
+      formData.append('date', updatedEvent.date);
+      formData.append('time', updatedEvent.time);
+      formData.append('Event_type', updatedEvent.Event_type);
+      console.log(formData);
+      await axios.post(
+        `http://localhost:8080/api/MyEvent/${selectedEvent._id}`,
+        formData,
+        config
+      );
       window.location.reload();
-    }catch(error){
+    } catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       closeUpdateModal();
     }
   };
 
-    const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
-    const toggleDescription = () => {
-      setShowFullDescription(!showFullDescription);
-    };
-  
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
 
   return (
     <main className="pt-20 min-h-screen bg-gray-200">
@@ -160,9 +191,9 @@ const formatEventDate = (dateString) => {
                       </button>
                     )}
                   </div>
-                  {event.image && (
+                  {event.eventImage && (
                     <img
-                      src={event.image}
+                      src={`http://localhost:8080/api/uploads/${event.eventImage}`}
                       alt="event"
                       className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
                     />
@@ -255,12 +286,7 @@ const formatEventDate = (dateString) => {
                               type="text"
                               name="title"
                               value={updatedEvent.title}
-                              onChange={(e) =>
-                                setUpdatedEvent({
-                                  ...updatedEvent,
-                                  title: e.target.value,
-                                })
-                              }
+                              onChange={handleChange}
                               className="w-full border border-black rounded-md p-2"
                             />
                           </div>
@@ -272,12 +298,7 @@ const formatEventDate = (dateString) => {
                               type="text"
                               name="location"
                               value={updatedEvent.location}
-                              onChange={(e) =>
-                                setUpdatedEvent({
-                                  ...updatedEvent,
-                                  location: e.target.value,
-                                })
-                              }
+                              onChange={handleChange}
                               className="w-full border border-black rounded-md p-2"
                             />
                           </div>
@@ -288,14 +309,9 @@ const formatEventDate = (dateString) => {
                               Event Type:
                             </label>
                             <select
-                              name="event_type"
+                              name="Event_type"
                               value={updatedEvent.Event_type}
-                              onChange={(e) =>
-                                setUpdatedEvent({
-                                  ...updatedEvent,
-                                  Event_type: e.target.value,
-                                })
-                              }
+                              onChange={handleChange}
                               className="w-full border border-black rounded-md p-2"
                             >
                               <option value="Online">Online</option>
@@ -309,14 +325,9 @@ const formatEventDate = (dateString) => {
                             </label>
                             <input
                               type="date"
-                              name="formattedDate"
-                              value={updatedEvent.formattedDate}
-                              onChange={(e) =>
-                                setUpdatedEvent({
-                                  ...updatedEvent,
-                                  formattedDate: e.target.value,
-                                })
-                              }
+                              name="date"
+                              value={updatedEvent.date}
+                              onChange={handleChange}
                               className="w-full border border-black rounded-md p-2"
                             />
                           </div>
@@ -328,12 +339,7 @@ const formatEventDate = (dateString) => {
                               type="time"
                               name="time"
                               value={updatedEvent.time}
-                              onChange={(e) =>
-                                setUpdatedEvent({
-                                  ...updatedEvent,
-                                  time: e.target.value,
-                                })
-                              }
+                              onChange={handleChange}
                               className="w-full border border-black rounded-md p-2"
                             />
                           </div>
@@ -345,12 +351,7 @@ const formatEventDate = (dateString) => {
                           <textarea
                             name="description"
                             value={updatedEvent.description}
-                            onChange={(e) =>
-                              setUpdatedEvent({
-                                ...updatedEvent,
-                                description: e.target.value,
-                              })
-                            }
+                            onChange={handleChange}
                             className="w-full border border-black rounded-md p-2"
                           />
                         </div>
@@ -362,21 +363,14 @@ const formatEventDate = (dateString) => {
                             type="file"
                             name="image"
                             accept="image/*"
-                            onChange={(e) =>
-                              setUpdatedEvent({
-                                ...updatedEvent,
-                                image: e.target.files[0],
-                              })
-                            }
+                            onChange={handleImageChange}
                             className="w-full border border-black rounded-md p-2"
                           />
                         </div>
                         <div className="flex space-x-8 justify-center mt-4">
                           <button
                             className="bg-teal-950 w-48 text-white px-4 py-2 rounded-full mr-2 hover:bg-teal-600"
-                            onClick={() => {
-                              handleUpdateEvent(updatedEvent, event._id);
-                            }}
+                            onClick={handleUpdateEvent}
                           >
                             Update
                           </button>
