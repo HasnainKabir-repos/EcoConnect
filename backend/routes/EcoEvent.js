@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const authenticate = require('../middleware/authenticate');
 
+const upload = require('../middleware/multer');
+
 
 const {
     EcoEventAddParticipant,
@@ -13,7 +15,7 @@ const {
 } = require('../controller/EcoEventController');
 
 
-router.post('/', authenticate, EcoEventCreate);
+router.post('/', authenticate,upload.single('eventImage'), EcoEventCreate);
 
 router.get('/', authenticate, getEcoEvent);
 

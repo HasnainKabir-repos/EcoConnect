@@ -1,4 +1,5 @@
 const EcoEvent = require('../models/EcoEvent');
+const path = require('path');
 
 const EcoEventCreate = async (req, res) => {
 
@@ -6,10 +7,12 @@ const EcoEventCreate = async (req, res) => {
         const { email } = req.user;
 
         const { title, description, lat, lng, location, date, time, Event_type } = req.body;
+        const EventImagePath = req.file ? req.file.path : undefined;
 
         const newEvent = new EcoEvent({
             title,
             description,
+            eventImage: EventImagePath ? path.basename(EventImagePath) : undefined,
             lat,
             lng,
             location,

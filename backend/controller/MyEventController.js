@@ -79,6 +79,7 @@ const updateEvent = async (req, res) => {
 
         // Check if the event exists
         const existingEvent = await EcoEvent.findById(eventId);
+        const EventImagePath = req.file ? req.file.path : undefined;
 
         if (!existingEvent) {
             return res.status(404).json({ message: 'Event not found' });
@@ -92,6 +93,7 @@ const updateEvent = async (req, res) => {
 
         // Extract and validate updated event details from the request body
         const { title, description, location, date, time, Event_type } = req.body;
+       
 
         // Update the event
         const updatedEvent = await EcoEvent.findByIdAndUpdate(
@@ -99,6 +101,7 @@ const updateEvent = async (req, res) => {
             {
                 title,
                 description,
+                eventImage: path.basename(EventImagePath),
                 location,
                 date,
                 time,
