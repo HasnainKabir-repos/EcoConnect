@@ -30,7 +30,13 @@ const My_Event = () => {
     }
    
   };
-
+const formatEventDate = (dateString) => {
+  const date = new Date(dateString);
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
   const toggleInterestedParticipants = (eventId) => {
     if (selectedEventId === eventId && showInterestedParticipants) {
       setShowInterestedParticipants(false);
@@ -82,9 +88,13 @@ const My_Event = () => {
     }finally{
       closeUpdateModal();
     }
-
-    
   };
+
+    const [showFullDescription, setShowFullDescription] = useState(false);
+
+    const toggleDescription = () => {
+      setShowFullDescription(!showFullDescription);
+    };
   
 
   return (
@@ -104,7 +114,7 @@ const My_Event = () => {
               {myEvents.map((event) => (
                 <div
                   key={event._id}
-                  className="bg-white rounded-lg shadow-lg p-6 mb-4 event-container hover:shadow-xl"
+                  className="bg-white rounded-lg shadow-lg px-14 py-8 mb-4 event-container hover:shadow-xl"
                 >
                   <h2 className="font-bold text-2xl mb-2">{event.title}</h2>
                   <div className="mb-2 flex">
@@ -121,7 +131,7 @@ const My_Event = () => {
 
                     <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
                       <span className="whitespace-no-wrap font-semibold">
-                        Event Date | {event.date}
+                        Event Date | {formatEventDate(event.date)}
                       </span>
                     </div>
                     <div className="rounded bg-teal-400 text-black px-2 py-1 text-md inline-flex items-center mr-2">
@@ -130,9 +140,33 @@ const My_Event = () => {
                       </span>
                     </div>
                   </div>
-                  <p className="text-gray-700 font-semibold text-md">
-                    Description: {event.description}
+                  <p className="text-teal-700 font-semibold text-lg">
+                    Event Description:
                   </p>
+                  <div>
+                    <p className="text-gray-700 font-semibold text-md">
+                      {showFullDescription
+                        ? event.description
+                        : `${event.description.slice(0, 200)}${
+                            event.description.length > 200 ? "..." : ""
+                          }`}
+                    </p>
+                    {event.description.length > 200 && (
+                      <button
+                        onClick={toggleDescription}
+                        className="text-blue-500 font-semibold cursor-pointer"
+                      >
+                        {showFullDescription ? "See less" : "See more"}
+                      </button>
+                    )}
+                  </div>
+                  {event.image && (
+                    <img
+                      src={event.image}
+                      alt="event"
+                      className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
+                    />
+                  )}
                   <div className="flex items-center justify-between mt-6">
                     <div className="flex space-x-4 mr-40">
                       <button
@@ -170,15 +204,19 @@ const My_Event = () => {
                         <h3 className="mt-4 text-lg font-semibold mb-4">
                           Interested Participants:
                         </h3>
-                        <ul className="list-decimal ml-6">
-                          {event.interested.map((participant, index) => (
-                            <li key={index} className="text-md">
-                              <div className="rounded bg-gray-300 px-2 py-1 text-sm items-center justify-center mb-2">
-                                {participant}
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
+                        {event.interested.length > 0 ? (
+                          <ul className="list-decimal ml-6">
+                            {event.interested.map((participant, index) => (
+                              <li key={index} className="text-md">
+                                <div className="rounded bg-gray-300 px-2 py-1 text-sm items-center justify-center mb-2">
+                                  {participant}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p>No Interested participants yet.</p>
+                        )}
                       </div>
                     )}
                   {showGoingParticipants && selectedEventId === event._id && (
@@ -186,21 +224,25 @@ const My_Event = () => {
                       <h3 className="mt-4 text-lg font-semibold mb-4">
                         Going Participants:
                       </h3>
-                      <ul className="list-decimal ml-6">
-                        {event.participants.map((participant, index) => (
-                          <li key={index} className="text-md">
-                            <div className="rounded bg-gray-300 px-2 py-1 text-sm items-center mb-2">
-                              {participant}
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
+                      {event.interested.length > 0 ? (
+                        <ul className="list-decimal ml-6">
+                          {event.participants.map((participant, index) => (
+                            <li key={index} className="text-md">
+                              <div className="rounded bg-gray-300 px-2 py-1 text-sm items-center mb-2">
+                                {participant}
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No Going participants yet.</p>
+                      )}
                     </div>
                   )}
 
                   {isUpdateModalOpen && (
                     <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-20">
-                      <div className="bg-white p-4 rounded-lg w-1/2">
+                      <div className="bg-white p-4 mt-20 rounded-lg w-1/2">
                         <h2 className="text-xl font-semibold mb-6 text-center">
                           Update Your Event Details
                         </h2>
@@ -307,6 +349,23 @@ const My_Event = () => {
                               setUpdatedEvent({
                                 ...updatedEvent,
                                 description: e.target.value,
+                              })
+                            }
+                            className="w-full border border-black rounded-md p-2"
+                          />
+                        </div>
+                        <div className="w-full mb-2">
+                          <label className="block text-gray-600 mb-1">
+                            Image:
+                          </label>
+                          <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            onChange={(e) =>
+                              setUpdatedEvent({
+                                ...updatedEvent,
+                                image: e.target.files[0],
                               })
                             }
                             className="w-full border border-black rounded-md p-2"

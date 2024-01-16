@@ -120,12 +120,11 @@ const EditProfile = () => {
 
       <div
         className="bg-cover bg-center bg-gray-100 min-h-screen w-full flex-col px-10 pb-5"
-        style={{ backgroundImage: `url(${background})` }}
       >
         <div className="">
           <div className="max-w-3xl mx-auto h-min mt-20 pt-5 shadow-lg">
-            <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
-              <h1 className="text-xl px-6 text-white">User Profile</h1>
+            <div className="bg-teal-400 py-4 text-center text-black rounded-t-lg font-bold">
+              <h1 className="text-xl px-6 text-black">User Profile</h1>
             </div>
 
             <div className="flex flex-col p-5 bg-white">
@@ -165,7 +164,7 @@ const EditProfile = () => {
                 </div>
 
                 <div className="flex flex-col w-1/2">
-                  <div className="flex flex-col h-60 flex items-center justify-center rounded-lg border border-teal-600 ml-2 bg-white">
+                  <div className="flex flex-col h-60 items-center justify-center rounded-lg border border-teal-600 ml-2 bg-white">
                     <div className="overflow-hidden flex items-center justify-center">
                       {userProfile.profileImage ? (
                         <img
@@ -209,7 +208,7 @@ const EditProfile = () => {
         onRequestClose={handleModalClose}
         style={customStyles}
       >
-        <div className="text-2xl font-semibold mb-4 py-3">Edit Profile</div>
+        <div className="text-2xl font-semibold mb-4 py-3 mt-20">Edit Profile</div>
         <div>
           <label className="block font-medium text-gray-600 mb-2">
             First Name:
@@ -277,13 +276,13 @@ const EditProfile = () => {
 
         <button
           onClick={handleSubmit}
-          className="bg-teal-600 text-white font-medium py-2 px-4 mt-4 rounded-md hover:bg-teal-700"
+          className="bg-gray-700 text-white font-medium py-2 px-4 mt-4 rounded-full hover:bg-teal-700"
         >
           Save
         </button>
         <button
           onClick={handleModalClose}
-          className="bg-teal-600 text-white font-medium py-2 px-4 mt-4 rounded-md hover-bg-teal-700 ml-4"
+          className="bg-gray-700 text-white font-medium py-2 px-4 mt-4 rounded-full hover-bg-teal-700 ml-4"
         >
           Back
         </button>

@@ -27,16 +27,15 @@ const Profile = () => {
       <TopBar />
 
 
-      <main className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5 pt-20 rounded-lg"
-        style={{ backgroundImage: `url(${background})` }}>
+      <main className="bg-cover bg-center min-h-screen w-full flex-col px-10 pb-5 pt-20 rounded-lg bg-gray-200">
         <div>{
           isLoading ? (<Loader />) : (console.log("Loaded"))
         }
 
         </div>
-        <div className="max-w-3xl mx-auto h-min pt-5 shadow-lg justify-center items-center rounded-lg">
-          <div className="bg-gradient-to-r from-teal-800 to-cyan-800 py-4 text-center text-black rounded-t-lg font-bold">
-            <h1 className="text-xl px-6 text-white">
+        <div className="max-w-3xl mx-auto h-min pt-5 mt-120 shadow-lg  rounded-lg">
+          <div className="bg-teal-400 py-4 text-center text-black rounded-t-lg font-bold">
+            <h1 className="text-xl px-6 text-black">
               User Profile
             </h1>
           </div>
