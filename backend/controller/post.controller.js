@@ -56,7 +56,7 @@ const getPosts = async (req, res) => {
                     model: 'user'
                 }
             ]
-        });
+        }).sort({ date: -1 });
 
         if (!community) {
             return res.status(404).json({ message: 'Community not found' });
