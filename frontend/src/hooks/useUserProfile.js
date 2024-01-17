@@ -33,7 +33,7 @@ export const useUserProfile = () => {
                     headers: { Authorization: `Bearer ${tokenValue.data}` },
                 };
 
-                const response = await axios.get('https://ecoconnect-3hx9.onrender.com/api/userInfo', config);
+                const response = await axios.get('http://localhost:8080/api/userInfo', config);
                 const { userProfiles, userInfo } = response.data;
                 setUserProfile(userProfiles);
                 setUserInfo(userInfo);

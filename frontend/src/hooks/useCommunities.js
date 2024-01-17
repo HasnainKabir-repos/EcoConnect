@@ -30,7 +30,7 @@ export const useCommunities = () => {
                     },
                 };
 
-                const response = await axios.get('https://ecoconnect-3hx9.onrender.com/api/community/notjoined', config);
+                const response = await axios.get('http://localhost:8080/api/community/notjoined', config);
                 console.log(response.data);
                 const communities = response.data.notJoinedCommunities;
                 setNotJoinedCommunities(communities);
@@ -53,7 +53,7 @@ export const useCommunities = () => {
                     },
                 };
 
-                const response = await axios.get('https://ecoconnect-3hx9.onrender.com/api/community/joined', config);
+                const response = await axios.get('http://localhost:8080/api/community/joined', config);
                 //console.log(response.data);
                 const communities = response.data.joinedCommunities;
                 setJoinedCommunities(communities);

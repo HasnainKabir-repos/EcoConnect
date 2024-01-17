@@ -23,7 +23,7 @@ const UserProfile = () => {
             <div className="flex flex-col w-full ">
               {userProfile.profileImage ? (
                 <img
-                  src={`https://ecoconnect-3hx9.onrender.com/api/uploads/${userProfile.profileImage}`}
+                  src={`http://localhost:8080/api/uploads/${userProfile.profileImage}`}
                   alt="Profile Picture"
                   className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
                 />

@@ -32,7 +32,7 @@ const Events = () => {
         if (location.lat !== "" && location.lng !== "") {
           console.log("Fetching...");
           response = await axios.post(
-            "https://ecoconnect-3hx9.onrender.com/api/location/search/nearby",
+            "http://localhost:8080/api/location/search/nearby",
             {
               lat: location.lat,
               lng: location.lng,
@@ -42,7 +42,7 @@ const Events = () => {
 
           console.log(response.data);
         } else {
-          response = await axios.get("https://ecoconnect-3hx9.onrender.com/api/event", config);
+          response = await axios.get("http://localhost:8080/api/event", config);
         }
 
         const eventsData = response.data;
@@ -57,7 +57,7 @@ const Events = () => {
             const formattedDate = `${yyyy}-${mm}-${dd}`;
 
             const usernameResponse = await axios.post(
-              "https://ecoconnect-3hx9.onrender.com/api/userInfo/getUsername",
+              "http://localhost:8080/api/userInfo/getUsername",
               {
                 email: event.organizer,
               }
@@ -94,12 +94,12 @@ const Events = () => {
         };
 
         const interestedResponse = await axios.get(
-          "https://ecoconnect-3hx9.onrender.com/api/event/interested",
+          "http://localhost:8080/api/event/interested",
           config
         );
 
         const participatingResponse = await axios.get(
-          "https://ecoconnect-3hx9.onrender.com/api/event/participating",
+          "http://localhost:8080/api/event/participating",
           config
         );
 
@@ -166,7 +166,7 @@ const Events = () => {
         const config = {
           headers: { Authorization: `Bearer ${tokenValue.data}` },
         };
-        const url = `https://ecoconnect-3hx9.onrender.com/api/event/addInterestedUser/${id}`;
+        const url = `http://localhost:8080/api/event/addInterestedUser/${id}`;
         const response = await axios.put(url, {}, config);
 
         // Update the interestedEvents array
@@ -193,7 +193,7 @@ const Events = () => {
         const config = {
           headers: { Authorization: `Bearer ${tokenValue.data}` },
         };
-        const url = `https://ecoconnect-3hx9.onrender.com/api/event/addParticipants/${id}`;
+        const url = `http://localhost:8080/api/event/addParticipants/${id}`;
         await axios.put(url, {}, config);
 
         // Update the participatingEvents array
@@ -369,7 +369,7 @@ const Events = () => {
 
                       {event.eventImage && (
                         <img
-                          src={ `https://ecoconnect-3hx9.onrender.com/api/uploads/${event.eventImage}`}
+                          src={ `http://localhost:8080/api/uploads/${event.eventImage}`}
                           alt="event"
                           className="mb-2 rounded-2xl w-3/5 h-3/5 mx-auto object-cover mt-6"
                         />

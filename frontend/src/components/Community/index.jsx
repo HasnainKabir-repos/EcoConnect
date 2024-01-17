@@ -32,7 +32,7 @@ const Community = () => {
       };
 
       await axios.put(
-        `https://ecoconnect-3hx9.onrender.com/api/community/join/${community._id}`,
+        `http://localhost:8080/api/community/join/${community._id}`,
         {},
         config
       );
@@ -64,7 +64,7 @@ const Community = () => {
       data.append("content", formData.content);
       data.append("postImage", formData.postImage);
       const response = await axios.post(
-        `https://ecoconnect-3hx9.onrender.com/api/post/create/${selectedCommunity._id}`,
+        `http://localhost:8080/api/post/create/${selectedCommunity._id}`,
         data,
         config
       );
@@ -110,7 +110,7 @@ const Community = () => {
       };
 
       await axios.put(
-        `https://ecoconnect-3hx9.onrender.com/api/post/like/${post._id}`,
+        `http://localhost:8080/api/post/like/${post._id}`,
         {},
         config
       );
@@ -136,7 +136,7 @@ const Community = () => {
       };
 
       await axios.put(
-        `https://ecoconnect-3hx9.onrender.com/api/post/comment/${post._id}`,
+        `http://localhost:8080/api/post/comment/${post._id}`,
         {
           text:comment
         },
@@ -174,7 +174,7 @@ const Community = () => {
           },
         };
         const response = await axios.get(
-          `https://ecoconnect-3hx9.onrender.com/api/post/${selectedCommunity._id}`,
+          `http://localhost:8080/api/post/${selectedCommunity._id}`,
           config
         );
         //console.log(response.data.communityPosts);
@@ -331,7 +331,7 @@ const Community = () => {
                         likes={post.likes}
                         comments={post.comments}
                         image={
-                          `https://ecoconnect-3hx9.onrender.com/api/uploads/${post.postImage}`
+                          `http://localhost:8080/api/uploads/${post.postImage}`
                         }
                         loading={isLoading3}
                         handleChangeComment={(e) => {setComment(e.target.value)}}

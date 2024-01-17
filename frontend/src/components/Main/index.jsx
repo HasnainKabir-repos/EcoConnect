@@ -47,7 +47,7 @@ const Main = () => {
           },
         };
         const response = await axios.get(
-          `https://ecoconnect-3hx9.onrender.com/api/post/${selectedCommunity._id}`,
+          `http://localhost:8080/api/post/${selectedCommunity._id}`,
           config
         );
         setPosts(response.data.communityPosts);
@@ -72,7 +72,7 @@ const Main = () => {
           },
         };
         const response = await axios.get(
-          `https://ecoconnect-3hx9.onrender.com/api/Event/interested`,
+          `http://localhost:8080/api/Event/interested`,
           config
         );
         setEvents(response.data);
@@ -97,7 +97,7 @@ const Main = () => {
       };
 
       await axios.put(
-        `https://ecoconnect-3hx9.onrender.com/api/post/like/${post._id}`,
+        `http://localhost:8080/api/post/like/${post._id}`,
         {},
         config
       );
@@ -135,7 +135,7 @@ const Main = () => {
       };
 
       await axios.put(
-        `https://ecoconnect-3hx9.onrender.com/api/post/comment/${post._id}`,
+        `http://localhost:8080/api/post/comment/${post._id}`,
         {
           text: comment,
         },
@@ -187,7 +187,7 @@ const Main = () => {
                 <div className="overflow-hidden flex items-center justify-center h-24  w-24 p-3 mt-4">
                   {userProfile.profileImage ? (
                     <img
-                      src={`https://ecoconnect-3hx9.onrender.com/api/uploads/${userProfile.profileImage}`}
+                      src={`http://localhost:8080/api/uploads/${userProfile.profileImage}`}
                       alt="Profile Picture"
                       className=""
                     />
@@ -254,7 +254,7 @@ const Main = () => {
                         createdAt={post.createdAt}
                         likes={post.likes}
                         comments={post.comments}
-                        image={`https://ecoconnect-3hx9.onrender.com/api/uploads/${post.postImage}`}
+                        image={`http://localhost:8080/api/uploads/${post.postImage}`}
                         loading={isLoading3}
                         handleChangeComment={(e) => {
                           setComment(e.target.value);

@@ -20,7 +20,7 @@ const LocationDropdown = ({ onChangePlace }) => {
     if (inputValue !== "") {
       try {
 
-        const response = await axios.post('https://ecoconnect-3hx9.onrender.com/api/location/search', {
+        const response = await axios.post('http://localhost:8080/api/location/search', {
           input: inputValue
         })
         console.log(response.data);
@@ -44,7 +44,7 @@ const LocationDropdown = ({ onChangePlace }) => {
     if (selectedOption !== null) {
 
       try {
-        const response = await axios.post('https://ecoconnect-3hx9.onrender.com/api/location/details', {
+        const response = await axios.post('http://localhost:8080/api/location/details', {
           place_id: selectedOption.value,
           location: selectedOption.label
         });
