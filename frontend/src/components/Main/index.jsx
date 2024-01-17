@@ -6,6 +6,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../Loader";
 import { useCommunities } from "../../hooks/useCommunities";
+import Cover from "../../assets/Cover.jpg";
+import { FaUser, FaUsers, FaCalendar } from "react-icons/fa";
 const Main = () => {
   const { joinedCommunities } = useCommunities();
   const { userProfile, userInfo, isLoading } = useUserProfile();
@@ -287,8 +289,34 @@ const Main = () => {
                 )}
               </div>
             ) : (
-              <div className="text-xl bg-white font-bold text-center rounded-lg p-10 shadow-lg">
-                Join a Community to start and interact with like-minded Eco Enthusiast people
+              <div className="bg-white font-bold text-center rounded-lg p-10 shadow-lg">
+                <p className="font-bold text-teal-700 text-3xl mb-6">
+                  Welcome to EcoConnect
+                </p>
+                <div className="flex flex-row space-x-4">
+                  <div className="flex-grow flex flex-col items-center mb-4 p-4 rounded-xl bg-teal-200 hover:bg-white hover:border-black transition duration-300 ease-in-out transform hover:shadow-xl">
+                    <FaUser className="flex-shrink-0 w-8 h-8 mb-2" />
+                    <div className="ml-2">
+                      Update your Profile and Image to get started
+                    </div>
+                  </div>
+
+                  <div className="flex-grow flex flex-col items-center mb-4 p-4 rounded-xl bg-teal-200 hover:bg-white hover:border-black transition duration-300 ease-in-out transform hover:shadow-xl">
+                    <FaUsers className="flex-shrink-0 w-8 h-8 mb-2" />
+                    <div className="ml-2">
+                      Go To Communities to Join a Community first
+                    </div>
+                  </div>
+
+                  <div className="flex-grow flex flex-col items-center mb-4 p-4 rounded-xl bg-teal-200 hover:bg-white hover:border-black transition duration-300 ease-in-out transform hover:shadow-xl">
+                    <FaCalendar className="flex-shrink-0 w-8 h-8 mb-2" />
+                    <div className="">
+                      Go to Events to See Events Posted by other Users
+                    </div>
+                  </div>
+                </div>
+
+                <img src={Cover} alt="Cover" className="w-2/6 mx-auto mt-2" />
               </div>
             )}
           </div>

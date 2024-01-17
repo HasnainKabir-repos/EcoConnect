@@ -261,7 +261,7 @@ const Community = () => {
                 </div>
               </div>
 
-              <div className="overflow-auto max-h-80 bg-white rounded-lg  px-6 py-4 cursor-pointer mt-6">
+              <div className="overflow-auto max-h-64 bg-white rounded-lg  px-6 py-4 cursor-pointer mt-2">
                 <div className="font-semibold text-xl text-teal-900 mb-2">
                   Members of {selectedCommunity.name}:
                 </div>
