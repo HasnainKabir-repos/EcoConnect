@@ -17,7 +17,7 @@ router.post('/', authenticate, upload.single('profileImage'), updateUserProfile)
 router.get('/', authenticate, getUserProfile);
 
 // Retrieve user profile by email
-router.get('/find', getSpeceficUserProfile);
+router.post('/find', getSpeceficUserProfile);
 
 router.post('/getUsername', getUserName);
 

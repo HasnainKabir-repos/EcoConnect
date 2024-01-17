@@ -38,6 +38,7 @@ const Main = () => {
   useEffect(() => {
     const fetchPosts = async (e) => {
       try {
+        if(selectedCommunity !== ""){
         setIsLoading2(true);
         const token = localStorage.getItem("token");
         const tokenValue = JSON.parse(token);
@@ -51,6 +52,7 @@ const Main = () => {
           config
         );
         setPosts(response.data.communityPosts);
+        }
       } catch (error) {
         console.log(error);
       } finally {
