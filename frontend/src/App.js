@@ -13,6 +13,7 @@ import Community from "./components/Community";
 import PostBin from "./components/PostBin";
 import MyBin from "./components/MyBin";
 import RecycleBin from "./components/RecycleBin";
+import UserProfile from "./components/UserProfile";
 
 function App() {
   const user = localStorage.getItem("token");
@@ -29,6 +30,7 @@ function App() {
       {user && <Route path="/recyclebin" exact element={<RecycleBin />} />}
       {user && <Route path="/mybin" exact element={<MyBin />} />}
       {user && <Route path="/postbin" exact element={<PostBin />} />}
+      {user && <Route path="/userprofile" exact element={<UserProfile />} />}
       {user && <Route path="/login" element={<Navigate replace to="/" />} />}
       {user && <Route path="/signup" element={<Navigate replace to="/" />} />}
 
@@ -67,6 +69,9 @@ function App() {
       )}
       {!user && (
         <Route path="/postbin" element={<Navigate replace to="/login" />} />
+      )}
+      {!user && (
+        <Route path="/userprofile" element={<Navigate replace to="/login" />} />
       )}
     </Routes>
   );
