@@ -1,26 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import avatar from '../../assets/avatar.png';
-import newbie from '../../assets/newbie.png';
-import intermediate from '../../assets/Intermediate.png';
-import advanced from '../../assets/expert.png';
-import background from '../../assets/background.jpg';
 import TopBar from "../TopBar";
 import Loader from "../Loader";
 import { useUserProfile } from "../../hooks/useUserProfile";
 
 const Profile = () => {
   const { userProfile, userInfo, isLoading } = useUserProfile();
-
-  const getIcon = (badge) => {
-    if (badge === 'newbie') {
-      return <img src={newbie} alt="Beginner" className="h-28 w-28" />;
-    } else if (badge === 'intermediate') {
-      return <img src={intermediate} alt="Intermediate" className="h-28 w-28" />;
-    } else if (badge === 'advanced') {
-      return <img src={advanced} alt="Advanced" className="h-28 w-28" />;
-    }
-  };
 
   return (
     <>

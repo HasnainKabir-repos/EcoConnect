@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import logout from "../../assets/logout.png";
 import Dropdown from "../Dropdown";
-import Dropdown2 from "../Dropdown2";
 const TopBar = () => {
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -61,9 +60,6 @@ const TopBar = () => {
                   </Link>
                 </li>
               </ul>
-              <div className="mx-1">
-                <Dropdown2 />
-              </div>
               <div className="mx-1">
                 <Dropdown />
               </div>
