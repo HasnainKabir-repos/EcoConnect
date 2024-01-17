@@ -71,7 +71,7 @@ const getUserName = async (req, res) => {
 
 const getSpeceficUserProfile = async (req, res) => {
     try {
-        const {email} =req.body;
+        const {email} = req.body;
         const userProfiles = await UserProfile.findOne({ useremail: email });
         const userInfo = await User.findOne({ email: email });
 

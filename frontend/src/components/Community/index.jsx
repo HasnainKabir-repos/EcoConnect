@@ -4,6 +4,7 @@ import TopBar from "../TopBar";
 import { useCommunities } from "../../hooks/useCommunities";
 import Loader from "../Loader";
 import axios from "axios";
+import UserProfile from "../UserProfile";
 const Community = () => {
   const { joinedCommunities, notJoinedCommunities, isLoading } =
     useCommunities();
@@ -165,6 +166,7 @@ const Community = () => {
   useEffect(() => {
     const fetchPosts = async (selectedCommunity) => {
       try {
+        if(selectedCommunity !== ""){
         setIsLoading2(true);
         const token = localStorage.getItem("token");
         const tokenValue = JSON.parse(token);
@@ -180,6 +182,7 @@ const Community = () => {
         //console.log(response.data.communityPosts);
         setPosts(response.data.communityPosts);
         console.log(posts);
+        }
       } catch (error) {
         console.log(error);
       } finally {
@@ -192,6 +195,17 @@ const Community = () => {
   useEffect(() => {
     console.log(posts);
   }, [posts]);
+
+  const [isUserModal, setIsUserModal] = useState(false);
+  const [userEmail, setUserEmail] = useState(null);
+
+  const handleUserModal = (email) => {
+    setUserEmail(email)
+    setIsUserModal(true);
+  }
+  const handleModalClose = () => {
+    setIsUserModal(false);
+  }
 
   const getRandomColor = () => {
     const colors = [
@@ -259,6 +273,7 @@ const Community = () => {
                       <div
                         key={index}
                         className="font-semibold text-base bg-gray-300 text-black rounded-full px-3 py-1 m-1"
+                        onClick={() => {handleUserModal(member.email)}}
                       >
                         {member.firstName} {member.lastName}
                       </div>
@@ -404,6 +419,15 @@ const Community = () => {
             </div>
           </div>
         </div>
+        {isUserModal && (
+          <div className="fixed inset-0 z-50 flex justify-center items-center bg-gray-100 bg-opacity-70">
+            <UserProfile 
+              userEmail={userEmail}
+              onClose={handleModalClose}
+            />
+            
+          </div>
+        )}
       </main>
     </>
   );
