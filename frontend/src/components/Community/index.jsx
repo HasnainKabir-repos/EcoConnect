@@ -290,6 +290,8 @@ const Community = () => {
 
           <div className="w-5/6 mt-8 ml-4 mr-5 pr-2 pb-36 overflow-auto max-h-screen">
             <div className="flex flex-col mx-auto p-4">
+
+              {selectedCommunity !== "" && selectedCommunity._id != '' ?
               <div className="flex flex-col mx-4 w-full py-4 bg-white rounded-lg">
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
@@ -323,6 +325,12 @@ const Community = () => {
                   </button>
                 </form>
               </div>
+              : (
+                <div className="text-xl bg-white font-bold text-center rounded-lg p-10 shadow-lg">
+                Select a Community to start
+              </div>
+              )}
+
               {selectedCommunity !== "" ? (
                 <h3 className="text-xl font-bold text-center mt-10">
                   See Other Posts from {selectedCommunity.name}
