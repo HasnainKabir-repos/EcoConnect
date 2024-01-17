@@ -96,14 +96,14 @@ const EditProfile = () => {
       formDataToSubmit.append("bio", formData.bio);
       formDataToSubmit.append("profileImage", formData.profileImage);
 
-      const apiUrl = "http://localhost:8080/api/userInfo";
+      const apiUrl = "https://ecoconnect-3hx9.onrender.com/api/userInfo";
 
       const response = await axios.post(apiUrl, formDataToSubmit, config);
 
       setIsModalOpen(false);
 
       setTimeout(() => {
-        window.location.href = "http://localhost:3000/profile"; // Refresh the page
+        window.location.href = "https://ecoconnect-3hx9.onrender.com/profile"; // Refresh the page
       }, 1500);
     } catch (error) {
       // Handle errors
@@ -168,7 +168,7 @@ const EditProfile = () => {
                     <div className="overflow-hidden flex items-center justify-center">
                       {userProfile.profileImage ? (
                         <img
-                          src={`http://localhost:8080/api/uploads/${userProfile.profileImage}`}
+                          src={`https://ecoconnect-3hx9.onrender.com/api/uploads/${userProfile.profileImage}`}
                           alt="Profile Picture"
                           className=""
                         />

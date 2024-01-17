@@ -22,7 +22,7 @@ const My_Event = () => {
         },
       };
       await axios.delete(
-        `http://localhost:8080/api/MyEvent/${eventId}`,
+        `https://ecoconnect-3hx9.onrender.com/api/MyEvent/${eventId}`,
         config
       );
       window.location.reload();
@@ -110,7 +110,7 @@ const My_Event = () => {
       formData.append('Event_type', updatedEvent.Event_type);
       console.log(formData);
       await axios.post(
-        `http://localhost:8080/api/MyEvent/${selectedEvent._id}`,
+        `https://ecoconnect-3hx9.onrender.com/api/MyEvent/${selectedEvent._id}`,
         formData,
         config
       );
@@ -193,7 +193,7 @@ const My_Event = () => {
                   </div>
                   {event.eventImage && (
                     <img
-                      src={`http://localhost:8080/api/uploads/${event.eventImage}`}
+                      src={`https://ecoconnect-3hx9.onrender.com/api/uploads/${event.eventImage}`}
                       alt="event"
                       className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
                     />

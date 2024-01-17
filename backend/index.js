@@ -33,6 +33,11 @@ app.use('/api/location', locationRoutes);
 app.use('/api/community', CommunityRoutes);
 app.use('/api/post', PostRoutes);
 
+app.use(express.static("build"));
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
+
 
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listening on port ${port}`));

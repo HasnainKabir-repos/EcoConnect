@@ -60,7 +60,7 @@ const handleImageChange = (e) => {
       formData.append('date', data.date);
       formData.append('time', data.time);
       formData.append('Event_type', data.Event_type);
-      const url = "http://localhost:8080/api/Event";
+      const url = "https://ecoconnect-3hx9.onrender.com/api/Event";
       const { data: res } = await axios.post(url, formData, config);
       console.log(data);
       setIsModalVisible(true);

@@ -20,7 +20,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8080/api/auth";
+      const url = "https://ecoconnect-3hx9.onrender.com/api/auth";
       const response = await axios.post(url, data);
       // If successful, store the token in local storage and redirect to the home page
       localStorage.setItem("token", JSON.stringify(response.data));

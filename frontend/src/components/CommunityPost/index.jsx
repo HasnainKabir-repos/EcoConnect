@@ -59,7 +59,7 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
           },
         };
         const response = await axios.get(
-          `http://localhost:8080/api/post/update/${_id}`,
+          `https://ecoconnect-3hx9.onrender.com/api/post/update/${_id}`,
           config
         );
         console.log(response.data.likes);

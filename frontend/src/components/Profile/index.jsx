@@ -52,7 +52,7 @@ const Profile = () => {
                 <div className="overflow-hidden flex items-center justify-center">
                   {userProfile.profileImage ? (
                     <img
-                      src={`http://localhost:8080/api/uploads/${userProfile.profileImage}`}
+                      src={`https://ecoconnect-3hx9.onrender.com/api/uploads/${userProfile.profileImage}`}
                       alt="Profile Picture"
                       className=""
                     />

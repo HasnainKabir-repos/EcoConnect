@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.36f6f60c.css",
+    "main.js": "/static/js/main.9d28ec56.js",
+    "static/media/background.jpg": "/static/media/background.93046a6410f77a25776f.jpg",
+    "static/media/background3.jpg": "/static/media/background3.8384489b55f5e41321ec.jpg",
+    "static/media/SignupImage.png": "/static/media/SignupImage.36967adf617c14ef546f.png",
+    "static/media/background2.jpg": "/static/media/background2.850491962f60cd590e38.jpg",
+    "static/media/avatar.png": "/static/media/avatar.61637315e740810e35de.png",
+    "static/media/logo.png": "/static/media/logo.fed48249dcfe21c01f4f.png",
+    "index.html": "/index.html",
+    "main.36f6f60c.css.map": "/static/css/main.36f6f60c.css.map",
+    "main.9d28ec56.js.map": "/static/js/main.9d28ec56.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.36f6f60c.css",
+    "static/js/main.9d28ec56.js"
+  ]
+}
