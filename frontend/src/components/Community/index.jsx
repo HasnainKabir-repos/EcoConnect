@@ -19,7 +19,7 @@ const Community = () => {
     }
   }, [joinedCommunities]);
 
-  console.log(selectedCommunity);
+  //console.log(selectedCommunity);
   const handleJoinCommunity = async (community) => {
     try {
       setIsLoading2(true);
@@ -317,7 +317,7 @@ const Community = () => {
               )}
 
               <div className="flex flex-col mx-4 w-full p-4">
-                {posts && posts.length !== 0 ? (
+                {posts && posts[0] && posts[0]._id !==''&& posts.length !== 0 ? (
                   posts.map((post, index) => (
 
                   (post.postImage ? (

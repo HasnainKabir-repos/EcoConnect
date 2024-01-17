@@ -31,6 +31,23 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
     return randomColor;
   };
 
+  const formatEventDateTime = (dateTimeString) => {
+    const dateTime = new Date(dateTimeString);
+ 
+    const yyyy = dateTime.getFullYear();
+    const mm = String(dateTime.getMonth() + 1).padStart(2, "0");
+    const dd = String(dateTime.getDate()).padStart(2, "0");
+    const formattedDate = `${dd}-${mm}-${yyyy}`;
+  
+    const hh = String(dateTime.getHours()).padStart(2, "0");
+    const min = String(dateTime.getMinutes()).padStart(2, "0");
+    const formattedTime = `${hh}:${min}`;
+  
+    const formattedDateTime = `${formattedTime}    ${formattedDate}`;
+  
+    return formattedDateTime;
+  };
+
   useEffect(() => {
     const updatePost = async(_id) =>{
       try {
@@ -69,7 +86,7 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
         <div className="flex flex-row items-center text-gray-700 text-sm mb-2">
           <div className="mr-2 font-bold">{user}</div>
           <div className="text-gray-500 text-sm ml-auto font-bold">
-            {createdAt}
+            {formatEventDateTime(createdAt)}
           </div>
         </div>
 
@@ -117,7 +134,7 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
                       <div className="flex flex-row justify-between">
                         <div className="font-bold">{comment.user}</div>
                         <div className="text-gray-700 text-sm font-semibold">
-                          {comment.createdAt}
+                          {formatEventDateTime(comment.createdAt)}
                         </div>
                       </div>
                       <div className="mt-2">{comment.text}</div>
@@ -132,14 +149,21 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
                   rows="2"
                   placeholder="Add your comment..."
                   className="w-full mt-2 p-2 border-2 border-gray-400 rounded-lg"
-                  onChange={handleChangeComment}
+                  onChange={(e)=>{
+                    handleChangeComment(e);
+                    setComment(e.target.value);
+                  }}
+                  value={comment}
                 />
                 {loading ? (
                   <Loader />
                 ) : (
                   <button
                     className="mt-2 px-6 py-2 bg-gray-700 font-semibold text-white rounded-full"
-                    onClick={handleAddComment}
+                    onClick={(e)=>{
+                      handleAddComment(e);
+                      setComment('');
+                    }}
                   >
                     Post Comment
                   </button>

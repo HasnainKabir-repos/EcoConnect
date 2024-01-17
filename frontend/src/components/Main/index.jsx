@@ -5,90 +5,39 @@ import TopBar from "../TopBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Loader from "../Loader";
+import { useCommunities } from "../../hooks/useCommunities";
 const Main = () => {
+  const { joinedCommunities } = useCommunities();
   const { userProfile, userInfo, isLoading } = useUserProfile();
   const [isLoading2, setIsLoading2] = useState(false);
   const [isLoading3, setIsLoading3] = useState(false);
-  const [communities, setCommunities] = useState([{
-        _id:"",
-        name:"",
-        description:"",
-        members:[],
-        posts:[]
-  }]);
+  console.log(joinedCommunities);
+
   const [posts, setPosts] = useState([
     {
       _id: "",
       author: "",
       content: "",
       createdAt: null,
-      postImage:null,
+      postImage: null,
       likes: [],
       comments: [],
     },
   ]);
 
-  const [events, setEvents] = useState([{
-    title:"",
-    date:"",
-    Event_type:""
-  }]);
+  const [events, setEvents] = useState([
+    {
+      title: "",
+      date: "",
+      Event_type: "",
+    },
+  ]);
 
   const [selectedCommunity, setSelectedCommunity] = useState("");
-  
-  useEffect(()=> {
-    const fetchCommunities = async()=>{
-      try{
-        setIsLoading2(true);
-        const token = localStorage.getItem("token");
-        const tokenValue = JSON.parse(token);
-        const config = {
-          headers: {
-            Authorization: `Bearer ${tokenValue.data}`,
-          },
-        };
-        const response = await axios.get(
-          `http://localhost:8080/api/community`,
-          config
-        );
-        setCommunities(response.data.communities);
-      }catch(error){
-        console.log(error);
-      }finally{
-        setIsLoading2(false);
-      }
-    };
-    fetchCommunities();
-  }, []);
 
-  useEffect(()=>{
-    const fetchPosts = async()=>{
-      try{
-        setIsLoading2(true);
-        const token = localStorage.getItem("token");
-        const tokenValue = JSON.parse(token);
-        const config = {
-          headers: {
-            Authorization: `Bearer ${tokenValue.data}`,
-          },
-        };
-        const response = await axios.get(
-          `http://localhost:8080/api/post`,
-          config
-        );
-        setPosts(response.data.communityPosts);
-      }catch(error){
-        console.log(error);
-      }finally{
-        setIsLoading2(false);
-      }
-    };
-    fetchPosts();
-  }, [selectedCommunity]);
-
-  useEffect(()=>{
-    const fetchPosts = async(e)=>{
-      try{
+  useEffect(() => {
+    const fetchPosts = async (e) => {
+      try {
         setIsLoading2(true);
         const token = localStorage.getItem("token");
         const tokenValue = JSON.parse(token);
@@ -102,18 +51,18 @@ const Main = () => {
           config
         );
         setPosts(response.data.communityPosts);
-      }catch(error){
+      } catch (error) {
         console.log(error);
-      }finally{
+      } finally {
         setIsLoading2(false);
       }
     };
     fetchPosts();
   }, [selectedCommunity]);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchInterestedEvents = async () => {
-      try{
+      try {
         setIsLoading2(true);
         const token = localStorage.getItem("token");
         const tokenValue = JSON.parse(token);
@@ -127,9 +76,9 @@ const Main = () => {
           config
         );
         setEvents(response.data);
-      }catch(error){
+      } catch (error) {
         console.log(error);
-      }finally{
+      } finally {
         setIsLoading2(false);
       }
     };
@@ -137,7 +86,7 @@ const Main = () => {
   }, []);
 
   const handleLike = async (post) => {
-    try{
+    try {
       setIsLoading3(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -152,28 +101,30 @@ const Main = () => {
         {},
         config
       );
-
-    }catch(error){
+    } catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       setIsLoading3(false);
     }
   };
 
   useEffect(() => {
-    const setSelected = async() => {
-      if(selectedCommunity === "" && communities[0]._id !== ""){
-        setSelectedCommunity(communities[0]);
+    const setSelected = async () => {
+      if (
+        selectedCommunity === "" &&
+        joinedCommunities[0] &&
+        joinedCommunities[0]._id !== ""
+      ) {
+        setSelectedCommunity(joinedCommunities[0]);
       }
     };
     setSelected();
-  }, [communities, isLoading]);
+  }, [joinedCommunities, isLoading]);
 
   const [comment, setComment] = useState("");
 
-
   const handleAddComment = async (post) => {
-    try{
+    try {
       setIsLoading3(true);
       const token = localStorage.getItem("token");
       const tokenValue = JSON.parse(token);
@@ -186,20 +137,20 @@ const Main = () => {
       await axios.put(
         `http://localhost:8080/api/post/comment/${post._id}`,
         {
-          text:comment
+          text: comment,
         },
         config
       );
-
-    }catch(error){
+    } catch (error) {
       console.log(error);
-    }finally{
+    } finally {
       setIsLoading3(false);
+      setComment('');
     }
   };
 
   const handleSelectedCommunity = (community) => {
-    setSelectedCommunity(community)
+    setSelectedCommunity(community);
   };
 
   const getRandomColor = () => {
@@ -214,11 +165,19 @@ const Main = () => {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     return randomColor;
   };
+
+  const formatEventDate = (dateString) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  };
   return (
     <>
       <TopBar />
       <main className=" pt-20 min-h-screen min-w-screen bg-gray-200">
-      <div>
+        <div>
           {isLoading || isLoading2 ? <Loader /> : console.log("Loaded")}
         </div>
         <div className="fixed flex flex-row w-full">
@@ -256,82 +215,80 @@ const Main = () => {
                     My Communitites:
                   </div>
                   <div>
-                    
-                      {communities[0]._id !== "" ? (
+                    {joinedCommunities[0] && joinedCommunities[0]._id !== "" ? (
                       <div className="flex flex-wrap flex-col ">
-                      {communities.map((community, index) => (
-                        <div
-                          key={index}
-                          className="transition ease-in-out duration-300 py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid bg-gray-700 text-white hover:bg-white hover:text-black"
-                          onClick={()=>handleSelectedCommunity(community)}
-                        >
+                        {joinedCommunities.map((community, index) => (
                           <div
-                            className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
-                          ></div>
-                          <div className="text-md">{community.name}</div>
-                        </div>
-                      ))}
+                            key={index}
+                            className="transition ease-in-out duration-300 py-1 my-1 px-2 flex items-center rounded-full border border-teal-900 border-solid bg-gray-700 text-white hover:bg-white hover:text-black"
+                            onClick={() => handleSelectedCommunity(community)}
+                          >
+                            <div
+                              className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
+                            ></div>
+                            <div className="text-md">{community.name}</div>
+                          </div>
+                        ))}
                       </div>
-                      ) : (
-                        <div className="px-2 font-semibold text-xl text-teal-900 mb-2">
-                          No communities to show
-                        </div>
-                      )}
-                    
+                    ) : (
+                      <div className="px-2 font-semibold text-gray-700 mb-2">
+                        No communities to show
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="w-5/6 mt-8 ml-5 pr-2 pb-36 overflow-auto max-h-screen">
-            <div className="flex flex-col mx-auto">
-            {posts && posts.length !== 0 ? (
-                  posts.map((post, index) => (
-
-                  (post.postImage ? (
+            {posts[0] && posts[0]._id !== "" && posts.length !== 0 ? (
+              <div className="flex flex-col mx-auto">
+                {posts.map((post, index) =>
+                  post.postImage ? (
                     <div key={index} className="">
                       <Post
                         _id={post._id}
                         community={selectedCommunity.name}
-                        user={post.author.firstName + post.author.lastName}
+                        user={`${post.author.firstName} ${post.author.lastName}`}
                         text={post.content}
                         createdAt={post.createdAt}
                         likes={post.likes}
                         comments={post.comments}
-                        image={
-                          `http://localhost:8080/api/uploads/${post.postImage}`
-                        }
+                        image={`http://localhost:8080/api/uploads/${post.postImage}`}
                         loading={isLoading3}
-                        handleChangeComment={(e) => {setComment(e.target.value)}}
+                        handleChangeComment={(e) => {
+                          setComment(e.target.value);
+                        }}
                         handleAddComment={() => handleAddComment(post)}
                         handleLike={() => handleLike(post)}
                       />
                     </div>
-                  ): (
+                  ) : (
                     <div key={index} className="">
                       <Post
                         _id={post._id}
                         community={selectedCommunity.name}
-                        user={post.author.firstName + post.author.lastName}
+                        user={`${post.author.firstName} ${post.author.lastName}`}
                         text={post.content}
                         createdAt={post.createdAt}
                         likes={post.likes}
                         comments={post.comments}
                         loading={isLoading3}
-                        handleChangeComment={(e) => {setComment(e.target.value)}}
+                        handleChangeComment={(e) => {
+                          setComment(e.target.value);
+                        }}
                         handleAddComment={() => handleAddComment(post)}
                         handleLike={() => handleLike(post)}
                       />
                     </div>
-                  ))
-                    
-                  ))
-                ) : (
-                  <h3 className="text-xl font-bold text-center mt-10">
-                    No posts available
-                  </h3>
+                  )
                 )}
-            </div>
+              </div>
+            ) : (
+              <div className="text-xl bg-white font-bold text-center rounded-lg p-10 shadow-lg">
+                Join a Community to start and interact with like-minded Eco Enthusiast people
+              </div>
+            )}
           </div>
 
           <div className="w-2/6 p-2 mr-2 ml-5 ">
@@ -341,26 +298,26 @@ const Main = () => {
                   My Interested Events:
                 </div>
                 <div>
-                  {(events) ? (
-                  <div className="flex flex-wrap flex-col">
-                    {events.map((event, index) => (
-                      <div
-                        key={index}
-                        className="flex-col py-2 my-1 px-2 flex items-center justify-center rounded-lg border border-teal-900 border-solid bg-gray-700 text-white hover:bg-white hover:text-black transition ease-in-out duration-300"
-                      >
-                        <div className="text-lg font-bold justify-center text-center">
-                          {event.title}
+                  {events ? (
+                    <div className="flex flex-wrap flex-col">
+                      {events.map((event, index) => (
+                        <div
+                          key={index}
+                          className="flex-col py-2 my-1 px-2 flex items-center justify-center rounded-lg border border-teal-900 border-solid bg-gray-700 text-white hover:bg-white hover:text-black transition ease-in-out duration-300"
+                        >
+                          <div className="text-lg font-bold justify-center text-center">
+                            {event.title}
+                          </div>
+                          <div className="text-sm ml-2 justify-center text-center mb-1">
+                            Date: {formatEventDate(event.date)}
+                          </div>
+                          <div className="bg-teal-400 text-black font-bold text-sm ml-2 px-4 py-1 mb-2 rounded-full inline-block justify-center text-center">
+                            {event.Event_type}
+                          </div>
                         </div>
-                        <div className="text-sm ml-2 justify-center text-center mb-1">
-                          Date: {event.date}
-                        </div>
-                        <div className="bg-teal-400 text-black font-bold text-sm ml-2 px-4 py-1 mb-2 rounded-full inline-block justify-center text-center">
-                          {event.Event_Type}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  ):(
+                      ))}
+                    </div>
+                  ) : (
                     <div className="font-semibold text-xl text-teal-900 mb-2">
                       No events to show
                     </div>
