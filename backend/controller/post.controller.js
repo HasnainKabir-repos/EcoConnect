@@ -180,4 +180,5 @@ const getAllPosts = async (req, res) => {
 
 
 
-module.exports = { createPost, getPosts, insertComment, insertLike ,getAllPosts};
+module.exports = { 
+    createPost, getPosts, insertComment, insertLike ,getAllPosts, getPostById};
