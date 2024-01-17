@@ -76,7 +76,11 @@ const getPostById = async(req, res) => {
     try{
         const id = req.params.postId;
 
-        const post = await Post.findById(id);
+        const post = await Post.findById(id).populate({
+            path: 'comments.author',
+            model: 'user'
+        });
+
 
         res.status(200).json(post);
     }catch(error){

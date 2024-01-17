@@ -109,6 +109,33 @@ const getParticipatingEvents = async (req, res) => {
     }
 };
 
+const checkInterestedUser = async (req, res) => {
+    try {
+        const { email } = req.user;
+        const eventId=req.params.eventId;
+
+        const Event = await EcoEvent.findById(eventId);
+        res.json(Event.interested.includes(email));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+const checkParticipatingUser = async (req, res) => {
+    try {
+        const { email } = req.user;
+        const eventId=req.params.eventId;
+
+        const Event = await EcoEvent.findById(eventId);
+        res.json(Event.participants.includes(email));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+};
+
+
 
 module.exports = {
     EcoEventAddParticipant,
@@ -116,7 +143,9 @@ module.exports = {
     EcoEventCreate,
     getEcoEvent,
     getInterestedEvents,
-    getParticipatingEvents
+    getParticipatingEvents,
+    checkInterestedUser,
+    checkParticipatingUser
 };
 
 

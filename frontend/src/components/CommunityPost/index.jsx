@@ -73,6 +73,7 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
     updatePost(_id);
   }, [loading, handleLike, handleAddComment]);
 
+  //console.log(comments2)
   return (
     <>
       <div className="bg-white shadow-lg rounded-lg mb-4 px-8 py-4">
@@ -132,7 +133,7 @@ const Post = ({ _id, community, user, text, createdAt, likes, comments, image,
                       className="text-black border-2 border-gray-200 bg-gray-200 rounded-lg p-4 my-2 hover:border-2 hover:border-gray-700 transition duration-300 ease-in-out"
                     >
                       <div className="flex flex-row justify-between">
-                        <div className="font-bold">{comment.user}</div>
+                        <div className="font-bold">{comment.author.firstName} {comment.author.lastName}</div>
                         <div className="text-gray-700 text-sm font-semibold">
                           {formatEventDateTime(comment.createdAt)}
                         </div>
