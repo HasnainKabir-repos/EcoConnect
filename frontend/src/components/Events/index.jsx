@@ -84,6 +84,9 @@ const Events = () => {
     fetchData();
   }, [location]);
 
+  const [toggleInterested, setToggleInterested] = useState(true);
+  const [toggleParticipating, setToggleParticipating] = useState(true);
+
   useEffect(() => {
     const fetchUserEvents = async () => {
       try {
@@ -103,23 +106,17 @@ const Events = () => {
           config
         );
 
-        // Use the functional form of state-setting function to ensure the state is updated correctly
-        setInterestedEvents((prevInterestedEvents) => [
-          ...prevInterestedEvents,
-          ...interestedResponse.data,
-        ]);
+        setInterestedEvents(interestedResponse.data);
 
-        setParticipatingEvents((prevParticipatingEvents) => [
-          ...prevParticipatingEvents,
-          ...participatingResponse.data,
-        ]);
+        setParticipatingEvents(participatingResponse.data);
       } catch (error) {
         console.error("Error fetching user events:", error);
       }
     };
 
     fetchUserEvents();
-  }, []);
+  }, [toggleInterested, toggleParticipating]);
+
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -154,6 +151,8 @@ const Events = () => {
       setFilteredEvents(events);
     }
   };
+  
+
 
   const handleInterestedClick = async (id, currentUserName) => {
     try {
@@ -171,6 +170,7 @@ const Events = () => {
 
         // Update the interestedEvents array
         setInterestedEvents([...interestedEvents, id]);
+        (toggleInterested) ? setToggleInterested(false):setToggleInterested(true);
         console.log("Interested");
       } else {
         console.log("Already Interested");
@@ -198,6 +198,7 @@ const Events = () => {
 
         // Update the participatingEvents array
         setParticipatingEvents([...participatingEvents, id]);
+        (toggleParticipating) ? setToggleParticipating(false) : setToggleParticipating(true);
         console.log("Participating");
       } else {
         console.log("Already Participating");
@@ -208,6 +209,7 @@ const Events = () => {
       setIsLoading(false);
     }
   };
+
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   const toggleDescription = () => {
@@ -384,14 +386,16 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          disabled={interestedEvents.includes(event._id)}
+                          //disabled={interestedEvents.includes(event._id)}
                           className={`py-2.5 px-4 text-md ${
-                            interestedEvents.includes(event._id)
-                              ? "bg-gray-400"
-                              : "bg-teal-400 hover:bg-green-500"
-                          } text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10`}
+                            interestedEvents &&
+                            interestedEvents.some((interestedEvent) => interestedEvent._id === event._id)
+                                ? "bg-gray-400"
+                                : "bg-teal-400 hover:bg-green-500"
+                        } text-black rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out hover:text-black mt-6 mr-10`}
+                
                         >
-                          {interestedEvents.includes(event._id)
+                          {interestedEvents && interestedEvents.some((interestedEvent) => interestedEvent._id === event._id)
                             ? "Already Interested"
                             : "Interested"}
                         </button>
@@ -403,14 +407,14 @@ const Events = () => {
                               getCurrentUserName()
                             )
                           }
-                          disabled={participatingEvents.includes(event._id)}
+                          //disabled={participatingEvents.includes(event._id)}
                           className={`py-2.5 px-4 text-md ${
-                            participatingEvents.includes(event._id)
+                            participatingEvents && participatingEvents.includes(event._id)
                               ? "bg-gray-400"
                               : "bg-cyan-950 hover:bg-green-500"
                           } text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6`}
                         >
-                          {participatingEvents.includes(event._id)
+                          {participatingEvents && participatingEvents.includes(event._id)
                             ? "Already Going"
                             : "Going"}
                         </button>

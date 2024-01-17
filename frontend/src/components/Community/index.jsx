@@ -179,7 +179,7 @@ const Community = () => {
         );
         //console.log(response.data.communityPosts);
         setPosts(response.data.communityPosts);
-        //console.log(posts);
+        console.log(posts);
       } catch (error) {
         console.log(error);
       } finally {
