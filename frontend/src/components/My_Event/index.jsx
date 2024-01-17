@@ -132,7 +132,7 @@ const My_Event = () => {
     <main className="pt-20 min-h-screen bg-gray-200">
       <TopBar />
       <div>{isLoading ? <Loader /> : console.log("Loaded")}</div>
-      <div className="w-full flex items-center justify-center mt-10">
+      <div className="w-3/4 mx-auto flex items-center justify-center mt-10">
         <div className="flex-col items-center justify-center">
           {myEvents.length === 0 ? (
             <div className="bg-white rounded-lg border-4 border-red-500 shadow p-6 mb-4 event-container hover:shadow-md hover:border-teal-500 hover:border-3">
