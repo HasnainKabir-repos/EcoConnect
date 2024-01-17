@@ -28,7 +28,11 @@ const UserProfile = () => {
                   className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
                 />
               ) : (
-                <img src={avatar} alt="Default Image" className="" />
+                <img
+                  src={avatar}
+                  alt="Default Image"
+                  className="mb-2 rounded-xl w-3/5 h-3/5 object-cover mx-auto mt-6"
+                />
               )}
               <div className="w-full rounded-lg border-2 border-teal-700 bg-white mt-10">
                 <div className="p-4">
