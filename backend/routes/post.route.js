@@ -15,4 +15,6 @@ router.put('/like/:postId', authenticate, postController.insertLike);
 
 router.get('/', authenticate, postController.getAllPosts);
 
+router.get('/update/:postId', authenticate, postController.getPostById);
+
 module.exports = router;
