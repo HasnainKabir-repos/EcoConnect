@@ -1,6 +1,7 @@
 const axios = require("axios");
 const EcoEvent = require("../models/EcoEvent");
-const apiKey = "AIzaSyCpaTDFISed1EluZ_CIUsT44Lre77kYjs0";
+require('dotenv').config({ path: '../.env' });
+const apiKey = process.env.APIKEY;
 const apiUrl_autocomplete =
   "https://maps.googleapis.com/maps/api/place/autocomplete/json";
 const apiUrl_details =
