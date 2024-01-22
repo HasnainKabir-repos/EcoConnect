@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="frontend/src/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="frontend/src/assets/logo.png" alt="Logo">
 
   <h3 align="center">EcoConnect</h3>
 
