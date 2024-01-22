@@ -409,12 +409,13 @@ const Events = () => {
                           }
                           //disabled={participatingEvents.includes(event._id)}
                           className={`py-2.5 px-4 text-md ${
-                            participatingEvents && participatingEvents.includes(event._id)
+                            participatingEvents && 
+                            participatingEvents.some((participatingEvents) => participatingEvents._id === event._id)
                               ? "bg-gray-400"
                               : "bg-cyan-950 hover:bg-green-500"
                           } text-white rounded-full w-48 p-3 font-semibold text-medium cursor-pointer font-sans transition duration-300 ease-in-out mt-6`}
                         >
-                          {participatingEvents && participatingEvents.includes(event._id)
+                          {participatingEvents && participatingEvents.some((participatingEvents) => participatingEvents._id === event._id)
                             ? "Already Going"
                             : "Going"}
                         </button>

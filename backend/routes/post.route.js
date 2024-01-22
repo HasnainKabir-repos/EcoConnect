@@ -5,7 +5,7 @@ const upload = require('../middleware/multer');
 
 const router = express.Router();
 
-router.post('/create/:communityId', authenticate,upload.single('postImage') ,postController.createPost);
+router.post('/create/:communityId', authenticate, upload.single('postImage') , postController.createPost);
 
 router.get('/:communityId', authenticate, postController.getPosts);
 

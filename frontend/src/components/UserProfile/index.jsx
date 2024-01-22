@@ -71,7 +71,7 @@ const UserProfile = ({userEmail, onClose}) => {
         />
       )}
       <div className="w-full rounded-lg border-2 border-teal-700 bg-white mt-4">
-        <div className="p-3"> 
+        <div className="p-3 mx-auto"> 
           <div>
             <div className="text-lg font-bold text-teal-700 mb-2">
               {userInfo.firstName} {userInfo.lastName}
@@ -105,7 +105,7 @@ const UserProfile = ({userEmail, onClose}) => {
             <button
               type="button"
               onClick={onClose}
-              className="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-emerald-600 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3"
+              className="py-2 px-4 text-sm font-medium text-center text-white rounded-full bg-teal-700 hover-bg-primary-700 focus-ring-4 focus-outline-none focus-ring-primary-300 mt-3"
             >
               Close
             </button>

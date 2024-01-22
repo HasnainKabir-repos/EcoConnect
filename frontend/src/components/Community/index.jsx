@@ -15,7 +15,7 @@ const Community = () => {
   const [selectedCommunity, setSelectedCommunity] = useState("");
 
   useEffect(() => {
-    if (selectedCommunity === "" && joinedCommunities && joinedCommunities.length > 0) {
+    if (selectedCommunity === "" && joinedCommunities && joinedCommunities[0]._id !=='') {
       setSelectedCommunity(joinedCommunities[0]);
     }
   }, [joinedCommunities]);
@@ -61,9 +61,10 @@ const Community = () => {
           Authorization: `Bearer ${tokenValue.data}`,
         },
       };
+      console.log(selectedCommunity._id);
       const data = new FormData();
-      data.append("content", formData.content);
-      data.append("postImage", formData.postImage);
+      data.append('content', formData.content);
+      data.append('postImage', formData.postImage);
       const response = await axios.post(
         `http://localhost:8080/api/post/create/${selectedCommunity._id}`,
         data,
@@ -76,8 +77,7 @@ const Community = () => {
     } finally {
       setIsLoading2(false);
     }
-
-    window.location.reload();
+    
   };
 
   const handleContent = (e) => {
@@ -167,21 +167,21 @@ const Community = () => {
     const fetchPosts = async (selectedCommunity) => {
       try {
         if(selectedCommunity !== ""){
-        setIsLoading2(true);
-        const token = localStorage.getItem("token");
-        const tokenValue = JSON.parse(token);
-        const config = {
-          headers: {
-            Authorization: `Bearer ${tokenValue.data}`,
-          },
-        };
-        const response = await axios.get(
-          `http://localhost:8080/api/post/${selectedCommunity._id}`,
-          config
-        );
-        //console.log(response.data.communityPosts);
-        setPosts(response.data.communityPosts);
-        console.log(posts);
+          setIsLoading2(true);
+          const token = localStorage.getItem("token");
+          const tokenValue = JSON.parse(token);
+          const config = {
+            headers: {
+              Authorization: `Bearer ${tokenValue.data}`,
+            },
+          };
+          const response = await axios.get(
+            `http://localhost:8080/api/post/${selectedCommunity._id}`,
+            config
+          );
+          //console.log(response.data.communityPosts);
+          setPosts(response.data.communityPosts);
+          console.log(posts);
         }
       } catch (error) {
         console.log(error);
@@ -242,10 +242,10 @@ const Community = () => {
               ${
                 selectedCommunity === community
                   ? "bg-teal-900 text-white"
-                  : "bg-white text-gray-900"
+                  : "bg-white text-gray-900" 
               }
             `}
-                        onClick={() => setSelectedCommunity(community)}
+                        onClick={() => {setSelectedCommunity(community)}}
                       >
                         <div
                           className={`w-2 h-2 rounded-full mr-2 ${getRandomColor()}`}
@@ -291,7 +291,7 @@ const Community = () => {
           <div className="w-5/6 mt-8 ml-4 mr-5 pr-2 pb-36 overflow-auto max-h-screen">
             <div className="flex flex-col mx-auto p-4">
 
-              {selectedCommunity !== "" && selectedCommunity._id != '' ?
+              {selectedCommunity !== "" && selectedCommunity._id !== '' ?
               <div className="flex flex-col mx-4 w-full py-4 bg-white rounded-lg">
                 <h3 className="text-lg font-bold text-center mb-4">
                   Post Something to {selectedCommunity.name}
@@ -339,16 +339,17 @@ const Community = () => {
                 <></>
               )}
 
-              <div className="flex flex-col mx-4 w-full p-4">
+              <div className="flex flex-col mx-4 w-full p-4"> 
                 {posts && posts[0] && posts[0]._id !==''&& posts.length !== 0 ? (
                   posts.map((post, index) => (
 
+                    
                   (post.postImage ? (
                     <div key={index} className="">
                       <Post
                         _id={post._id}
                         community={selectedCommunity.name}
-                        user={post.author.firstName + post.author.lastName}
+                        user={post.author.firstName + " "+ post.author.lastName}
                         text={post.content}
                         createdAt={post.createdAt}
                         likes={post.likes}
@@ -367,7 +368,7 @@ const Community = () => {
                       <Post
                         _id={post._id}
                         community={selectedCommunity.name}
-                        user={post.author.firstName + post.author.lastName}
+                        user={post.author.firstName + " " + post.author.lastName}
                         text={post.content}
                         createdAt={post.createdAt}
                         likes={post.likes}
